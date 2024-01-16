@@ -1,5 +1,11 @@
-_site
+*.gem
 .DS_Store
 *.swp
+.bundle
+_site
 .sass-cache
-*~
+.jekyll-metadata
+.jekyll-cache
+Gemfile.lock
+unused
+bootstrap-reference.html
