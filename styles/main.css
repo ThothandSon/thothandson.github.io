@@ -1,0 +1,165 @@
+.page-title {
+  font-size: 3em;
+  color: #111;
+  text-align: left;
+  margin-bottom: 0.7em;
+  font-family: 'Dancing Script', cursive;
+}
+.home-hero {
+  background: #fff;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slogan {
+  color: #111;
+  font-family: 'Pacifico', cursive;
+  font-size: 8em;
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+header.site-header {
+  background: #111;
+  color: #fff;
+  padding: 1em;
+}
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
+.header-left h1 {
+  margin: 0;
+  font-size: 2em;
+}
+.header-left nav {
+  display: flex;
+  gap: 1em;
+}
+.header-logo {
+  margin-left: 2em;
+}
+.header-logo img {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+.header-logo img {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+nav a {
+  color: #fff;
+  margin-right: 1em;
+  text-decoration: none;
+}
+main {
+  padding: 2em;
+  flex: 1;
+}
+
+footer {
+  background: #222;
+  color: #fff;
+  text-align: center;
+  padding: 1em 0;
+}
+
+
+.posts-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5em;
+  justify-content: flex-start;
+}
+.post-card {
+  background: #fff;
+  border: 2px solid #111;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 2.5em 2em 2em 2em;
+  width: 350px;
+  margin-bottom: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.post-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  transform: translateY(-4px) scale(1.02);
+}
+.post-card-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5em;
+}
+.post-date {
+  font-size: 1em;
+  color: #111;
+  font-weight: bold;
+  background: #fff;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 0.2em 0.7em;
+  letter-spacing: 0.05em;
+}
+.post-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2em;
+  color: #111;
+  margin: 0.2em 0 0.5em 0;
+  text-align: left;
+}
+.post-title a {
+  color: #111;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.post-title a:hover {
+  color: #444;
+}
+.post-divider {
+  width: 40px;
+  height: 3px;
+  background: #111;
+  border-radius: 2px;
+  margin: 0.5em 0 1em 0;
+}
+.post-excerpt {
+  color: #222;
+  font-size: 1.1em;
+  margin-bottom: 1.5em;
+}
+.post-readmore {
+  color: #fff;
+  background: #111;
+  border-radius: 6px;
+  padding: 0.5em 1.2em;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1em;
+  align-self: flex-end;
+  transition: background 0.2s, color 0.2s;
+}
+.post-readmore:hover {
+  background: #444;
+  color: #fff;
+}
