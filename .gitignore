@@ -1,5 +1,25 @@
-_site
+# Jekyll build output
+_site/
+
+# Sass cache
+.sass-cache/
+
+# Bundler and Ruby
+.bundle/
+vendor/
+Gemfile.lock
+
+# Logs and temp files
+*.log
+tmp/
+
+# OS files
 .DS_Store
 *.swp
-.sass-cache
 *~
+
+# Node modules (if used)
+node_modules/
+
+# VS Code
+.vscode/
