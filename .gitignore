@@ -23,3 +23,8 @@ node_modules/
 
 # VS Code
 .vscode/
+
+# JavaScript Source Control
+# Hide source code from GitHub, only commit obfuscated version
+js/src/
+# js/main.js will be generated and committed (obfuscated version)

@@ -60,6 +60,20 @@ repos:
           - -s
         types:
           - shell
+      - id: backup-source
+        name: Backup Source Code
+        entry: ./scripts/backup.sh
+        language: system
+        files: ^js/src/.*\.js$
+        pass_filenames: false
+        always_run: false
+      - id: obfuscate-js
+        name: Obfuscate JavaScript
+        entry: ./scripts/obfuscate.sh
+        language: system
+        files: ^js/src/.*\.js$
+        pass_filenames: false
+        always_run: false
   - repo: https://github.com/hcodes/yaspeller.git
     rev: v10.0.1
     hooks:

@@ -1,0 +1,146 @@
+---
+layout: default
+title: "Ghost Rizz - Limpeza de Metadados de Arquivos"
+---
+
+<div class="saas-container">
+  <h1 class="saas-title">Ghost Rizz</h1>
+  <p class="saas-subtitle">Proteção Profissional de Privacidade através da Limpeza de Metadados</p>
+
+  <!-- Seção de apresentação do produto -->
+  <div class="product-intro">
+    <h2 class="product-title">🔒 Proteja sua Privacidade Digital</h2>
+    <p class="product-description">
+      Seus arquivos contêm muito mais informações do que você imagina. Metadados podem revelar sua localização,
+      dispositivo usado, horários de criação, e até mesmo dados pessoais sensíveis. Nosso produto
+      <strong>Ghost Rizz</strong> remove completamente essas informações, garantindo que seus arquivos
+      sejam verdadeiramente anônimos.
+    </p>
+
+    <div class="features-grid">
+      <div class="feature-item">
+        <h3>⚡ Processamento em Lote</h3>
+        <p>Processe milhares de arquivos simultaneamente com nossa tecnologia avançada.</p>
+      </div>
+      <div class="feature-item">
+        <h3>🛡️ Segurança Total</h3>
+        <p>Seus arquivos são processados localmente, garantindo máxima segurança e privacidade.</p>
+      </div>
+      <div class="feature-item">
+        <h3>🎯 Precisão Cirúrgica</h3>
+        <p>Remove apenas metadados desnecessários, preservando a qualidade original dos arquivos.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulário de orçamento -->
+  <div class="quote-section">
+    <h2 class="quote-title">💼 Precisa de Limpeza em Massa?</h2>
+    <p class="quote-description">
+      Para empresas, escritórios de advocacia, agências ou qualquer organização que precise limpar
+      metadados de grandes volumes de arquivos, oferecemos soluções personalizadas.
+    </p>
+
+    <form id="quote-form" class="quote-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="company-name">Nome da Empresa/Organização:</label>
+          <input type="text" id="company-name" name="company-name" required>
+        </div>
+        <div class="form-group">
+          <label for="contact-email">E-mail de Contato:</label>
+          <input type="email" id="contact-email" name="contact-email" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="file-volume">Volume Estimado de Arquivos:</label>
+          <select id="file-volume" name="file-volume" required>
+            <option value="">Selecione uma opção</option>
+            <option value="100-1000">100 - 1.000 arquivos</option>
+            <option value="1000-10000">1.000 - 10.000 arquivos</option>
+            <option value="10000-100000">10.000 - 100.000 arquivos</option>
+            <option value="100000+">Mais de 100.000 arquivos</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="file-types">Tipos de Arquivo Principais:</label>
+          <select id="file-types" name="file-types" required>
+            <option value="">Selecione uma opção</option>
+            <option value="images">Principalmente Imagens</option>
+            <option value="documents">Principalmente Documentos</option>
+            <option value="media">Áudio/Vídeo</option>
+            <option value="mixed">Arquivos Mistos</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="additional-info">Informações Adicionais:</label>
+        <textarea id="additional-info" name="additional-info" rows="3" placeholder="Descreva suas necessidades específicas, prazos ou requisitos especiais..."></textarea>
+      </div>
+
+      <button type="submit" class="quote-button">📧 Solicitar Orçamento Gratuito</button>
+    </form>
+  </div>
+
+  <!-- Seção de demonstração -->
+  <div class="demo-section">
+    <h2 class="demo-title">🔍 Teste Nosso Analisador</h2>
+    <p class="demo-description">
+      Veja quantos metadados seus arquivos contêm. Faça upload de um arquivo abaixo para descobrir
+      que informações podem estar expostas.
+    </p>
+  </div>
+
+  <form id="upload-form" class="upload-form">
+    <label for="image-upload" class="upload-label">Selecione um arquivo:</label>
+    <input type="file" id="image-upload" class="upload-input" accept="*/*">
+    <button type="button" id="process-button" class="process-button" disabled>Processar Metadados</button>
+  </form>
+
+  <p id="upload-status" class="upload-status" style="display: none;">Carregando...</p>
+
+  <div id="metadata-container" class="metadata-container" style="display: none;">
+    <h2 class="metadata-title">Metadados do Arquivo</h2>
+    <table class="metadata-table">
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody id="metadata-table-body">
+        <!-- Metadados serão inseridos aqui dinamicamente -->
+      </tbody>
+    </table>
+  </div>
+
+  <div id="processed-metadata-container" class="metadata-container" style="display: none;">
+    <h2 class="metadata-title">Metadados Processados</h2>
+    <table class="metadata-table">
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody id="processed-metadata-table-body">
+        <!-- Metadados processados serão inseridos aqui dinamicamente -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  document.getElementById('process-button').addEventListener('click', () => {
+    const statusText = document.getElementById('upload-status');
+    statusText.style.display = 'block';
+
+    setTimeout(() => {
+      statusText.style.display = 'none';
+      alert('Metadados processados com sucesso!');
+    }, 2000);
+  });
+</script>

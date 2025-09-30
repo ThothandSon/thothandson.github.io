@@ -64,28 +64,34 @@ jobs:
       - name: Install javascript-obfuscator
         run: npm install -g javascript-obfuscator
 
-      - name: Obfuscate protect-config.js
+      - name: Re-obfuscate JavaScript files for production
         run: |
-          javascript-obfuscator js/main.js --output js/main.js \
-            --compact true \
-            --self-defending true \
-            --control-flow-flattening true \
-            --control-flow-flattening-threshold 1 \
-            --dead-code-injection true \
-            --dead-code-injection-threshold 1 \
-            --string-array true \
-            --string-array-encoding base64 \
-            --string-array-threshold 1 \
-            --rename-globals true \
-            --identifier-names-generator mangled \
-            --numbers-to-expressions true \
-            --split-strings true \
-            --split-strings-chunk-length 3
+          # Re-ofuscar o arquivo já ofuscado com configurações ainda mais agressivas
+          if [ -f "js/main.js" ]; then
+            echo "🔒 Re-ofuscando para produção..."
+            javascript-obfuscator js/main.js \
+              --output js/main.js \
+              --compact true \
+              --control-flow-flattening true \
+              --control-flow-flattening-threshold 1 \
+              --dead-code-injection true \
+              --dead-code-injection-threshold 0.6 \
+              --identifier-names-generator mangled \
+              --numbers-to-expressions true \
+              --self-defending true \
+              --string-array true \
+              --string-array-encoding 'rc4' \
+              --string-array-threshold 1
+            echo "✅ Re-ofuscação para produção concluída"
+          else
+            echo "❌ Arquivo js/main.js não encontrado"
+            exit 1
+          fi
       - name: Build with Jekyll
         env:
           JEKYLL_ENV: production
         run: |
-          bundle exec jekyll build --config _config.yml,_config_prod.yml
+          bundle exec jekyll build --config _config.yml
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3
