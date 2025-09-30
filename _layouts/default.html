@@ -22,6 +22,74 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <!-- EmailJS para envio de emails -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script src="/js/main.js"></script>
+
+    <!-- 🛡️ Sistema inteligente de carregamento de JavaScript -->
+    <script>
+    (function() {
+        // Detecta ambiente
+        const isLocal = window.location.hostname === 'localhost' ||
+                       window.location.hostname === '127.0.0.1' ||
+                       window.location.hostname === '' ||
+                       window.location.protocol === 'file:' ||
+                       window.location.port !== '';
+
+        const isDev = isLocal && (
+            window.location.search.includes('dev=true') ||
+            localStorage.getItem('thothandson_dev_mode') === 'true'
+        );
+
+        function loadScript(src, onSuccess, onError) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = () => {
+                    if (onSuccess) onSuccess();
+                    resolve();
+                };
+                script.onerror = () => {
+                    if (onError) onError();
+                    reject();
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        async function loadMainScript() {
+            if (isDev) {
+                console.log('🔧 Modo desenvolvimento: carregando código fonte');
+                try {
+                    await loadScript('/js/src/main.js',
+                        () => console.log('✅ Código fonte carregado'),
+                        () => console.log('⚠️ Código fonte não encontrado')
+                    );
+                } catch {
+                    console.log('🔄 Fallback: carregando código ofuscado');
+                    await loadScript('/js/main.js');
+                }
+            } else {
+                console.log('� Modo produção: carregando código ofuscado');
+                await loadScript('/js/main.js');
+            }
+        }
+
+        // Carrega quando DOM estiver pronto
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadMainScript);
+        } else {
+            loadMainScript();
+        }
+
+        // Debug helper (console)
+        window.switchToDevMode = function() {
+            localStorage.setItem('thothandson_dev_mode', 'true');
+            console.log('� Modo desenvolvimento ativado. Recarregue a página.');
+        };
+
+        window.switchToProdMode = function() {
+            localStorage.removeItem('thothandson_dev_mode');
+            console.log('🔒 Modo produção ativado. Recarregue a página.');
+        };
+    })();
+    </script>
   </body>
 </html>

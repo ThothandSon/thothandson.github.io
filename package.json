@@ -1,0 +1,25 @@
+{
+  "name": "thothandson-website",
+  "version": "1.0.0",
+  "description": "Site oficial da Thoth & Son - Análise de metadados e soluções empresariais",
+  "private": true,
+  "scripts": {
+    "dev": "./scripts/dev.sh serve",
+    "build": "./scripts/dev.sh prod",
+    "test": "npm run test:js && npm run test:security",
+    "test:js": "node tests/js-validation.js",
+    "test:security": "node tests/security-check.js",
+    "test:obfuscation": "./scripts/dev.sh prod && node tests/obfuscation-test.js"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "keywords": [
+    "metadata",
+    "analysis",
+    "ghost-rizz",
+    "thoth-and-son"
+  ],
+  "author": "Thoth & Son",
+  "license": "PROPRIETARY"
+}
