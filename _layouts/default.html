@@ -56,18 +56,12 @@
 
         async function loadMainScript() {
             if (isDev) {
-                console.log('🔧 Modo desenvolvimento: carregando código fonte');
                 try {
-                    await loadScript('/js/src/main.js',
-                        () => console.log('✅ Código fonte carregado'),
-                        () => console.log('⚠️ Código fonte não encontrado')
-                    );
+                    await loadScript('/js/src/main.js');
                 } catch {
-                    console.log('🔄 Fallback: carregando código ofuscado');
                     await loadScript('/js/main.js');
                 }
             } else {
-                console.log('� Modo produção: carregando código ofuscado');
                 await loadScript('/js/main.js');
             }
         }
@@ -82,12 +76,10 @@
         // Debug helper (console)
         window.switchToDevMode = function() {
             localStorage.setItem('thothandson_dev_mode', 'true');
-            console.log('� Modo desenvolvimento ativado. Recarregue a página.');
         };
 
         window.switchToProdMode = function() {
             localStorage.removeItem('thothandson_dev_mode');
-            console.log('🔒 Modo produção ativado. Recarregue a página.');
         };
     })();
     </script>
