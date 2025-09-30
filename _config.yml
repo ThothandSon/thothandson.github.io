@@ -18,27 +18,18 @@ authors:
     # gravatar: e56154546cf4be74e393c62d1ae9f9d4
     # email: wowthemesnet@gmail.com
     description: "Main Author for Thoth & Son blog"
-  
-# Plugins
+
+# Plugins (apenas os suportados pelo GitHub Pages)
 plugins:
-  - jekyll-paginate
-  - jekyll-sitemap
   - jekyll-feed
+  - jekyll-sitemap
   - jekyll-seo-tag
-  - jekyll-archives
-    
-# Archives
-jekyll-archives:
-  enabled:
-    - categories
-  layout: archive
-  permalinks:
-    category: '/category/:name/'
-    
-# Pagination 
+  - jekyll-paginate
+
+# Pagination
 paginate: 6
 paginate_path: /page:num/
-    
+
 # Other
 markdown: kramdown
 
