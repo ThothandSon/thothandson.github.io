@@ -1,36 +1,42 @@
-# GitHub Pages Configuration
+# GitHub Pages Configuration - SECURITY FIRST
 
-## ⚙️ Configuração Necessária
+## 🛡️ IMPORTANTE: Sistema de Segurança Corporativo
 
-Para remover completamente o warning do GitHub Pages, você precisa configurar o repositório para usar GitHub Actions:
+Este projeto usa um **sistema de proteção de código proprietário** que **NÃO É COMPATÍVEL** com GitHub Actions customizados.
 
-### 📋 Passos no GitHub:
+### ⚠️ CONFLITO IDENTIFICADO:
 
-1. **Acesse as configurações do repositório**:
-   - Vá para `Settings` → `Pages`
+- **GitHub Actions**: Faria build do código fonte (EXPOSIÇÃO)
+- **Sistema Local**: Ofusca código antes do commit (SEGURANÇA)
+- **Resultado**: Dupla ofuscação ou exposição do código fonte
 
-2. **Configure a fonte de deploy**:
-   - Em "Source", selecione: **GitHub Actions**
-   - (ao invés de "Deploy from a branch")
+### ✅ SOLUÇÃO IMPLEMENTADA:
 
-3. **Confirme a configuração**:
-   - O workflow `jekyll.yml` será executado automaticamente
-   - O site será construído e deployado via Actions
+#### **Deploy Method**: GitHub Pages padrão (Deploy from branch)
 
-### ✅ Benefícios da mudança:
+- ✅ Código já chega ofuscado no repositório
+- ✅ GitHub Pages apenas hospeda os arquivos
+- ✅ Zero processamento adicional
+- ✅ Máxima segurança mantida
 
-- ❌ Remove o warning de dependências
-- ✅ Controle total sobre versões do Jekyll
-- ✅ Capacidade de usar gems não suportadas pelo GitHub Pages padrão
-- ✅ Build mais rápido e confiável
-- ✅ Logs detalhados de build
+#### **Fluxo de Segurança**:
 
-### 🔧 Configurações atualizadas:
+1. **Local**: Desenvolvimento em `js/src/main.js` (NUNCA commitado)
+2. **Local**: `./scripts/dev.sh prod` → Ofusca código
+3. **GitHub**: Código ofuscado em `js/main.js` (PRODUÇÃO)
+4. **GitHub Pages**: Deploy direto (sem processamento)
 
-- **Gemfile**: Agora usa `github-pages` gem para máxima compatibilidade
-- **\_config.yml**: Plugins limitados aos suportados pelo GitHub Pages
-- **Workflow**: GitHub Actions configurado para deploy automático
+### 🚨 WARNING RESOLVIDO SEM COMPROMETER SEGURANÇA:
 
-### 🚀 Resultado:
+O warning do GitHub Pages foi resolvido através de:
 
-Após esta configuração, o warning não aparecerá mais e você terá um ambiente de build mais robusto!
+- ✅ Gemfile otimizado com `github-pages` gem
+- ✅ \_config.yml com plugins compatíveis
+- ✅ **SEM** uso de GitHub Actions (que exporia código)
+
+### 🎯 RESULTADO:
+
+- ❌ GitHub Actions removido (evita exposição)
+- ✅ Warning do GitHub Pages eliminado
+- ✅ Sistema de segurança 100% preservado
+- ✅ Código fonte protegido localmente
