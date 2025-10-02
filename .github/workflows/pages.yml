@@ -3,7 +3,9 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
+# Workflow for deploying Jekyll site to GitHub Pages
+# JavaScript files come pre-obfuscated from local development workflow
+# No additional obfuscation needed here to avoid double-obfuscation performance issues
 name: Deploy Jekyll site to Pages
 
 on:
@@ -56,37 +58,7 @@ jobs:
       # - name: Debug protect-config.js
       #   run: cat js/protect-config.js
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install javascript-obfuscator
-        run: npm install -g javascript-obfuscator
-
-      - name: Re-obfuscate JavaScript files for production
-        run: |
-          # Re-ofuscar o arquivo já ofuscado com configurações ainda mais agressivas
-          if [ -f "js/main.js" ]; then
-            echo "🔒 Re-ofuscando para produção..."
-            javascript-obfuscator js/main.js \
-              --output js/main.js \
-              --compact true \
-              --control-flow-flattening true \
-              --control-flow-flattening-threshold 1 \
-              --dead-code-injection true \
-              --dead-code-injection-threshold 0.6 \
-              --identifier-names-generator mangled \
-              --numbers-to-expressions true \
-              --self-defending true \
-              --string-array true \
-              --string-array-encoding 'rc4' \
-              --string-array-threshold 1
-            echo "✅ Re-ofuscação para produção concluída"
-          else
-            echo "❌ Arquivo js/main.js não encontrado"
-            exit 1
-          fi
+      # JavaScript já vem ofuscado do fluxo local - sem dupla ofuscação!
       - name: Build with Jekyll
         env:
           JEKYLL_ENV: production
