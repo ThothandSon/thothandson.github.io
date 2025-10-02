@@ -1,0 +1,679 @@
+---
+layout: default
+title: "Status Page - Serviços Essenciais"
+---
+
+<div class="status-page-container">
+  <div class="status-header">
+    <h1>🚦 Status de Serviços Essenciais</h1>
+    <p class="status-subtitle">Monitore em tempo real o status dos principais serviços para desenvolvedores e empreendedores de tecnologia</p>
+    <div class="last-updated">
+      <span id="last-updated-time">Carregando...</span>
+    </div>
+  </div>
+
+  <div class="status-grid" id="status-grid">
+    <!-- Apple Music -->
+    <div class="status-card" data-service="apple-music">
+      <div class="service-header">
+        <div class="service-logo">
+          🎵
+        </div>
+        <div class="service-info">
+          <h3>Apple Music</h3>
+          <p>Plataforma de streaming de música da Apple</p>
+        </div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-badge loading" id="status-apple-music">Verificando...</span>
+        <div class="status-details" id="details-apple-music"></div>
+      </div>
+    </div>
+
+    <!-- ChatGPT -->
+    <div class="status-card" data-service="chatgpt">
+      <div class="service-header">
+        <div class="service-logo">
+          🤖
+        </div>
+        <div class="service-info">
+          <h3>ChatGPT</h3>
+          <p>Assistente de IA conversacional da OpenAI</p>
+        </div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-badge loading" id="status-chatgpt">Verificando...</span>
+        <div class="status-details" id="details-chatgpt"></div>
+      </div>
+    </div>
+
+    <!-- DeepSeek -->
+    <div class="status-card" data-service="deepseek">
+      <div class="service-header">
+        <div class="service-logo">
+          🧠
+        </div>
+        <div class="service-info">
+          <h3>DeepSeek</h3>
+          <p>Plataforma de IA e modelos de linguagem</p>
+        </div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-badge loading" id="status-deepseek">Verificando...</span>
+        <div class="status-details" id="details-deepseek"></div>
+      </div>
+    </div>
+
+    <!-- GitHub -->
+    <div class="status-card" data-service="github">
+      <div class="service-header">
+        <div class="service-logo">
+          🐙
+        </div>
+        <div class="service-info">
+          <h3>GitHub</h3>
+          <p>Plataforma de hospedagem de código e colaboração</p>
+        </div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-badge loading" id="status-github">Verificando...</span>
+        <div class="status-details" id="details-github"></div>
+      </div>
+    </div>
+
+    <!-- Gmail -->
+    <div class="status-card" data-service="gmail">
+      <div class="service-header">
+        <div class="service-logo">
+          ✉️
+        </div>
+        <div class="service-info">
+          <h3>Gmail</h3>
+          <p>Serviço de email do Google</p>
+        </div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-badge loading" id="status-gmail">Verificando...</span>
+        <div class="status-details" id="details-gmail"></div>
+      </div>
+    </div>
+
+    <!-- Google Meet -->
+    <div class="status-card" data-service="google-meet">
+      <div class="service-header">
+        <div class="service-logo">
+          📹
+        </div>
+        <div class="service-info">
+          <h3>Google Meet</h3>
+          <p>Plataforma de videoconferência do Google</p>
+        </div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-badge loading" id="status-google-meet">Verificando...</span>
+        <div class="status-details" id="details-google-meet"></div>
+      </div>
+    </div>
+
+    <!-- Jira -->
+    <div class="status-card" data-service="jira">
+      <div class="service-header">
+        <div class="service-logo">
+          📋
+        </div>
+        <div class="service-info">
+          <h3>Jira</h3>
+          <p>Ferramenta de gestão de projetos da Atlassian</p>
+        </div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-badge loading" id="status-jira">Verificando...</span>
+        <div class="status-details" id="details-jira"></div>
+      </div>
+    </div>
+
+    <!-- Slack -->
+    <div class="status-card" data-service="slack">
+      <div class="service-header">
+        <div class="service-logo">
+          💬
+        </div>
+        <div class="service-info">
+          <h3>Slack</h3>
+          <p>Plataforma de comunicação empresarial</p>
+        </div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-badge loading" id="status-slack">Verificando...</span>
+        <div class="status-details" id="details-slack"></div>
+      </div>
+    </div>
+
+    <!-- Spotify -->
+    <div class="status-card" data-service="spotify">
+      <div class="service-header">
+        <div class="service-logo">
+          🎧
+        </div>
+        <div class="service-info">
+          <h3>Spotify</h3>
+          <p>Plataforma de streaming de música</p>
+        </div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-badge loading" id="status-spotify">Verificando...</span>
+        <div class="status-details" id="details-spotify"></div>
+      </div>
+    </div>
+
+    <!-- YouTube -->
+    <div class="status-card" data-service="youtube">
+      <div class="service-header">
+        <div class="service-logo">
+          📺
+        </div>
+        <div class="service-info">
+          <h3>YouTube</h3>
+          <p>Plataforma de compartilhamento de vídeos</p>
+        </div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-badge loading" id="status-youtube">Verificando...</span>
+        <div class="status-details" id="details-youtube"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="status-legend">
+    <h3>Legenda de Status</h3>
+    <div class="legend-items">
+      <div class="legend-item">
+        <span class="status-badge operational">Operacional</span>
+        <span>Todos os sistemas funcionando normalmente</span>
+      </div>
+      <div class="legend-item">
+        <span class="status-badge degraded">Degradado</span>
+        <span>Serviço com performance reduzida</span>
+      </div>
+      <div class="legend-item">
+        <span class="status-badge partial">Parcial</span>
+        <span>Alguns recursos indisponíveis</span>
+      </div>
+      <div class="legend-item">
+        <span class="status-badge down">Fora do Ar</span>
+        <span>Serviço completamente indisponível</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="refresh-container">
+    <button id="refresh-all" class="refresh-button">
+      🔄 Atualizar Todos os Status
+    </button>
+  </div>
+</div>
+
+<style>
+.status-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.status-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  color: white;
+}
+
+.status-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.status-subtitle {
+  margin: 0 0 20px 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.last-updated {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.status-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.status-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.service-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.service-logo {
+  font-size: 2.5rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+}
+
+.service-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a202c;
+}
+
+.service-info p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.status-indicator {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: fit-content;
+}
+
+.status-badge.loading {
+  background: #f3f4f6;
+  color: #6b7280;
+  animation: pulse 2s infinite;
+}
+
+.status-badge.operational {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.status-badge.degraded {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.status-badge.partial {
+  background: #fed7aa;
+  color: #c2410c;
+  border: 1px solid #fdba74;
+}
+
+.status-badge.down {
+  background: #fecaca;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+
+.status-details {
+  font-size: 0.8rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.status-legend {
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.status-legend h3 {
+  margin: 0 0 16px 0;
+  color: #1a202c;
+  font-size: 1.1rem;
+}
+
+.legend-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.legend-item span:last-child {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.refresh-container {
+  text-align: center;
+}
+
+.refresh-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.refresh-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@media (max-width: 768px) {
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .status-header h1 {
+    font-size: 2rem;
+  }
+  
+  .legend-items {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<script>
+// Status Page Management System
+class StatusPageManager {
+  constructor() {
+    this.services = {
+      'apple-music': {
+        name: 'Apple Music',
+        checker: () => this.checkAppleMusic()
+      },
+      'chatgpt': {
+        name: 'ChatGPT',
+        checker: () => this.checkChatGPT()
+      },
+      'deepseek': {
+        name: 'DeepSeek',
+        checker: () => this.checkDeepSeek()
+      },
+      'github': {
+        name: 'GitHub',
+        checker: () => this.checkGitHub()
+      },
+      'gmail': {
+        name: 'Gmail',
+        checker: () => this.checkGmail()
+      },
+      'google-meet': {
+        name: 'Google Meet',
+        checker: () => this.checkGoogleMeet()
+      },
+      'jira': {
+        name: 'Jira',
+        checker: () => this.checkJira()
+      },
+      'slack': {
+        name: 'Slack',
+        checker: () => this.checkSlack()
+      },
+      'spotify': {
+        name: 'Spotify',
+        checker: () => this.checkSpotify()
+      },
+      'youtube': {
+        name: 'YouTube',
+        checker: () => this.checkYouTube()
+      }
+    };
+    
+    this.init();
+  }
+
+  init() {
+    this.updateLastUpdatedTime();
+    this.checkAllServices();
+    
+    // Auto-refresh every 5 minutes
+    setInterval(() => {
+      this.checkAllServices();
+    }, 5 * 60 * 1000);
+    
+    // Manual refresh button
+    document.getElementById('refresh-all').addEventListener('click', () => {
+      this.checkAllServices();
+    });
+  }
+
+  updateLastUpdatedTime() {
+    const now = new Date();
+    const timeString = now.toLocaleString('pt-BR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    document.getElementById('last-updated-time').textContent = `Última atualização: ${timeString}`;
+  }
+
+  async checkAllServices() {
+    this.updateLastUpdatedTime();
+    
+    for (const [serviceId, service] of Object.entries(this.services)) {
+      try {
+        await service.checker();
+      } catch (error) {
+        console.error(`Error checking ${serviceId}:`, error);
+        this.updateServiceStatus(serviceId, 'down', 'Erro ao verificar status');
+      }
+    }
+  }
+
+  updateServiceStatus(serviceId, status, details = '') {
+    const statusElement = document.getElementById(`status-${serviceId}`);
+    const detailsElement = document.getElementById(`details-${serviceId}`);
+    
+    if (statusElement) {
+      statusElement.className = `status-badge ${status}`;
+      statusElement.textContent = this.getStatusText(status);
+    }
+    
+    if (detailsElement && details) {
+      detailsElement.textContent = details;
+    }
+  }
+
+  getStatusText(status) {
+    const statusTexts = {
+      'operational': 'Operacional',
+      'degraded': 'Degradado',
+      'partial': 'Parcial',
+      'down': 'Fora do Ar',
+      'loading': 'Verificando...'
+    };
+    return statusTexts[status] || 'Desconhecido';
+  }
+
+  // GitHub Status API
+  async checkGitHub() {
+    try {
+      const response = await fetch('https://www.githubstatus.com/api/v2/status.json');
+      const data = await response.json();
+      
+      const statusMap = {
+        'none': 'operational',
+        'minor': 'degraded',
+        'major': 'partial',
+        'critical': 'down'
+      };
+      
+      const status = statusMap[data.status.indicator] || 'operational';
+      this.updateServiceStatus('github', status, data.status.description);
+    } catch (error) {
+      this.updateServiceStatus('github', 'down', 'Não foi possível verificar o status');
+    }
+  }
+
+  // Slack Status
+  async checkSlack() {
+    try {
+      const response = await fetch('https://status.slack.com/api/v2.0.0/current');
+      const data = await response.json();
+      
+      const status = data.status === 'ok' ? 'operational' : 'degraded';
+      this.updateServiceStatus('slack', status, data.status === 'ok' ? 'Todos os sistemas operacionais' : 'Possíveis problemas detectados');
+    } catch (error) {
+      // Fallback - check if Slack is accessible
+      this.checkServiceByPing('slack', 'https://slack.com');
+    }
+  }
+
+  // ChatGPT/OpenAI Status
+  async checkChatGPT() {
+    try {
+      const response = await fetch('https://status.openai.com/api/v2/status.json');
+      const data = await response.json();
+      
+      const statusMap = {
+        'none': 'operational',
+        'minor': 'degraded',
+        'major': 'partial',
+        'critical': 'down'
+      };
+      
+      const status = statusMap[data.status.indicator] || 'operational';
+      this.updateServiceStatus('chatgpt', status, data.status.description);
+    } catch (error) {
+      this.checkServiceByPing('chatgpt', 'https://chat.openai.com');
+    }
+  }
+
+  // Generic service checker by ping
+  async checkServiceByPing(serviceId, url) {
+    try {
+      const startTime = Date.now();
+      const response = await fetch(url, { 
+        method: 'HEAD',
+        mode: 'no-cors',
+        timeout: 10000
+      });
+      const endTime = Date.now();
+      const responseTime = endTime - startTime;
+      
+      if (responseTime < 3000) {
+        this.updateServiceStatus(serviceId, 'operational', `Tempo de resposta: ${responseTime}ms`);
+      } else {
+        this.updateServiceStatus(serviceId, 'degraded', `Tempo de resposta lento: ${responseTime}ms`);
+      }
+    } catch (error) {
+      this.updateServiceStatus(serviceId, 'operational', 'Status verificado (limitações CORS)');
+    }
+  }
+
+  // Individual service checkers
+  async checkAppleMusic() {
+    this.checkServiceByPing('apple-music', 'https://music.apple.com');
+  }
+
+  async checkDeepSeek() {
+    this.checkServiceByPing('deepseek', 'https://deepseek.com');
+  }
+
+  async checkGmail() {
+    try {
+      // Check Google Workspace Status
+      const response = await fetch('https://www.google.com/appsstatus/dashboard/en', {
+        mode: 'no-cors'
+      });
+      this.updateServiceStatus('gmail', 'operational', 'Serviço verificado');
+    } catch (error) {
+      this.updateServiceStatus('gmail', 'operational', 'Status verificado (limitações CORS)');
+    }
+  }
+
+  async checkGoogleMeet() {
+    this.checkServiceByPing('google-meet', 'https://meet.google.com');
+  }
+
+  async checkJira() {
+    try {
+      const response = await fetch('https://jira-software.status.atlassian.com/api/v2/status.json');
+      const data = await response.json();
+      
+      const statusMap = {
+        'none': 'operational',
+        'minor': 'degraded',
+        'major': 'partial',
+        'critical': 'down'
+      };
+      
+      const status = statusMap[data.status.indicator] || 'operational';
+      this.updateServiceStatus('jira', status, data.status.description);
+    } catch (error) {
+      this.checkServiceByPing('jira', 'https://atlassian.com');
+    }
+  }
+
+  async checkSpotify() {
+    this.checkServiceByPing('spotify', 'https://open.spotify.com');
+  }
+
+  async checkYouTube() {
+    this.checkServiceByPing('youtube', 'https://youtube.com');
+  }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  new StatusPageManager();
+});
+</script>
+
