@@ -1,0 +1,8 @@
+# Ignore obfuscated production files
+js/main.js
+
+# Ignore site output
+_site/
+
+# Ignore dependencies
+node_modules/
