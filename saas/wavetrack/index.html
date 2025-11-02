@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wavetrack - Auditoria inteligente de ponto. Detecte fraudes, economize em horas extras e tenha evidências sólidas de presença no escritório.">
+    <meta name="keywords" content="controle de ponto, auditoria, horas extras, presença escritório, wifi tracking">
+    <meta property="og:title" content="Wavetrack - Auditoria Inteligente de Ponto">
+    <meta property="og:description" content="Economia comprovada em horas extras. Detecte discrepâncias automaticamente.">
+    <meta property="og:type" content="website">
+    <title>Wavetrack - Auditoria Inteligente de Ponto</title>
+    <link rel="icon" type="image/x-icon" href="../../assets/favicon.ico">
+    <!-- Wavetrack styles now served as a dedicated stylesheet in /styles -->
+    <link rel="stylesheet" href="../../styles/wavetrack.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- EmailJS (para envio de leads sem backend) -->
+    <meta name="emailjs-service-id" content="">
+    <meta name="emailjs-template-id" content="">
+    <meta name="emailjs-public-key" content="">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <span class="logo">📡 Wavetrack</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#features">Funcionalidades</a></li>
+                <li><a href="#roi">ROI</a></li>
+                <li><a href="#pricing">Preços</a></li>
+                <li><a href="javascript:void(0)" onclick="openLeadForm()" class="btn-cta">Teste Grátis</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Pare de Pagar Horas Extras <span class="highlight">Infundadas</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Auditoria automática de presença via WiFi.</br> Detecte discrepâncias entre ponto marcado e presença real.
+                </br>Economia média de <strong>R$ 15.000/mês</strong> em empresas com 50+ funcionários.
+                </p>
+                <div class="hero-cta">
+                    <a href="#roi" class="btn btn-primary">Calcular Minha Economia</a>
+                    <a href="#quiz" class="btn btn-secondary">Ver Demonstração</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" data-count="127">0</span>
+                        <span class="stat-label">Empresas Ativas</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">R$ 2.4M</span>
+                        <span class="stat-label">Economizados este mês</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" data-count="94">0</span>
+                        <span class="stat-label">% de precisão</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Bar -->
+    <div class="social-proof-bar">
+        <div class="container">
+            <div class="proof-ticker" id="proofTicker"></div>
+        </div>
+    </div>
+
+    <!-- ROI Calculator Section -->
+    <section id="roi" class="roi-section">
+        <div class="container">
+            <h2 class="section-title">Quanto Você Está Perdendo Agora?</h2>
+            <p class="section-subtitle">Descubra em 30 segundos o potencial de economia da sua empresa</p>
+
+            <div class="roi-calculator">
+                <div class="calculator-inputs">
+                    <div class="input-group">
+                        <label for="employees">Número de Funcionários</label>
+                        <input type="number" id="employees" min="1" placeholder="Ex: 50">
+                    </div>
+                    <div class="input-group">
+                        <label for="hourly-rate">Salário Médio por Hora (R$)</label>
+                        <input type="number" id="hourly-rate" min="1" step="0.01" placeholder="Ex: 45.00">
+                    </div>
+                    <div class="input-group">
+                        <label for="extra-hours">Horas Extras por Mês</label>
+                        <input type="number" id="extra-hours" min="1" placeholder="Ex: 200">
+                    </div>
+                </div>
+
+                <div class="calculator-results" id="calculatorResults">
+                    <div class="results-card">
+                        <div class="result-item">
+                            <span class="result-label">Economia Mensal</span>
+                            <span class="result-value" id="monthlySavings">R$ 0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Economia Anual</span>
+                            <span class="result-value highlight" id="annualSavings">R$ 0</span>
+                        </div>
+                        <div class="result-cta">
+                            <button class="btn btn-primary" onclick="openLeadForm()">
+                                🚀 Ver Como Economizar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2 class="section-title">Como Funciona o Wavetrack</h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📡</div>
+                    <h3>Detecção WiFi Automática</h3>
+                    <p>Identifica quando dispositivos dos colaboradores entram e saem da rede do escritório</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Alertas em Tempo Real</h3>
+                    <p>Notificações instantâneas de discrepâncias entre ponto marcado e presença detectada</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Relatórios Detalhados</h3>
+                    <p>Dashboards com métricas de presença, discrepâncias e economia gerada</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Evidências Sólidas</h3>
+                    <p>Registros precisos para questões trabalhistas e auditorias internas</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>100% LGPD Compliant</h3>
+                    <p>Dados criptografados e anonimizados. Total conformidade com privacidade</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Integração Simples</h3>
+                    <p>Setup em minutos. Compatível com qualquer sistema de ponto existente</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Heatmap Section -->
+    <section class="heatmap-section">
+        <div class="container">
+            <h2 class="section-title">Visualize Padrões de Presença</h2>
+            <p class="section-subtitle">Mapa de calor mostra quando há maior discrepância entre ponto e presença real</p>
+
+            <div class="heatmap-container" id="heatmapContainer">
+                <!-- Será preenchido via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Before/After Slider Section -->
+    <section class="comparison-section">
+        <div class="container">
+            <h2 class="section-title">Antes vs Depois do Wavetrack</h2>
+
+            <div class="comparison-slider-container">
+                <input type="range" min="0" max="100" value="50" class="comparison-slider" id="comparisonSlider">
+                <div class="comparison-content" id="comparisonContent">
+                    <div class="comparison-side before">
+                        <h3>❌ Sem Wavetrack</h3>
+                        <div class="metric">
+                            <span class="metric-label">Horas Extras Pagas</span>
+                            <span class="metric-value">420h/mês</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Presença Real</span>
+                            <span class="metric-value">???</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Custo Mensal</span>
+                            <span class="metric-value">R$ 18.500</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Evidências</span>
+                            <span class="metric-value">❌ Nenhuma</span>
+                        </div>
+                    </div>
+
+                    <div class="comparison-side after">
+                        <h3>✅ Com Wavetrack</h3>
+                        <div class="metric">
+                            <span class="metric-label">Horas Extras Validadas</span>
+                            <span class="metric-value success">287h/mês</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Presença Real</span>
+                            <span class="metric-value success">100% rastreada</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Custo Mensal</span>
+                            <span class="metric-value success">R$ 12.650</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Evidências</span>
+                            <span class="metric-value success">✅ Completas</span>
+                        </div>
+                        <div class="savings-highlight">
+                            💰 Economia: <strong>R$ 5.850/mês</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="quiz-section">
+        <div class="container">
+            <h2 class="section-title">Diagnóstico Rápido: Seu Sistema de Ponto</h2>
+            <p class="section-subtitle">Responda 3 perguntas e descubra seu nível de risco</p>
+
+            <div class="quiz-container" id="quizContainer">
+                <!-- Será preenchido via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Alerts Section -->
+    <section class="alerts-section">
+        <div class="container">
+            <h2 class="section-title">🔴 Alertas em Tempo Real</h2>
+            <p class="section-subtitle">Veja como o Wavetrack detecta discrepâncias instantaneamente</p>
+
+            <div class="alerts-feed" id="alertsFeed">
+                <!-- Será preenchido via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <h2 class="section-title">Planos que Cabem no Seu Bolso</h2>
+            <p class="section-subtitle">ROI garantido no primeiro mês ou seu dinheiro de volta</p>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="plan-name">Starter</h3>
+                    <div class="plan-price">
+                        <span class="currency">R$</span>
+                        <span class="amount">499</span>
+                        <span class="period">/mês</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>✅ Até 30 funcionários</li>
+                        <li>✅ Alertas em tempo real</li>
+                        <li>✅ Relatórios básicos</li>
+                        <li>✅ Suporte por email</li>
+                    </ul>
+                    <button class="btn btn-secondary" onclick="openLeadForm('starter')">Começar Teste</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="badge">Mais Popular</div>
+                    <h3 class="plan-name">Professional</h3>
+                    <div class="plan-price">
+                        <span class="currency">R$</span>
+                        <span class="amount">999</span>
+                        <span class="period">/mês</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>✅ Até 100 funcionários</li>
+                        <li>✅ Alertas personalizados</li>
+                        <li>✅ Relatórios avançados</li>
+                        <li>✅ API de integração</li>
+                        <li>✅ Suporte prioritário</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="openLeadForm('professional')">Começar Teste</button>
+                </div>
+
+                <div class="pricing-card">
+                    <h3 class="plan-name">Enterprise</h3>
+                    <div class="plan-price">
+                        <span class="amount" style="font-size: 2rem;">Personalizado</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>✅ Funcionários ilimitados</li>
+                        <li>✅ White label</li>
+                        <li>✅ Múltiplas unidades</li>
+                        <li>✅ SLA garantido</li>
+                        <li>✅ Account manager dedicado</li>
+                    </ul>
+                    <button class="btn btn-secondary" onclick="openLeadForm('enterprise')">Falar com Vendas</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Pronto para Economizar?</h2>
+            <p>Teste grátis por 14 dias. Não é necessário cartão de crédito.</p>
+            <button class="btn btn-primary btn-large" onclick="openLeadForm()">
+                Começar Teste Grátis
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Wavetrack</h4>
+                    <p>Auditoria inteligente de ponto</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Produto</h4>
+                    <ul>
+                        <li><a href="#features">Funcionalidades</a></li>
+                        <li><a href="#pricing">Preços</a></li>
+                        <li><a href="#demo">Demonstração</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Thoth & Son</h4>
+                    <ul>
+                        <li><a href="../../" target="_blank" rel="noopener noreferrer">Sobre</a></li>
+                        <li><a href="../../posts/" target="_blank" rel="noopener noreferrer">Blog</a></li>
+                        <li><a href="javascript:void(0)" onclick="openLeadForm()">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacidade.html" target="_blank" rel="noopener noreferrer">Privacidade</a></li>
+                        <li><a href="termos.html" target="_blank" rel="noopener noreferrer">Termos de Uso</a></li>
+                        <li><a href="lgpd.html" target="_blank" rel="noopener noreferrer">LGPD</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Wavetrack by Thoth & Son. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lead Form Modal -->
+    <div class="modal" id="leadModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeLeadForm()">&times;</span>
+            <h2>Comece Seu Teste Grátis</h2>
+            <div class="lead-form-container" style="width: 100%; max-height: 70vh; overflow-y: auto;">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScMAfSQoB2eb4d_qAC4Bm3DoD-Dslolc9RIfFf3hLMDwj1E_w/viewform?embedded=true" width="100%" height="1583" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot" id="chatbot">
+        <div class="chatbot-header" onclick="toggleChatbot()">
+            <span>💬 Precisa de ajuda?</span>
+            <span class="chatbot-toggle">−</span>
+        </div>
+        <div class="chatbot-body" id="chatbotBody">
+            <!-- Será preenchido via JavaScript -->
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Digite sua mensagem...">
+            <button onclick="sendChatMessage()">Enviar</button>
+        </div>
+    </div>
+
+
+    <!-- Console Management Script -->
+    <script src="../../js/console-manager.js"></script>
+
+    <script src="../../js/wavetrack/main.js"></script>
+    <script src="../../js/wavetrack/roi-calculator.js"></script>
+    <script src="../../js/wavetrack/heatmap.js"></script>
+    <script src="../../js/wavetrack/comparison.js"></script>
+    <script src="../../js/wavetrack/quiz.js"></script>
+    <script src="../../js/wavetrack/alerts.js"></script>
+    <script src="../../js/wavetrack/chatbot.js"></script>
+    <script src="../../js/wavetrack/analytics.js"></script>
+</body>
+</html>
