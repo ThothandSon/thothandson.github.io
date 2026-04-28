@@ -124,13 +124,6 @@ js/
 
 ## 🎯 Funcionalidades Implementadas
 
-### Landing Page Ghost Rizz
-
-- Design profissional responsivo
-- Formulário de cotação integrado
-- Análise de arquivos em tempo real
-- Mapeamento GPS com reverse geocoding
-
 ### Sistema de Metadata Analysis
 
 - **Imagens**: EXIF, GPS, dimensões
