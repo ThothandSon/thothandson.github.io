@@ -1,163 +1,112 @@
 #!/usr/bin/env node
+/* ============================================================
+   Thoth & Son — Security check
+   ────────────────────────────────────────────────────────────
+   - Procura padrões de credenciais/segredos vazados no código
+   - Verifica que os hashes do mini-game não revelam as palavras
+   - Garante que não há eval(), Function() ou similar em JS próprio
+   ============================================================ */
+'use strict';
+const fs = require('fs');
+const path = require('path');
 
-/**
- * Teste de verificação de segurança
- * Verifica se o sistema de ofuscação está funcionando
- */
+const ROOT = path.resolve(__dirname, '..');
+const errors = [];
+const warnings = [];
 
-const fs = require("fs");
-const path = require("path");
+// Arquivos a auditar (extensão e exclusões)
+const EXTS = ['.js', '.html', '.yml', '.css', '.md', '.json'];
+const EXCLUDE_DIRS = ['node_modules', '_site', '.git', '.jekyll-cache', 'vendor', 'tests'];
 
-console.log("🔒 Executando testes de segurança...\n");
-
-// Strings que NÃO devem aparecer no código ofuscado (críticas)
-const criticalStrings = [
-  "Security System v1.0 Active",
-  "switchToDevMode",
-  "switchToProdMode",
-];
-
-// Strings que podem aparecer mas indicam menor ofuscação
-const warningStrings = [
-  "console.log",
-  "function analyzeFileMetadata",
-  "function formatMetadataValue",
-];
-
-// Função para verificar ofuscação
-function checkObfuscation(filePath) {
-  if (!fs.existsSync(filePath)) {
-    return { passed: false, reason: "Arquivo não encontrado" };
+function walk(dir, files = []) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (EXCLUDE_DIRS.includes(entry.name)) continue;
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(full, files);
+    else if (EXTS.includes(path.extname(entry.name))) files.push(full);
   }
+  return files;
+}
 
-  const content = fs.readFileSync(filePath, "utf8");
-  const foundCritical = [];
-  const foundWarnings = [];
+// Padrões de segredos clássicos
+const SECRET_PATTERNS = [
+  { re: /AKIA[0-9A-Z]{16}/g,                              label: 'AWS Access Key' },
+  { re: /aws_secret_access_key\s*=\s*[A-Za-z0-9/+=]{40}/gi, label: 'AWS Secret' },
+  { re: /-----BEGIN (RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----/g, label: 'Private key' },
+  { re: /ghp_[A-Za-z0-9]{36}/g,                            label: 'GitHub PAT' },
+  { re: /gho_[A-Za-z0-9]{36}/g,                            label: 'GitHub OAuth' },
+  { re: /sk-[A-Za-z0-9]{20,}/g,                            label: 'OpenAI key' },
+  { re: /xox[baprs]-[A-Za-z0-9-]+/g,                       label: 'Slack token' },
+  { re: /SG\.[A-Za-z0-9_-]{22}\.[A-Za-z0-9_-]{43}/g,       label: 'SendGrid key' },
+  { re: /AIza[0-9A-Za-z_-]{35}/g,                          label: 'Google API key' },
+  { re: /password\s*[:=]\s*["'][^"']{4,}["']/gi,           label: 'Hardcoded password', soft: true },
+  { re: /api[_-]?key\s*[:=]\s*["'][A-Za-z0-9_-]{8,}["']/gi, label: 'Hardcoded api_key', soft: true },
+];
 
-  // Verificar strings críticas
-  for (const str of criticalStrings) {
-    if (content.includes(str)) {
-      foundCritical.push(str);
+// Padrões perigosos em JS de código próprio
+const DANGEROUS_JS = [
+  { re: /\beval\s*\(/g,                       label: 'eval()' },
+  { re: /new\s+Function\s*\(/g,               label: 'new Function()' },
+  { re: /document\.write\s*\(/g,              label: 'document.write()' },
+  { re: /innerHTML\s*=\s*[^'"`]*\+/g,         label: 'innerHTML com concat (XSS risk)', soft: true },
+];
+
+const files = walk(ROOT);
+console.log(`Auditando ${files.length} arquivos…\n`);
+
+for (const f of files) {
+  const rel = path.relative(ROOT, f);
+  const content = fs.readFileSync(f, 'utf8');
+
+  // Secrets
+  for (const { re, label, soft } of SECRET_PATTERNS) {
+    re.lastIndex = 0;
+    const matches = content.match(re);
+    if (matches) {
+      const list = soft ? warnings : errors;
+      list.push(`[${label}] ${rel} — ${matches.length} ocorrência(s)`);
     }
   }
 
-  // Verificar strings de aviso
-  for (const str of warningStrings) {
-    if (content.includes(str)) {
-      foundWarnings.push(str);
+  // JS perigoso (só em .js próprios)
+  if (f.endsWith('.js')) {
+    for (const { re, label, soft } of DANGEROUS_JS) {
+      re.lastIndex = 0;
+      const matches = content.match(re);
+      if (matches) {
+        const list = soft ? warnings : errors;
+        list.push(`[${label}] ${rel} — ${matches.length} ocorrência(s)`);
+      }
     }
   }
-
-  if (foundCritical.length > 0) {
-    return {
-      passed: false,
-      reason: `Strings críticas encontradas: ${foundCritical.join(", ")}`,
-    };
-  }
-
-  // Verificar se o arquivo parece ofuscado (poucas quebras de linha)
-  const lines = content.split("\n").length;
-  if (lines > 100) {
-    return {
-      passed: false,
-      reason: `Muitas linhas (${lines}) - pode não estar ofuscado`,
-    };
-  }
-
-  let message = "Código devidamente ofuscado";
-  if (foundWarnings.length > 0) {
-    message += ` (avisos: ${foundWarnings.length} strings ainda visíveis)`;
-  }
-
-  return { passed: true, reason: message };
 }
 
-// Função para verificar se código fonte existe e está protegido
-function checkSourceProtection() {
-  const srcPath = path.join(process.cwd(), "js/src/main.js");
-  const gitignorePath = path.join(process.cwd(), ".gitignore");
-
-  if (!fs.existsSync(srcPath)) {
-    return {
-      passed: false,
-      reason: "Código fonte não encontrado em js/src/main.js",
-    };
-  }
-
-  if (!fs.existsSync(gitignorePath)) {
-    return { passed: false, reason: "Arquivo .gitignore não encontrado" };
-  }
-
-  const gitignoreContent = fs.readFileSync(gitignorePath, "utf8");
-  if (!gitignoreContent.includes("js/src/")) {
-    return { passed: false, reason: "js/src/ não está no .gitignore" };
-  }
-
-  return { passed: true, reason: "Código fonte protegido corretamente" };
-}
-
-// Função para verificar backups
-function checkBackupSystem() {
-  const backupDir = path.join(process.env.HOME, ".thothandson-backup/js_src");
-
-  if (!fs.existsSync(backupDir)) {
-    return { passed: false, reason: "Diretório de backup não encontrado" };
-  }
-
-  const backupFiles = fs
-    .readdirSync(backupDir)
-    .filter((f) => f.startsWith("main_") && f.endsWith(".js"));
-
-  if (backupFiles.length === 0) {
-    return { passed: false, reason: "Nenhum backup encontrado" };
-  }
-
-  return {
-    passed: true,
-    reason: `${backupFiles.length} backup(s) encontrado(s)`,
-  };
-}
-
-// Executar testes
-const tests = [
-  {
-    name: "Verificação de ofuscação (js/main.js)",
-    test: () => checkObfuscation(path.join(process.cwd(), "js/main.js")),
-  },
-  {
-    name: "Proteção do código fonte",
-    test: checkSourceProtection,
-  },
-  {
-    name: "Sistema de backup",
-    test: checkBackupSystem,
-  },
-];
-
-let passed = 0;
-let failed = 0;
-
-for (const test of tests) {
-  const result = test.test();
-
-  if (result.passed) {
-    console.log(`✅ ${test.name}: ${result.reason}`);
-    passed++;
+// Verificação específica: hashes do mini-game não devem coexistir com plaintext
+const cm = path.join(ROOT, 'js', 'console-manager.js');
+if (fs.existsSync(cm)) {
+  const t = fs.readFileSync(cm, 'utf8');
+  const FORBIDDEN_PLAIN = [
+    'MENTALISMO', 'CORRESPONDENCIA', 'VIBRACAO', 'POLARIDADE',
+    'RITMO', 'CAUSALIDADE', 'GENERO',
+  ];
+  const leaked = FORBIDDEN_PLAIN.filter((w) => t.includes(w));
+  if (leaked.length) {
+    errors.push(`[Cipher] console-manager.js vaza respostas em plaintext: ${leaked.join(', ')}`);
   } else {
-    console.log(`❌ ${test.name}: ${result.reason}`);
-    failed++;
+    console.log('✓ Respostas do mini-game não estão em plaintext.');
   }
 }
 
-// Resultado final
-console.log(`\n📊 Resultado dos testes de segurança:`);
-console.log(`✅ Passou: ${passed}`);
-console.log(`❌ Falhou: ${failed}`);
-
-if (failed > 0) {
-  console.log("\n🚨 Falhas de segurança detectadas!");
-  process.exit(1);
-} else {
-  console.log("\n🛡️ Todos os testes de segurança passaram!");
-  process.exit(0);
+console.log('');
+if (warnings.length) {
+  console.log('⚠  AVISOS:');
+  warnings.forEach((w) => console.log('   ' + w));
+  console.log('');
 }
+if (errors.length) {
+  console.log('✗ FALHAS DE SEGURANÇA:');
+  errors.forEach((e) => console.log('   ' + e));
+  console.log('');
+  process.exit(1);
+}
+console.log('✓ Auditoria de segurança passou.');

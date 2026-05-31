@@ -1,0 +1,43 @@
+# ═══════════════════════════════════════════════════════════
+#   Thoth & Son — Validation (lint + security + build)
+#   Roda em todo push e PR. Bloqueia o deploy se falhar.
+# ═══════════════════════════════════════════════════════════
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: JS syntax validation
+        run: node tests/js-validation.js
+
+      - name: Security audit (secrets + dangerous patterns)
+        run: node tests/security-check.js
+
+      - name: HTML hygiene check
+        run: node tests/html-validation.js
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Jekyll build (smoke test)
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --config _config.yml --strict_front_matter
