@@ -183,6 +183,14 @@ svg.status-card-logo {
 }
 .status-badge.down::before { background: #E07A7A; }
 
+.status-badge.reachable {
+  color: var(--gold);
+  border-color: rgba(200, 160, 48, 0.40);
+}
+.status-badge.reachable::before {
+  background: var(--gold);
+}
+
 .status-badge.manual {
   color: var(--muted-mid);
   border-color: var(--gold-faint);

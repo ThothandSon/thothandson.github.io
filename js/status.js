@@ -1,23 +1,27 @@
 /* ============================================================
    Thoth & Son — Status page client
    ─────────────────────────────────────────────────────────────
-   Health checks reais via StatusPage.io API onde disponível,
-   link para a página oficial quando não.
-   Ícones via cdn.simpleicons.org (CC0); fallback para monograma
-   inline SVG quando o serviço não tem ícone disponível.
+   Três níveis de verificação, do mais para o menos detalhado:
+
+     1. statusApi  — fetch real à API pública (StatusPage.io etc).
+                     Retorna estado + descrição + latência.
+     2. pingUrl    — fetch no-cors ao domínio. Sabemos se responde
+                     mas não temos detalhes. "Acessível / Inacessível".
+     3. (nenhum)   — só link para a página oficial. "Manual".
+
+   Ícones via cdn.simpleicons.org; monograma SVG inline como fallback
+   quando o ícone não existe ou foi removido (trademark issues).
    ============================================================ */
 (function () {
   'use strict';
 
   // ── Configuração por serviço ────────────────────────────────
-  // icon       : slug simpleicons.org (ou null para usar monograma)
-  // monogram   : 2 letras para fallback estilizado
-  // statusApi  : endpoint StatusPage.io v2 (opcional)
-  // statusUrl  : página de status oficial (sempre exibida como link)
   const SERVICES = {
     'apple-music':      { icon: 'applemusic',    monogram: 'AM',
+                          pingUrl:   'https://www.apple.com/apple-music/',
                           statusUrl: 'https://www.apple.com/support/systemstatus/' },
     'aws':              { icon: null,            monogram: 'AW',
+                          pingUrl:   'https://aws.amazon.com/',
                           statusUrl: 'https://health.aws.amazon.com/health/status' },
     'chatgpt':          { icon: null,            monogram: 'GP',
                           statusApi: 'https://status.openai.com/api/v2/status.json',
@@ -29,45 +33,53 @@
                           statusApi: 'https://status.atlassian.com/api/v2/status.json',
                           statusUrl: 'https://status.atlassian.com/' },
     'deepseek':         { icon: 'deepseek',      monogram: 'DS',
-                          statusApi: 'https://status.deepseek.com/api/v2/status.json',
+                          pingUrl:   'https://www.deepseek.com/',
                           statusUrl: 'https://status.deepseek.com/' },
     'github':           { icon: 'github',        monogram: 'GH',
                           statusApi: 'https://www.githubstatus.com/api/v2/status.json',
                           statusUrl: 'https://www.githubstatus.com/' },
     'gmail':            { icon: 'gmail',         monogram: 'GM',
+                          pingUrl:   'https://mail.google.com/',
                           statusUrl: 'https://www.google.com/appsstatus/dashboard/' },
     'google-meet':      { icon: 'googlemeet',    monogram: 'GM',
+                          pingUrl:   'https://meet.google.com/',
                           statusUrl: 'https://www.google.com/appsstatus/dashboard/' },
     'jira':             { icon: 'jira',          monogram: 'JR',
                           statusApi: 'https://status.atlassian.com/api/v2/status.json',
                           statusUrl: 'https://status.atlassian.com/' },
     'linkedin':         { icon: null,            monogram: 'LI',
+                          pingUrl:   'https://www.linkedin.com/',
                           statusUrl: 'https://www.linkedin.com/help/linkedin' },
     'microsoft-teams':  { icon: null,            monogram: 'MT',
+                          pingUrl:   'https://teams.microsoft.com/',
                           statusUrl: 'https://portal.office.com/servicestatus' },
     'miro':             { icon: 'miro',          monogram: 'MI',
                           statusApi: 'https://status.miro.com/api/v2/status.json',
                           statusUrl: 'https://status.miro.com/' },
     'slack':            { icon: null,            monogram: 'SL',
-                          statusApi: 'https://status.slack.com/api/v2.0.0/current',
-                          statusUrl: 'https://status.slack.com/' },
+                          statusApi: 'https://slack-status.com/api/v2.0.0/current',
+                          statusUrl: 'https://slack-status.com/' },
     'spotify':          { icon: 'spotify',       monogram: 'SP',
+                          pingUrl:   'https://www.spotify.com/',
                           statusUrl: 'https://status.spotify.dev/' },
     'telegram':         { icon: 'telegram',      monogram: 'TG',
+                          pingUrl:   'https://telegram.org/',
                           statusUrl: 'https://core.telegram.org/' },
     'whatsapp':         { icon: 'whatsapp',      monogram: 'WA',
+                          pingUrl:   'https://www.whatsapp.com/',
                           statusUrl: 'https://www.facebook.com/business/help/whatsapp' },
     'youtube':          { icon: 'youtube',       monogram: 'YT',
+                          pingUrl:   'https://www.youtube.com/',
                           statusUrl: 'https://www.google.com/appsstatus/dashboard/' },
   };
 
-  // ── Helpers ─────────────────────────────────────────────────
   const cards = Array.from(document.querySelectorAll('.status-card[data-service]'));
   if (cards.length === 0) return;
 
   const timeEl     = document.getElementById('last-updated-time');
   const refreshBtn = document.getElementById('refresh-all');
 
+  // ── Mapeamentos de indicadores ──────────────────────────────
   function mapIndicator(ind) {
     switch (ind) {
       case 'none':     return { cls: 'operational', label: 'Operacional' };
@@ -86,7 +98,7 @@
     }) + ' BRT';
   }
 
-  // ── Monograma SVG (fallback estilizado on-brand) ─────────────
+  // ── Monograma SVG (fallback de ícone) ───────────────────────
   function makeMonogram(letters) {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('class', 'status-card-logo');
@@ -105,7 +117,6 @@
     return svg;
   }
 
-  // ── Injeta logo (com fallback) e link em cada card ───────────
   function enrichCards() {
     cards.forEach((card) => {
       const slug = card.dataset.service;
@@ -114,7 +125,6 @@
 
       if (!card.querySelector('.status-card-logo')) {
         if (cfg.icon) {
-          // Tenta simpleicons; fallback para monograma se quebrar
           const img = document.createElement('img');
           img.className = 'status-card-logo';
           img.src = `https://cdn.simpleicons.org/${cfg.icon}/C8A030`;
@@ -123,18 +133,14 @@
           img.width = 22;
           img.height = 22;
           img.onerror = function () {
-            const mono = makeMonogram(cfg.monogram || '··');
-            this.replaceWith(mono);
+            this.replaceWith(makeMonogram(cfg.monogram || '··'));
           };
           card.insertBefore(img, card.firstChild);
         } else {
-          // Sem ícone: vai direto pro monograma
-          const mono = makeMonogram(cfg.monogram || '··');
-          card.insertBefore(mono, card.firstChild);
+          card.insertBefore(makeMonogram(cfg.monogram || '··'), card.firstChild);
         }
       }
 
-      // Link para status oficial
       if (cfg.statusUrl && !card.querySelector('.status-card-link')) {
         const a = document.createElement('a');
         a.className = 'status-card-link';
@@ -147,7 +153,84 @@
     });
   }
 
-  // ── Check de um serviço ─────────────────────────────────────
+  // ── Check via API real (StatusPage.io v2 / Slack) ───────────
+  async function checkApi(cfg, slug, badge, details) {
+    const start = performance.now();
+    try {
+      const r = await fetch(cfg.statusApi, { cache: 'no-store' });
+      const elapsed = Math.round(performance.now() - start);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const data = await r.json();
+
+      // Slack tem formato próprio
+      if (slug === 'slack') {
+        const incidents = data?.active_incidents || [];
+        const slackOk = (data?.status === 'ok') && incidents.length === 0;
+        if (slackOk) {
+          badge.className = 'status-badge operational';
+          badge.textContent = 'Operacional';
+          if (details) details.textContent = `Sem incidentes ativos · ${elapsed}ms`;
+        } else {
+          // Pega severidade do incidente mais grave
+          const sev = incidents.some((i) => i.type === 'outage') ? 'partial'
+                    : incidents.some((i) => i.type === 'incident') ? 'degraded'
+                    : 'degraded';
+          const sevLabel = sev === 'partial' ? 'Parcial' : 'Degradado';
+          badge.className = 'status-badge ' + sev;
+          badge.textContent = sevLabel;
+          if (details) {
+            const t = incidents[0]?.title || 'incidente ativo';
+            details.textContent = `${t} · ${elapsed}ms`;
+          }
+        }
+        return;
+      }
+
+      // StatusPage.io v2 padrão
+      const indicator = data?.status?.indicator || 'none';
+      const mapped = mapIndicator(indicator);
+      badge.className = 'status-badge ' + mapped.cls;
+      badge.textContent = mapped.label;
+      if (details) {
+        const desc = data?.status?.description || '';
+        details.textContent = desc
+          ? `${desc} · ${elapsed}ms`
+          : `Resposta em ${elapsed}ms`;
+      }
+    } catch (err) {
+      badge.className = 'status-badge down';
+      badge.textContent = 'API indisponível';
+      if (details) details.textContent = 'Não foi possível alcançar a API de status.';
+    }
+  }
+
+  // ── Check via ping no-cors (reachability) ───────────────────
+  async function checkPing(cfg, badge, details) {
+    const start = performance.now();
+    try {
+      // mode: no-cors evita preflight; resposta é opaca mas resolve se a rede chegou
+      const ctrl = new AbortController();
+      const timeout = setTimeout(() => ctrl.abort(), 6000);
+      await fetch(cfg.pingUrl, {
+        method: 'GET',
+        mode: 'no-cors',
+        cache: 'no-store',
+        signal: ctrl.signal,
+        redirect: 'follow',
+      });
+      clearTimeout(timeout);
+      const elapsed = Math.round(performance.now() - start);
+      badge.className = 'status-badge reachable';
+      badge.textContent = 'Acessível';
+      if (details) details.textContent = `Servidor respondeu em ${elapsed}ms`;
+    } catch (err) {
+      badge.className = 'status-badge down';
+      badge.textContent = 'Inacessível';
+      if (details) details.textContent = 'Servidor não respondeu (timeout ou bloqueado).';
+    }
+  }
+
+  // ── Dispatcher ──────────────────────────────────────────────
   async function checkService(card) {
     const slug = card.dataset.service;
     const cfg = SERVICES[slug];
@@ -156,30 +239,9 @@
     if (!cfg || !badge) return;
 
     if (cfg.statusApi) {
-      const start = performance.now();
-      try {
-        const r = await fetch(cfg.statusApi, { cache: 'no-store' });
-        const elapsed = Math.round(performance.now() - start);
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        const data = await r.json();
-
-        const indicator = data?.status?.indicator
-                      || data?.status?.description?.toLowerCase()
-                      || 'none';
-        const mapped = mapIndicator(indicator);
-        badge.className = 'status-badge ' + mapped.cls;
-        badge.textContent = mapped.label;
-        if (details) {
-          const desc = data?.status?.description || '';
-          details.textContent = desc
-            ? `${desc} · ${elapsed}ms`
-            : `Resposta em ${elapsed}ms`;
-        }
-      } catch (err) {
-        badge.className = 'status-badge degraded';
-        badge.textContent = 'Indisponível';
-        if (details) details.textContent = 'Não foi possível alcançar a API.';
-      }
+      await checkApi(cfg, slug, badge, details);
+    } else if (cfg.pingUrl) {
+      await checkPing(cfg, badge, details);
     } else {
       badge.className = 'status-badge manual';
       badge.textContent = 'Verificação manual';
@@ -187,6 +249,7 @@
     }
   }
 
+  // ── Update orchestration ───────────────────────────────────
   async function updateAll() {
     if (timeEl) timeEl.textContent = '— verificando…';
     cards.forEach((c) => {
@@ -198,14 +261,16 @@
       }
     });
 
+    // Escalonamento de 60ms entre disparos
     for (let i = 0; i < cards.length; i++) {
       checkService(cards[i]);
       await new Promise((r) => setTimeout(r, 60));
     }
 
+    // Espera pelos últimos resolvedores antes de marcar o timestamp
     setTimeout(() => {
       if (timeEl) timeEl.textContent = fmtTime(new Date());
-    }, 1500);
+    }, 7000);
   }
 
   enrichCards();
