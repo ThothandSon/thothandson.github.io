@@ -43,3 +43,7 @@ exclude:
   - package.json
   - package-lock.json
   - scripts
+  - tests
+  - vendor
+  - .bundle
+  - .github
