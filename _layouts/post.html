@@ -1,0 +1,29 @@
+---
+layout: default
+---
+<link rel="stylesheet" href="/styles/inner.css">
+
+<article class="post">
+  <div class="post-meta">
+    {{ page.date | date: "%d / %m / %Y" }}
+    {% if page.author %}&nbsp;·&nbsp;{{ page.author }}{% endif %}
+  </div>
+
+  <h1 class="page-hero-title" style="font-size:clamp(2rem,5vw,3.4rem);margin-bottom:1.5rem;">
+    {{ page.title }}
+  </h1>
+
+  <div class="page-hero-rule" style="margin-bottom:2.5rem;"></div>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  <hr style="margin-top:4rem;">
+
+  <div class="post-meta" style="text-align:center;">
+    <a href="/posts" style="color:var(--gold);text-decoration:none;letter-spacing:0.12em;">
+      ← TODOS OS APONTAMENTOS
+    </a>
+  </div>
+</article>

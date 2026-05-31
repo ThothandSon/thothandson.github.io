@@ -1,0 +1,169 @@
+/* ============================================================
+   Thoth & Son — Inner pages
+   Page hero + mini 3D + components compartilhados
+   ============================================================ */
+
+/* ── PAGE HERO ──────────────────────────────────────────────── */
+.page-hero {
+  position: relative;
+  min-height: 320px;
+  padding: var(--s6) var(--s4) var(--s5);
+  overflow: hidden;
+  border-bottom: 1px solid var(--gold-faint);
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--gold-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--gold-faint) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: 0.4;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at top left, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at top left, black 30%, transparent 80%);
+}
+
+.page-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s5);
+}
+
+.page-hero-text {
+  max-width: 640px;
+}
+
+.page-hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.70rem;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: var(--s2);
+}
+
+.page-hero-eyebrow::before { content: '— '; opacity: 0.6; }
+
+.page-hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: var(--s3);
+}
+
+.page-hero-rule {
+  width: 56px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.65;
+  margin-bottom: var(--s3);
+}
+
+.page-hero-tagline {
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  color: var(--muted-mid);
+  line-height: 1.5;
+  max-width: 520px;
+}
+
+/* ── MINI 3D (canvas dentro do page-hero) ───────────────────── */
+.mini-3d-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+#mini-3d {
+  width: 240px;
+  height: 240px;
+  display: block;
+  opacity: 0;
+  animation: miniFade 1.2s 0.4s forwards;
+}
+
+@keyframes miniFade {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 0.9; transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  .page-hero-inner { flex-direction: column; text-align: left; align-items: flex-start; }
+  #mini-3d { width: 180px; height: 180px; opacity: 0.5; }
+}
+
+@media (max-width: 480px) {
+  .mini-3d-wrapper { display: none; }
+}
+
+/* ── BRAND CARDS (compartilhado) ────────────────────────────── */
+.brand-grid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: var(--s5) var(--s4);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1px;
+  background: var(--gold-faint);
+  border: 1px solid var(--gold-faint);
+}
+
+.brand-card {
+  background: var(--surface);
+  padding: var(--s4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  position: relative;
+  transition: background 0.3s;
+  min-height: 200px;
+}
+
+.brand-card:hover {
+  background: var(--surface-2);
+}
+
+.brand-card-num {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  opacity: 0.65;
+}
+
+.brand-card-title {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--white);
+  line-height: 1.2;
+}
+
+.brand-card-meta {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.10em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.brand-card-desc {
+  font-family: var(--body);
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .brand-grid { grid-template-columns: 1fr; padding: var(--s4) var(--s2); }
+}

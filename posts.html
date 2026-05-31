@@ -1,21 +1,54 @@
 ---
 layout: default
-title: "Posts"
+title: "Posts — Thoth & Son"
+description: "Apontamentos. Documentos. Resíduos de processo."
 ---
 
+<link rel="stylesheet" href="/styles/inner.css">
 
-<h1 class="page-title">Posts</h1>
-
-<div class="posts-list">
-  {% for post in site.posts %}
-    <div class="post-card">
-      <div class="post-card-header">
-        <span class="post-date">{{ post.date | date: "%d/%m/%Y" }}</span>
-      </div>
-      <h2 class="post-title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
-      <div class="post-divider"></div>
-      <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-      <a class="post-readmore" href="{{ post.url }}">Ler mais &rarr;</a>
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-text">
+      <div class="page-hero-eyebrow">REGISTRO · ARQUIVO PÚBLICO</div>
+      <h1 class="page-hero-title">Apontamentos.</h1>
+      <div class="page-hero-rule"></div>
+      <p class="page-hero-tagline">
+        Documentos. Resíduos de processo. O que sobrevive
+        quando a entrega já foi feita.
+      </p>
     </div>
+    <div class="mini-3d-wrapper">
+      <canvas id="mini-3d" aria-hidden="true"></canvas>
+    </div>
+  </div>
+</section>
+
+<section class="brand-grid">
+  {% for post in site.posts %}
+    <article class="brand-card">
+      <div class="brand-card-num">
+        {{ forloop.index | prepend: '00' | slice: -2, 2 }}
+      </div>
+      <div class="brand-card-meta">
+        {{ post.date | date: "%d / %m / %Y" }}
+      </div>
+      <h2 class="brand-card-title">
+        <a href="{{ post.url }}" style="color:inherit">{{ post.title }}</a>
+      </h2>
+      <p class="brand-card-desc">
+        {{ post.excerpt | strip_html | truncate: 140 }}
+      </p>
+      <a class="post-readmore" href="{{ post.url }}">Continuar lendo</a>
+    </article>
   {% endfor %}
-</div>
+
+  {% if site.posts.size == 0 %}
+    <div class="brand-card" style="grid-column:1/-1;text-align:center;">
+      <div class="brand-card-meta">— EM BREVE —</div>
+      <h2 class="brand-card-title">Primeiros registros em preparação.</h2>
+      <p class="brand-card-desc">Volte em breve. O silêncio também comunica.</p>
+    </div>
+  {% endif %}
+</section>
+
+<script type="module" src="/js/mini-3d.js"></script>
