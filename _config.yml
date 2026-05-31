@@ -1,51 +1,45 @@
-# Site
-name: "Thoth & Son"
-title: "Thoth & Son"
-description: "The future of cybersecurity"
-logo: 'assets/logo.png'
-favicon: 'assets/favicon.ico'
-baseurl: /
-# google_analytics: 'UA-46278016-1'
-# mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
-include: ["_pages"]
-permalink: /:title/
+# ═══════════════════════════════════════════════════════════
+#   Thoth & Son — Jekyll config
+# ═══════════════════════════════════════════════════════════
 
-# Authors
+name:        "Thoth & Son"
+title:       "Thoth & Son"
+description: "Precisão. Cultura. Resultado."
+url:         "https://thothandson.github.io"
+baseurl:     ""
+favicon:     "assets/favicon.ico"
+
+# Conteúdo
+permalink:   /posts/:year/:month/:day/:title/
+markdown:    kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Autores
 authors:
-  t&s:
+  thoth-son:
     name: Thoth & Son
     display_name: Thoth & Son
-    # gravatar: e56154546cf4be74e393c62d1ae9f9d4
-    # email: wowthemesnet@gmail.com
-    description: "Main Author for Thoth & Son blog"
+    description: "Software de autor."
 
-# Plugins (apenas os suportados pelo GitHub Pages)
+# Plugins suportados pelo GitHub Pages
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-paginate
 
-# Pagination
-paginate: 6
-paginate_path: /page:num/
+# Paginação
+paginate:       6
+paginate_path:  /posts/page:num/
 
-# Other
-markdown: kramdown
-
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    block:
-      line_numbers: true
-
-# Adsense (change to "enabled" to activate, also your client id and ad slot. Create a new ad unit from your Adsense account to get the slot.)
-adsense: "disabled"
-# adsense-data-ad-client: "ca-pub-3412143450191416"
-# adsense-data-ad-slot: "1363087678"
-
-# Lazy Images ("enabled" or "disabled")
-lazyimages: "disabled"
-
-exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock]
+# Build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - package.json
+  - package-lock.json
+  - scripts
