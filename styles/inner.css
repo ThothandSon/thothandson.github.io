@@ -159,7 +159,7 @@
 .brand-card-desc {
   font-family: var(--body);
   font-size: 0.88rem;
-  color: var(--muted);
+  color: var(--muted-mid);
   line-height: 1.65;
   margin-top: auto;
 }

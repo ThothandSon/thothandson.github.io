@@ -126,7 +126,7 @@ svg.status-card-logo {
 .status-card-desc {
   font-family: var(--body);
   font-size: 0.78rem;
-  color: var(--muted);
+  color: var(--muted-mid);
   line-height: 1.55;
   flex: 1;
 }
