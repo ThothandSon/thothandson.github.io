@@ -3,44 +3,62 @@
    ─────────────────────────────────────────────────────────────
    Health checks reais via StatusPage.io API onde disponível,
    link para a página oficial quando não.
-   Sem fakes — se não tem como verificar de verdade, marcamos
-   como "manual" e damos o link.
-   Logos via cdn.simpleicons.org (CC0).
+   Ícones via cdn.simpleicons.org (CC0); fallback para monograma
+   inline SVG quando o serviço não tem ícone disponível.
    ============================================================ */
 (function () {
   'use strict';
 
   // ── Configuração por serviço ────────────────────────────────
-  // statusApi  : endpoint v2 do StatusPage.io (CORS aberto) — opcional
+  // icon       : slug simpleicons.org (ou null para usar monograma)
+  // monogram   : 2 letras para fallback estilizado
+  // statusApi  : endpoint StatusPage.io v2 (opcional)
   // statusUrl  : página de status oficial (sempre exibida como link)
-  // icon       : slug do simpleicons.org (ou null para usar fallback)
   const SERVICES = {
-    'apple-music':      { icon: 'applemusic',         statusUrl: 'https://www.apple.com/support/systemstatus/' },
-    'aws':              { icon: 'amazonaws',          statusUrl: 'https://health.aws.amazon.com/health/status' },
-    'chatgpt':          { icon: 'openai',             statusApi: 'https://status.openai.com/api/v2/status.json',
-                                                      statusUrl: 'https://status.openai.com/' },
-    'cloudflare':       { icon: 'cloudflare',         statusApi: 'https://www.cloudflarestatus.com/api/v2/status.json',
-                                                      statusUrl: 'https://www.cloudflarestatus.com/' },
-    'confluence':       { icon: 'confluence',         statusApi: 'https://status.atlassian.com/api/v2/status.json',
-                                                      statusUrl: 'https://status.atlassian.com/' },
-    'deepseek':         { icon: null,                 statusApi: 'https://status.deepseek.com/api/v2/status.json',
-                                                      statusUrl: 'https://status.deepseek.com/' },
-    'github':           { icon: 'github',             statusApi: 'https://www.githubstatus.com/api/v2/status.json',
-                                                      statusUrl: 'https://www.githubstatus.com/' },
-    'gmail':            { icon: 'gmail',              statusUrl: 'https://www.google.com/appsstatus/dashboard/' },
-    'google-meet':      { icon: 'googlemeet',         statusUrl: 'https://www.google.com/appsstatus/dashboard/' },
-    'jira':             { icon: 'jira',               statusApi: 'https://status.atlassian.com/api/v2/status.json',
-                                                      statusUrl: 'https://status.atlassian.com/' },
-    'linkedin':         { icon: 'linkedin',           statusUrl: 'https://www.linkedin.com/help/linkedin' },
-    'microsoft-teams':  { icon: 'microsoftteams',     statusUrl: 'https://portal.office.com/servicestatus' },
-    'miro':             { icon: 'miro',               statusApi: 'https://status.miro.com/api/v2/status.json',
-                                                      statusUrl: 'https://status.miro.com/' },
-    'slack':            { icon: 'slack',              statusApi: 'https://status.slack.com/api/v2.0.0/current',
-                                                      statusUrl: 'https://status.slack.com/' },
-    'spotify':          { icon: 'spotify',            statusUrl: 'https://status.spotify.dev/' },
-    'telegram':         { icon: 'telegram',           statusUrl: 'https://core.telegram.org/' },
-    'whatsapp':         { icon: 'whatsapp',           statusUrl: 'https://www.facebook.com/business/help/whatsapp' },
-    'youtube':          { icon: 'youtube',            statusUrl: 'https://www.google.com/appsstatus/dashboard/' },
+    'apple-music':      { icon: 'applemusic',    monogram: 'AM',
+                          statusUrl: 'https://www.apple.com/support/systemstatus/' },
+    'aws':              { icon: null,            monogram: 'AW',
+                          statusUrl: 'https://health.aws.amazon.com/health/status' },
+    'chatgpt':          { icon: null,            monogram: 'GP',
+                          statusApi: 'https://status.openai.com/api/v2/status.json',
+                          statusUrl: 'https://status.openai.com/' },
+    'cloudflare':       { icon: 'cloudflare',    monogram: 'CF',
+                          statusApi: 'https://www.cloudflarestatus.com/api/v2/status.json',
+                          statusUrl: 'https://www.cloudflarestatus.com/' },
+    'confluence':       { icon: 'confluence',    monogram: 'CO',
+                          statusApi: 'https://status.atlassian.com/api/v2/status.json',
+                          statusUrl: 'https://status.atlassian.com/' },
+    'deepseek':         { icon: 'deepseek',      monogram: 'DS',
+                          statusApi: 'https://status.deepseek.com/api/v2/status.json',
+                          statusUrl: 'https://status.deepseek.com/' },
+    'github':           { icon: 'github',        monogram: 'GH',
+                          statusApi: 'https://www.githubstatus.com/api/v2/status.json',
+                          statusUrl: 'https://www.githubstatus.com/' },
+    'gmail':            { icon: 'gmail',         monogram: 'GM',
+                          statusUrl: 'https://www.google.com/appsstatus/dashboard/' },
+    'google-meet':      { icon: 'googlemeet',    monogram: 'GM',
+                          statusUrl: 'https://www.google.com/appsstatus/dashboard/' },
+    'jira':             { icon: 'jira',          monogram: 'JR',
+                          statusApi: 'https://status.atlassian.com/api/v2/status.json',
+                          statusUrl: 'https://status.atlassian.com/' },
+    'linkedin':         { icon: null,            monogram: 'LI',
+                          statusUrl: 'https://www.linkedin.com/help/linkedin' },
+    'microsoft-teams':  { icon: null,            monogram: 'MT',
+                          statusUrl: 'https://portal.office.com/servicestatus' },
+    'miro':             { icon: 'miro',          monogram: 'MI',
+                          statusApi: 'https://status.miro.com/api/v2/status.json',
+                          statusUrl: 'https://status.miro.com/' },
+    'slack':            { icon: null,            monogram: 'SL',
+                          statusApi: 'https://status.slack.com/api/v2.0.0/current',
+                          statusUrl: 'https://status.slack.com/' },
+    'spotify':          { icon: 'spotify',       monogram: 'SP',
+                          statusUrl: 'https://status.spotify.dev/' },
+    'telegram':         { icon: 'telegram',      monogram: 'TG',
+                          statusUrl: 'https://core.telegram.org/' },
+    'whatsapp':         { icon: 'whatsapp',      monogram: 'WA',
+                          statusUrl: 'https://www.facebook.com/business/help/whatsapp' },
+    'youtube':          { icon: 'youtube',       monogram: 'YT',
+                          statusUrl: 'https://www.google.com/appsstatus/dashboard/' },
   };
 
   // ── Helpers ─────────────────────────────────────────────────
@@ -50,7 +68,6 @@
   const timeEl     = document.getElementById('last-updated-time');
   const refreshBtn = document.getElementById('refresh-all');
 
-  // Mapeia o indicador do StatusPage.io para nossa nomenclatura
   function mapIndicator(ind) {
     switch (ind) {
       case 'none':     return { cls: 'operational', label: 'Operacional' };
@@ -69,26 +86,55 @@
     }) + ' BRT';
   }
 
-  // ── Injeta logo e link de status em cada card ───────────────
+  // ── Monograma SVG (fallback estilizado on-brand) ─────────────
+  function makeMonogram(letters) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'status-card-logo');
+    svg.setAttribute('viewBox', '0 0 22 22');
+    svg.setAttribute('width', '22');
+    svg.setAttribute('height', '22');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.innerHTML =
+      '<rect x="0.6" y="0.6" width="20.8" height="20.8" fill="none" ' +
+        'stroke="#C8A030" stroke-width="0.9" opacity="0.65"/>' +
+      '<text x="11" y="11" text-anchor="middle" dominant-baseline="central" ' +
+        'font-family="Cormorant SC, Georgia, serif" font-size="9" font-weight="400" ' +
+        'fill="#C8A030" letter-spacing="0.5">' +
+        letters +
+      '</text>';
+    return svg;
+  }
+
+  // ── Injeta logo (com fallback) e link em cada card ───────────
   function enrichCards() {
     cards.forEach((card) => {
       const slug = card.dataset.service;
       const cfg = SERVICES[slug];
       if (!cfg) return;
 
-      // Logo (no canto superior esquerdo, antes do nome)
-      if (cfg.icon && !card.querySelector('.status-card-logo')) {
-        const img = document.createElement('img');
-        img.className = 'status-card-logo';
-        img.src = `https://cdn.simpleicons.org/${cfg.icon}/C8A030`;
-        img.alt = '';
-        img.loading = 'lazy';
-        img.width = 22;
-        img.height = 22;
-        card.insertBefore(img, card.firstChild);
+      if (!card.querySelector('.status-card-logo')) {
+        if (cfg.icon) {
+          // Tenta simpleicons; fallback para monograma se quebrar
+          const img = document.createElement('img');
+          img.className = 'status-card-logo';
+          img.src = `https://cdn.simpleicons.org/${cfg.icon}/C8A030`;
+          img.alt = '';
+          img.loading = 'lazy';
+          img.width = 22;
+          img.height = 22;
+          img.onerror = function () {
+            const mono = makeMonogram(cfg.monogram || '··');
+            this.replaceWith(mono);
+          };
+          card.insertBefore(img, card.firstChild);
+        } else {
+          // Sem ícone: vai direto pro monograma
+          const mono = makeMonogram(cfg.monogram || '··');
+          card.insertBefore(mono, card.firstChild);
+        }
       }
 
-      // Link para status oficial (footer do card)
+      // Link para status oficial
       if (cfg.statusUrl && !card.querySelector('.status-card-link')) {
         const a = document.createElement('a');
         a.className = 'status-card-link';
@@ -110,7 +156,6 @@
     if (!cfg || !badge) return;
 
     if (cfg.statusApi) {
-      // Health check real via StatusPage.io
       const start = performance.now();
       try {
         const r = await fetch(cfg.statusApi, { cache: 'no-store' });
@@ -118,7 +163,6 @@
         if (!r.ok) throw new Error('HTTP ' + r.status);
         const data = await r.json();
 
-        // StatusPage.io v2 e v2.0.0 (Slack) divergem ligeiramente
         const indicator = data?.status?.indicator
                       || data?.status?.description?.toLowerCase()
                       || 'none';
@@ -137,14 +181,12 @@
         if (details) details.textContent = 'Não foi possível alcançar a API.';
       }
     } else {
-      // Sem API pública: indica como "manual" e linka pro status oficial
       badge.className = 'status-badge manual';
       badge.textContent = 'Verificação manual';
       if (details) details.textContent = 'Consulte o link do status oficial.';
     }
   }
 
-  // ── Loop principal ──────────────────────────────────────────
   async function updateAll() {
     if (timeEl) timeEl.textContent = '— verificando…';
     cards.forEach((c) => {
@@ -156,13 +198,11 @@
       }
     });
 
-    // Escalonamento de 60ms entre requests — visual de instrumento operando
     for (let i = 0; i < cards.length; i++) {
       checkService(cards[i]);
       await new Promise((r) => setTimeout(r, 60));
     }
 
-    // Aguarda mais um pouco para garantir que os últimos resolveram
     setTimeout(() => {
       if (timeEl) timeEl.textContent = fmtTime(new Date());
     }, 1500);

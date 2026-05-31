@@ -13,9 +13,9 @@
   --gold-faint:   rgba(200, 160, 48, 0.12);
   --surface:      #111111;
   --surface-2:    #171717;
-  --muted:        rgba(245, 245, 245, 0.32);
-  --muted-mid:    rgba(245, 245, 245, 0.55);
-  --muted-high:   rgba(245, 245, 245, 0.82);
+  --muted:        rgba(245, 245, 245, 0.55);
+  --muted-mid:    rgba(245, 245, 245, 0.72);
+  --muted-high:   rgba(245, 245, 245, 0.88);
 
   /* Typography */
   --serif:  'Cormorant SC', Georgia, serif;
