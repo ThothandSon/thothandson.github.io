@@ -1,136 +1,97 @@
 # Thoth & Son
 
-![Thoth & Son Logo](assets/logo.png)
+> Precisão. Cultura. Resultado.
 
-> **Software Matters** - Transformando conhecimento em soluções extraordinárias
-
----
-
-## 🏢 Sobre a Thoth & Son
-
-A **Thoth & Son** é uma empresa de tecnologia fundada com a convicção de que o software realmente importa. Desenvolvemos soluções SaaS inovadoras e cultivamos iniciativas educacionais que conectam profundidade intelectual com execução pragmática.
-
-Nossa missão é criar tecnologia que não apenas resolve problemas, mas transforma mercados - combinando excelência técnica com visão estratégica fundamentada em conhecimento profundo.
+Site oficial — [thothandson.github.io](https://thothandson.github.io)
 
 ---
 
-## 🚀 Nossas Iniciativas
+## Stack
+
+- **Jekyll 3.x** (compatível com GitHub Pages)
+- **Vanilla JS** com ES modules
+- **Three.js** para a cena 3D do hero
+- Tipografia: Cormorant SC, Jura, IBM Plex Mono (Google Fonts)
+- Sem build step de assets
 
 ---
 
-## 🎯 Nossa Visão
-
-Construímos tecnologia com propósito e cultivamos comunidades de conhecimento porque acreditamos que:
-
-1. **Profundidade gera inovação** - Conhecimento amplo e reflexivo produz soluções mais criativas
-2. **Execução importa** - Ideias brilhantes precisam de implementação impecável
-3. **Comunidade amplifica** - Mentes preparadas em diálogo constante aceleram transformação
-4. **Software matters** - Tecnologia bem feita muda o jogo
-
----
-
-## 📁 Estrutura do Projeto
+## Estrutura
 
 ```
-thothandson.github.io/
-├── _layouts/           # Templates Jekyll
-├── _includes/          # Componentes reutilizáveis
-│   ├── header.html     # Navegação principal
-│   └── footer.html     # Rodapé do site
-├── _posts/             # Posts do blog
-├── assets/             # Imagens e recursos estáticos
+.
+├── _config.yml            # Configuração Jekyll
+├── _includes/             # Header e footer
+├── _layouts/              # default.html e post.html
+├── _posts/                # Posts em Markdown
+├── assets/                # Logos, ícones, modelos 3D
+├── index.html             # Home
+├── posts.html             # Listagem
+├── status-page/           # Telemetria de serviços
+├── styles/                # main.css, home.css, inner.css, status-page.css
 ├── js/
-│   ├── src/           # Código fonte JavaScript (LOCAL APENAS)
-│   └── main.js        # Código ofuscado (GitHub + Produção)
-├── saas/              # Landing pages
-├── styles/            # Folhas de estilo CSS
-│   ├── main.css       # Estilos principais
-├── scripts/           # Scripts de automação
-│   ├── dev.sh         # Script principal de desenvolvimento
-│   ├── obfuscate.sh   # Script de ofuscação
-│   └── backup.sh      # Sistema de backup
-└── tests/             # Testes automatizados
+│   ├── console-manager.js # Easter egg + mini-game de cifras herméticas
+│   ├── instruments.js     # HUD + crosshair (globais)
+│   ├── home.js            # Interações da home
+│   ├── hero-3d.js         # Cena 3D da home (icosaedros + cérebro)
+│   ├── mini-3d.js         # Cena 3D leve das páginas internas
+│   └── status.js          # Health checks da status page
+├── scripts/
+│   └── dev.sh             # Helper de desenvolvimento
+└── tests/                 # Suíte de validação
 ```
 
 ---
 
-## 🛠️ Desenvolvimento
+## Desenvolvimento
 
-### Pré-requisitos
-
-- **Ruby** (para Jekyll)
-- **Node.js** (para testes e dependências)
-- **Git** (para controle de versão)
-
-### Configuração Inicial
+Pré-requisitos: Ruby 3.x, Bundler, Node 20+.
 
 ```bash
-# Clonar o repositório
-git clone https://github.com/Thoth-and-Son/thothandson.github.io.git
-cd thothandson.github.io
-
-# Instalar Jekyll
-gem install jekyll bundler
-
-# Instalar dependências
-npm install
-
-# Dar permissões aos scripts
-chmod +x scripts/*.sh
+bundle install
+./scripts/dev.sh serve     # → http://127.0.0.1:4000
 ```
 
-### Execução Local
+Outros comandos:
 
 ```bash
-# Iniciar servidor de desenvolvimento
-./scripts/dev.sh serve
-
-# Ou usando npm
-npm run dev
-
-# O site estará disponível em http://localhost:4000
+./scripts/dev.sh build     # build de produção
+./scripts/dev.sh clean     # remove _site/ e cache
+./scripts/dev.sh test      # suíte completa
 ```
 
-### Sistema de Segurança
+---
 
-Este projeto implementa um **sistema de proteção de código enterprise**:
-
-- **Dual-Layer Obfuscation**: Duas camadas de ofuscação
-- **Backup Automático**: Sistema local de backup do código fonte
-- **Proteção Git**: Código fonte nunca enviado para repositórios públicos
-- **CI/CD Seguro**: Pipeline automatizado com re-ofuscação
+## Testes
 
 ```bash
-# Ver status dos arquivos
-./scripts/dev.sh status
-
-# Usar código fonte (desenvolvimento)
-./scripts/dev.sh dev
-
-# Preparar para produção (ofuscar)
-./scripts/dev.sh prod
-
-# Restaurar do backup
-./scripts/dev.sh restore
+npm test                   # roda toda a suíte
+npm run test:js            # validação de sintaxe JS/ESM
+npm run test:security      # auditoria de segredos + padrões perigosos
+npm run test:html          # higiene de HTML (alt, noopener, etc)
 ```
 
 ---
 
-## 📞 Contato
+## CI
 
-- **Site Oficial**: [thothandson.github.io](https://thothandson.github.io)
-- **Email**: Através dos formulários de contato em cada iniciativa
+Dois workflows em `.github/workflows/`:
 
----
-
-## 📄 Licença
-
-Este é um projeto **PROPRIETÁRIO** da Thoth & Son. Todos os direitos reservados.
-
-O código fonte é mantido localmente e protegido por sistemas avançados de ofuscação. **NUNCA** faça commit do diretório `js/src/` ou desative os sistemas de proteção.
+- **`validate.yml`** — em todo push/PR: testes + Jekyll build
+- **`pages.yml`** — em push na `main`: deploy para GitHub Pages
 
 ---
 
-**Thoth & Son** © 2025 - Software Matters
+## Easter egg
 
-_Transformando conhecimento profundo em soluções extraordinárias_
+Abra o console do navegador. Há um sistema de cifras dos sete Princípios
+Herméticos. Comece com `thoth.help()`.
+
+As respostas estão armazenadas como hashes SHA-256 salgados — o código-fonte
+não revela as palavras.
+
+---
+
+## Licença
+
+Código UNLICENSED. Marca e identidade visual são propriedade de Thoth & Son.
