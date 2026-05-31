@@ -1,353 +1,82 @@
 ---
 layout: default
-title: "Status Page - Serviços Essenciais"
+title: "Status — Thoth & Son"
+description: "Telemetria pública. Serviços que o mundo digital depende, em tempo real."
 ---
 
+<link rel="stylesheet" href="/styles/inner.css">
 <link rel="stylesheet" href="/styles/status-page.css">
 
-<div class="status-page-container">
-  <div class="status-header">
-    <h1>🚦 Status de Serviços Essenciais</h1>
-    <div class="last-updated">
-      <span id="last-updated-time">Carregando...</span>
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-text">
+      <div class="page-hero-eyebrow">TELEMETRIA · MONITORAMENTO PÚBLICO</div>
+      <h1 class="page-hero-title">Sinal vital.</h1>
+      <div class="page-hero-rule"></div>
+      <p class="page-hero-tagline">
+        O que sustenta o trabalho de quem trabalha com software.
+        Acompanhamento em tempo real dos serviços essenciais.
+      </p>
     </div>
+    <div class="mini-3d-wrapper">
+      <canvas id="mini-3d" aria-hidden="true"></canvas>
+    </div>
+  </div>
+</section>
+
+<div class="status-container">
+
+  <div class="status-meta">
+    <div>
+      <span><span class="meta-key">ATUALIZADO</span><span class="meta-val" id="last-updated-time">—</span></span>
+    </div>
+    <button id="refresh-all" class="status-meta-refresh" type="button">↻ Reverificar</button>
   </div>
 
   <div class="status-grid" id="status-grid">
-    <!-- Apple Music -->
-    <div class="status-card" data-service="apple-music">
-      <div class="service-header">
-        <div class="service-logo">
-          🎵
-        </div>
-        <div class="service-info">
-          <h3>Apple Music</h3>
-          <p>Plataforma de streaming de música da Apple</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-apple-music">Verificando...</span>
-        <div class="status-details" id="details-apple-music"></div>
-      </div>
-    </div>
 
-    <!-- AWS -->
-    <div class="status-card" data-service="aws">
-      <div class="service-header">
-        <div class="service-logo">
-          ☁️
-        </div>
-        <div class="service-info">
-          <h3>AWS</h3>
-          <p>Amazon Web Services - Plataforma de nuvem</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-aws">Verificando...</span>
-        <div class="status-details" id="details-aws"></div>
-      </div>
-    </div>
+    {% assign services = "apple-music,Apple Music,Streaming de música da Apple|aws,AWS,Amazon Web Services|chatgpt,ChatGPT,Assistente de IA da OpenAI|cloudflare,Cloudflare,Rede de distribuição e segurança|confluence,Confluence,Documentação colaborativa|deepseek,DeepSeek,Modelos de linguagem|github,GitHub,Hospedagem de código|gmail,Gmail,Email do Google|google-meet,Google Meet,Videoconferência|jira,Jira,Gestão de projetos da Atlassian|linkedin,LinkedIn,Rede profissional|microsoft-teams,Microsoft Teams,Colaboração da Microsoft|miro,Miro,Quadro colaborativo|slack,Slack,Comunicação empresarial|spotify,Spotify,Streaming de música|telegram,Telegram,Mensagens instantâneas|whatsapp,WhatsApp,Mensagens do Meta|youtube,YouTube,Vídeos do Google" | split: "|" %}
 
-    <!-- ChatGPT -->
-    <div class="status-card" data-service="chatgpt">
-      <div class="service-header">
-        <div class="service-logo">
-          🤖
-        </div>
-        <div class="service-info">
-          <h3>ChatGPT</h3>
-          <p>Assistente de IA conversacional da OpenAI</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-chatgpt">Verificando...</span>
-        <div class="status-details" id="details-chatgpt"></div>
-      </div>
-    </div>
+    {% for svc in services %}
+      {% assign parts = svc | split: "," %}
+      {% assign slug = parts[0] %}
+      {% assign name = parts[1] %}
+      {% assign desc = parts[2] %}
+      {% assign idx = forloop.index | prepend: "0" | slice: -2, 2 %}
+      <article class="status-card" data-service="{{ slug }}">
+        <span class="status-card-idx">{{ idx }}</span>
+        <h3 class="status-card-name">{{ name }}</h3>
+        <p class="status-card-desc">{{ desc }}</p>
+        <span class="status-badge loading" id="status-{{ slug }}">Verificando</span>
+        <div class="status-details" id="details-{{ slug }}"></div>
+      </article>
+    {% endfor %}
 
-    <!-- Cloudflare -->
-    <div class="status-card" data-service="cloudflare">
-      <div class="service-header">
-        <div class="service-logo">
-          🛡️
-        </div>
-        <div class="service-info">
-          <h3>Cloudflare</h3>
-          <p>Rede de distribuição de conteúdo e segurança</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-cloudflare">Verificando...</span>
-        <div class="status-details" id="details-cloudflare"></div>
-      </div>
-    </div>
-
-    <!-- Confluence -->
-    <div class="status-card" data-service="confluence">
-      <div class="service-header">
-        <div class="service-logo">
-          📖
-        </div>
-        <div class="service-info">
-          <h3>Confluence</h3>
-          <p>Plataforma de documentação colaborativa</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-confluence">Verificando...</span>
-        <div class="status-details" id="details-confluence"></div>
-      </div>
-    </div>
-
-    <!-- DeepSeek -->
-    <div class="status-card" data-service="deepseek">
-      <div class="service-header">
-        <div class="service-logo">
-          🧠
-        </div>
-        <div class="service-info">
-          <h3>DeepSeek</h3>
-          <p>Plataforma de IA e modelos de linguagem</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-deepseek">Verificando...</span>
-        <div class="status-details" id="details-deepseek"></div>
-      </div>
-    </div>
-
-    <!-- GitHub -->
-    <div class="status-card" data-service="github">
-      <div class="service-header">
-        <div class="service-logo">
-          🐙
-        </div>
-        <div class="service-info">
-          <h3>GitHub</h3>
-          <p>Plataforma de hospedagem de código e colaboração</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-github">Verificando...</span>
-        <div class="status-details" id="details-github"></div>
-      </div>
-    </div>
-
-    <!-- Gmail -->
-    <div class="status-card" data-service="gmail">
-      <div class="service-header">
-        <div class="service-logo">
-          ✉️
-        </div>
-        <div class="service-info">
-          <h3>Gmail</h3>
-          <p>Serviço de email do Google</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-gmail">Verificando...</span>
-        <div class="status-details" id="details-gmail"></div>
-      </div>
-    </div>
-
-    <!-- Google Meet -->
-    <div class="status-card" data-service="google-meet">
-      <div class="service-header">
-        <div class="service-logo">
-          📹
-        </div>
-        <div class="service-info">
-          <h3>Google Meet</h3>
-          <p>Plataforma de videoconferência do Google</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-google-meet">Verificando...</span>
-        <div class="status-details" id="details-google-meet"></div>
-      </div>
-    </div>
-
-    <!-- Jira -->
-    <div class="status-card" data-service="jira">
-      <div class="service-header">
-        <div class="service-logo">
-          📋
-        </div>
-        <div class="service-info">
-          <h3>Jira</h3>
-          <p>Ferramenta de gestão de projetos da Atlassian</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-jira">Verificando...</span>
-        <div class="status-details" id="details-jira"></div>
-      </div>
-    </div>
-
-    <!-- LinkedIn -->
-    <div class="status-card" data-service="linkedin">
-      <div class="service-header">
-        <div class="service-logo">
-          💼
-        </div>
-        <div class="service-info">
-          <h3>LinkedIn</h3>
-          <p>Rede social profissional</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-linkedin">Verificando...</span>
-        <div class="status-details" id="details-linkedin"></div>
-      </div>
-    </div>
-
-    <!-- Microsoft Teams -->
-    <div class="status-card" data-service="microsoft-teams">
-      <div class="service-header">
-        <div class="service-logo">
-          👥
-        </div>
-        <div class="service-info">
-          <h3>Microsoft Teams</h3>
-          <p>Plataforma de colaboração da Microsoft</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-microsoft-teams">Verificando...</span>
-        <div class="status-details" id="details-microsoft-teams"></div>
-      </div>
-    </div>
-
-    <!-- Miro -->
-    <div class="status-card" data-service="miro">
-      <div class="service-header">
-        <div class="service-logo">
-          🎨
-        </div>
-        <div class="service-info">
-          <h3>Miro</h3>
-          <p>Plataforma de quadro colaborativo online</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-miro">Verificando...</span>
-        <div class="status-details" id="details-miro"></div>
-      </div>
-    </div>
-
-    <!-- Slack -->
-    <div class="status-card" data-service="slack">
-      <div class="service-header">
-        <div class="service-logo">
-          💬
-        </div>
-        <div class="service-info">
-          <h3>Slack</h3>
-          <p>Plataforma de comunicação empresarial</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-slack">Verificando...</span>
-        <div class="status-details" id="details-slack"></div>
-      </div>
-    </div>
-
-    <!-- Spotify -->
-    <div class="status-card" data-service="spotify">
-      <div class="service-header">
-        <div class="service-logo">
-          🎧
-        </div>
-        <div class="service-info">
-          <h3>Spotify</h3>
-          <p>Plataforma de streaming de música</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-spotify">Verificando...</span>
-        <div class="status-details" id="details-spotify"></div>
-      </div>
-    </div>
-
-    <!-- Telegram -->
-    <div class="status-card" data-service="telegram">
-      <div class="service-header">
-        <div class="service-logo">
-          ✈️
-        </div>
-        <div class="service-info">
-          <h3>Telegram</h3>
-          <p>Aplicativo de mensagens instantâneas</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-telegram">Verificando...</span>
-        <div class="status-details" id="details-telegram"></div>
-      </div>
-    </div>
-
-    <!-- WhatsApp -->
-    <div class="status-card" data-service="whatsapp">
-      <div class="service-header">
-        <div class="service-logo">
-          📱
-        </div>
-        <div class="service-info">
-          <h3>WhatsApp</h3>
-          <p>Aplicativo de mensagens do Meta</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-whatsapp">Verificando...</span>
-        <div class="status-details" id="details-whatsapp"></div>
-      </div>
-    </div>
-
-    <!-- YouTube -->
-    <div class="status-card" data-service="youtube">
-      <div class="service-header">
-        <div class="service-logo">
-          📺
-        </div>
-        <div class="service-info">
-          <h3>YouTube</h3>
-          <p>Plataforma de compartilhamento de vídeos</p>
-        </div>
-      </div>
-      <div class="status-indicator">
-        <span class="status-badge loading" id="status-youtube">Verificando...</span>
-        <div class="status-details" id="details-youtube"></div>
-      </div>
-    </div>
   </div>
 
   <div class="status-legend">
-    <h3>Legenda de Status</h3>
-    <div class="legend-items">
+    <div class="status-legend-title">— Legenda</div>
+    <div class="status-legend-grid">
       <div class="legend-item">
         <span class="status-badge operational">Operacional</span>
-        <span>Todos os sistemas funcionando normalmente</span>
+        <span>Funcionando normalmente</span>
       </div>
       <div class="legend-item">
         <span class="status-badge degraded">Degradado</span>
-        <span>Serviço com performance reduzida</span>
+        <span>Performance reduzida</span>
       </div>
       <div class="legend-item">
         <span class="status-badge partial">Parcial</span>
         <span>Alguns recursos indisponíveis</span>
       </div>
       <div class="legend-item">
-        <span class="status-badge down">Fora do Ar</span>
+        <span class="status-badge down">Fora do ar</span>
         <span>Serviço completamente indisponível</span>
       </div>
     </div>
   </div>
 
-  <div class="refresh-container">
-    <button id="refresh-all" class="refresh-button">
-      🔄 Atualizar Todos os Status
-    </button>
-  </div>
 </div>
 
-<script src="/js/main.js"></script>
+<script type="module" src="/js/mini-3d.js"></script>
+<script src="/js/status.js" defer></script>
