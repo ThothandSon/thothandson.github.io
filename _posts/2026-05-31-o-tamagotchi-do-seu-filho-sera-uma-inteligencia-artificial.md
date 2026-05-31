@@ -1,6 +1,6 @@
 ---
 title: "O Tamagotchi do seu filho será uma inteligência artificial"
-date: 2026-06-01
+date: 2026-05-31
 ---
 
 # O Tamagotchi do seu filho será uma inteligência artificial
