@@ -211,7 +211,7 @@
           origLog('%c excepto aos ouvidos do Entendimento."', sWhite);
           origLog('%c                                  — O Caibalion', sDim);
           origLog(' ');
-          origLog('%c→ Conversa: %clucas@thothandson.com.br', sWhite, sBold);
+          origLog('%c→ Conversa: %cthothandson@icloud.com', sWhite, sBold);
         }
         origLog(' ');
       } else {
