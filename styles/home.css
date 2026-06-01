@@ -540,3 +540,147 @@
   background: rgba(10, 10, 10, 0.0);
   border-bottom-color: transparent;
 }
+
+/* ════════════════════════════════════════════════════════════
+   PRODUTOS — quatro signetas, quatro matérias de software
+   ════════════════════════════════════════════════════════════ */
+.products-section {
+  padding: var(--s7) var(--s4);
+  border-top: 1px solid var(--gold-faint);
+  position: relative;
+}
+
+.products-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--gold-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--gold-faint) 1px, transparent 1px);
+  background-size: 88px 88px;
+  opacity: 0.20;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 85%);
+}
+
+.products-inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.products-header {
+  max-width: 760px;
+  margin: 0 auto var(--s6);
+  text-align: left;
+}
+
+.products-eyebrow {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: var(--s3);
+}
+.products-eyebrow::before { content: '— '; opacity: 0.6; }
+
+.products-title {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: var(--s4);
+}
+
+.products-lede {
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  font-style: italic;
+  color: var(--muted-mid);
+  line-height: 1.55;
+  max-width: 640px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--gold-faint);
+  border: 1px solid var(--gold-faint);
+}
+
+.product-card {
+  background: var(--surface, #101012);
+  padding: var(--s5) var(--s4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  position: relative;
+  transition: background 0.3s;
+  min-height: 320px;
+}
+
+.product-card:hover {
+  background: var(--surface-2, #16161A);
+}
+
+.product-signet {
+  width: 88px;
+  height: 88px;
+  margin-bottom: var(--s3);
+  opacity: 0.92;
+}
+.product-signet img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 12px rgba(200, 160, 48, 0.15));
+}
+
+.product-num {
+  position: absolute;
+  top: var(--s3);
+  right: var(--s3);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  opacity: 0.55;
+}
+
+.product-name {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  line-height: 1;
+}
+
+.product-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--gold);
+  margin-top: var(--s1);
+}
+
+.product-desc {
+  font-family: var(--body);
+  font-size: 0.88rem;
+  color: var(--muted-mid);
+  line-height: 1.6;
+  margin-top: auto;
+  padding-top: var(--s3);
+}
+
+@media (max-width: 768px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .product-card { min-height: 260px; }
+}
