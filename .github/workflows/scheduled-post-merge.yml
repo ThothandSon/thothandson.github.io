@@ -1,0 +1,64 @@
+name: Auto-merge scheduled posts
+
+# Roda diariamente às 09:00 BRT (12:00 UTC) para mesclar PRs cujo
+# `publish-date` chegou. Também pode ser disparado manualmente.
+
+on:
+  schedule:
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge-due-posts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find and merge due PRs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          # Data de hoje em UTC. PR é elegível se seu publish-date <= hoje.
+          today=$(date -u +%Y-%m-%d)
+          echo "Today (UTC): $today"
+
+          # Lista PRs abertos com label scheduled-post
+          prs=$(gh pr list \
+            --label scheduled-post \
+            --state open \
+            --json number,title,body,headRefName \
+            --jq '.[]')
+
+          if [ -z "$prs" ]; then
+            echo "No scheduled PRs open."
+            exit 0
+          fi
+
+          # Itera cada PR e extrai publish-date do corpo (formato: "publish-date: YYYY-MM-DD")
+          echo "$prs" | jq -c '.' | while read -r pr; do
+            number=$(echo "$pr" | jq -r '.number')
+            title=$(echo "$pr"  | jq -r '.title')
+            body=$(echo "$pr"   | jq -r '.body')
+            branch=$(echo "$pr" | jq -r '.headRefName')
+
+            publish_date=$(echo "$body" | grep -Eo 'publish-date:[[:space:]]*[0-9]{4}-[0-9]{2}-[0-9]{2}' | head -1 | awk '{print $2}')
+
+            if [ -z "$publish_date" ]; then
+              echo "  PR #$number ($title): no publish-date found — skipping"
+              continue
+            fi
+
+            echo "  PR #$number ($title) — publish-date: $publish_date"
+
+            if [[ "$publish_date" > "$today" ]]; then
+              echo "    not yet due — skipping"
+              continue
+            fi
+
+            echo "    DUE — merging…"
+            gh pr merge "$number" --squash --delete-branch --admin
+          done
