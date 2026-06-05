@@ -19,36 +19,33 @@ jobs:
       - name: Find and merge due PRs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
 
-          # Data de hoje em UTC. PR é elegível se seu publish-date <= hoje.
           today=$(date -u +%Y-%m-%d)
           echo "Today (UTC): $today"
+          echo "Repo: $REPO"
 
-          # Lista PRs abertos com label scheduled-post
           prs=$(gh pr list \
+            --repo "$REPO" \
             --label scheduled-post \
             --state open \
-            --json number,title,body,headRefName \
-            --jq '.[]')
+            --json number,title,body,headRefName)
 
-          if [ -z "$prs" ]; then
-            echo "No scheduled PRs open."
-            exit 0
-          fi
+          count=$(echo "$prs" | jq 'length')
+          echo "Scheduled PRs open: $count"
+          if [ "$count" -eq 0 ]; then exit 0; fi
 
-          # Itera cada PR e extrai publish-date do corpo (formato: "publish-date: YYYY-MM-DD")
-          echo "$prs" | jq -c '.' | while read -r pr; do
+          echo "$prs" | jq -c '.[]' | while read -r pr; do
             number=$(echo "$pr" | jq -r '.number')
             title=$(echo "$pr"  | jq -r '.title')
             body=$(echo "$pr"   | jq -r '.body')
-            branch=$(echo "$pr" | jq -r '.headRefName')
 
             publish_date=$(echo "$body" | grep -Eo 'publish-date:[[:space:]]*[0-9]{4}-[0-9]{2}-[0-9]{2}' | head -1 | awk '{print $2}')
 
             if [ -z "$publish_date" ]; then
-              echo "  PR #$number ($title): no publish-date found — skipping"
+              echo "  PR #$number ($title): no publish-date — skipping"
               continue
             fi
 
@@ -60,5 +57,5 @@ jobs:
             fi
 
             echo "    DUE — merging…"
-            gh pr merge "$number" --squash --delete-branch --admin
+            gh pr merge "$number" --repo "$REPO" --squash --delete-branch --admin
           done
