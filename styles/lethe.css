@@ -1,0 +1,539 @@
+/* ============================================================
+   Lethe — Landing page
+   On-brand with Thoth & Son design system + Lethe green accent
+   ============================================================ */
+
+/* ── LETHE TOKENS ──────────────────────────────────────────── */
+:root {
+  --lethe-green:      #4ade80;
+  --lethe-green-dim:  rgba(74, 222, 128, 0.40);
+  --lethe-green-faint:rgba(74, 222, 128, 0.10);
+  --lethe-gold:       #B5783A;
+}
+
+/* ── UTILITY ───────────────────────────────────────────────── */
+.accent-green { color: var(--lethe-green); }
+.accent-green-link {
+  color: var(--lethe-green);
+  border-bottom: 1px solid var(--lethe-green-dim);
+  transition: opacity 0.2s;
+}
+.accent-green-link:hover { opacity: 0.7; }
+
+.lethe-container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--s3);
+}
+
+/* ── HERO ──────────────────────────────────────────────────── */
+.lethe-hero {
+  position: relative;
+  min-height: calc(100vh - var(--header-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: var(--s7) var(--s4);
+}
+
+.lethe-hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--lethe-green-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--lethe-green-faint) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.4;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+}
+
+.lethe-hero-compass {
+  position: absolute;
+  top: 0;
+  left: -10%;
+  width: 60vmin;
+  height: 60vmin;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.lethe-hero-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 720px;
+}
+
+.lethe-hero-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: var(--lethe-gold);
+  opacity: 0.7;
+  margin-bottom: var(--s3);
+}
+
+.lethe-hero-title {
+  margin-bottom: var(--s2);
+}
+
+.lethe-logo-ascii {
+  font-family: var(--mono);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  color: var(--lethe-green);
+  display: block;
+  text-shadow: 0 0 60px var(--lethe-green-dim);
+}
+
+.lethe-hero-tagline {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 300;
+  color: var(--muted-high);
+  letter-spacing: 0.08em;
+  margin-bottom: var(--s3);
+}
+
+.lethe-hero-desc {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 560px;
+  margin: 0 auto var(--s4);
+}
+
+.lethe-hero-desc strong {
+  color: var(--lethe-green);
+  font-weight: 400;
+}
+
+.lethe-hero-cta {
+  display: flex;
+  gap: var(--s2);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── BUTTONS ───────────────────────────────────────────────── */
+.lethe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-family: var(--body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.lethe-btn-primary {
+  background: var(--lethe-green);
+  color: #0A0A0A;
+}
+.lethe-btn-primary:hover {
+  opacity: 1;
+  filter: brightness(1.1);
+  box-shadow: 0 0 24px var(--lethe-green-dim);
+}
+
+.lethe-btn-secondary {
+  background: transparent;
+  color: var(--muted-high);
+  border: 1px solid rgba(245, 245, 245, 0.15);
+}
+.lethe-btn-secondary:hover {
+  opacity: 1;
+  border-color: var(--lethe-green);
+  color: var(--lethe-green);
+}
+
+.lethe-btn-lg {
+  padding: 14px 36px;
+  font-size: 0.95rem;
+}
+
+.lethe-btn-full { width: 100%; }
+
+/* ── SECTIONS ──────────────────────────────────────────────── */
+.lethe-section {
+  padding: var(--s7) 0;
+}
+
+.lethe-section-alt {
+  background: var(--surface);
+}
+
+.lethe-section-title {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: 0.04em;
+  margin-bottom: var(--s1);
+  text-align: center;
+}
+
+.lethe-section-sub {
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: var(--s5);
+}
+
+.lethe-section-sub code {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--lethe-green);
+  background: var(--lethe-green-faint);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+/* ── MODES GRID ────────────────────────────────────────────── */
+.lethe-modes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--s3);
+}
+
+.lethe-mode-card {
+  background: var(--surface);
+  border: 1px solid rgba(245, 245, 245, 0.06);
+  border-radius: 8px;
+  padding: var(--s4);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.lethe-mode-card:hover {
+  border-color: var(--lethe-green-dim);
+  box-shadow: 0 0 32px rgba(74, 222, 128, 0.06);
+}
+
+.lethe-mode-icon {
+  font-size: 1.8rem;
+  color: var(--lethe-green);
+  margin-bottom: var(--s2);
+  opacity: 0.8;
+}
+
+.lethe-mode-card h3 {
+  font-family: var(--mono);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--lethe-green);
+  text-transform: uppercase;
+  margin-bottom: var(--s1);
+}
+
+.lethe-mode-card p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── FEATURES GRID ─────────────────────────────────────────── */
+.lethe-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--s3);
+}
+
+.lethe-feature {
+  padding: var(--s3);
+  border-left: 2px solid var(--lethe-green-dim);
+  transition: border-color 0.2s;
+}
+
+.lethe-feature:hover {
+  border-color: var(--lethe-green);
+}
+
+.lethe-feature-label {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  color: var(--lethe-gold);
+  margin-bottom: var(--s1);
+}
+
+.lethe-feature p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── BENCHMARK TABLE ───────────────────────────────────────── */
+.lethe-bench-table-wrap {
+  overflow-x: auto;
+  margin-bottom: var(--s2);
+}
+
+.lethe-bench-table {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+}
+
+.lethe-bench-table thead th {
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lethe-gold);
+  font-size: 0.68rem;
+  padding: var(--s1) var(--s2);
+  border-bottom: 1px solid rgba(245, 245, 245, 0.1);
+  text-align: left;
+}
+
+.lethe-bench-table tbody td {
+  padding: var(--s1) var(--s2);
+  color: var(--muted-mid);
+  border-bottom: 1px solid rgba(245, 245, 245, 0.04);
+}
+
+.lethe-bench-table tbody tr:hover td {
+  background: var(--lethe-green-faint);
+}
+
+.lethe-bench-note {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+/* ── PRICING ───────────────────────────────────────────────── */
+.lethe-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--s3);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.lethe-pricing-card {
+  position: relative;
+  background: var(--black);
+  border: 1px solid rgba(245, 245, 245, 0.08);
+  border-radius: 8px;
+  padding: var(--s4);
+  text-align: center;
+  transition: border-color 0.2s;
+}
+
+.lethe-pricing-card:hover {
+  border-color: var(--lethe-green-dim);
+}
+
+.lethe-pricing-featured {
+  border-color: var(--lethe-green-dim);
+  box-shadow: 0 0 40px rgba(74, 222, 128, 0.06);
+}
+
+.lethe-pricing-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--lethe-green);
+  color: #0A0A0A;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 14px;
+  border-radius: 10px;
+}
+
+.lethe-pricing-tier {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.lethe-pricing-code {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--lethe-gold);
+  opacity: 0.7;
+  margin-bottom: var(--s3);
+}
+
+.lethe-pricing-price {
+  font-family: var(--mono);
+  font-size: 2.4rem;
+  color: var(--lethe-green);
+  font-weight: 300;
+  margin-bottom: var(--s3);
+}
+
+.lethe-pricing-features {
+  list-style: none;
+  margin-bottom: var(--s4);
+}
+
+.lethe-pricing-features li {
+  font-size: 0.82rem;
+  color: var(--muted);
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(245, 245, 245, 0.04);
+}
+
+.lethe-pricing-features li:last-child {
+  border-bottom: none;
+}
+
+/* ── DOWNLOAD ──────────────────────────────────────────────── */
+.lethe-download-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--s2);
+  max-width: 760px;
+  margin: 0 auto var(--s3);
+}
+
+.lethe-download-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--s3) var(--s2);
+  background: var(--surface);
+  border: 1px solid rgba(245, 245, 245, 0.06);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.lethe-download-card:hover {
+  opacity: 1;
+  border-color: var(--lethe-green);
+  box-shadow: 0 0 24px rgba(74, 222, 128, 0.08);
+}
+
+.lethe-download-os {
+  font-family: var(--mono);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  color: var(--white);
+}
+
+.lethe-download-arch {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.lethe-download-ext {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--lethe-green);
+  opacity: 0.7;
+}
+
+.lethe-download-note {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+/* ── GHOST-RIZZ SECTION ────────────────────────────────────── */
+.lethe-ghost-section {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s5);
+  align-items: center;
+}
+
+.lethe-ghost-text .lethe-section-title {
+  text-align: left;
+  margin-bottom: var(--s2);
+}
+
+.lethe-ghost-text p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: var(--s2);
+}
+
+.lethe-ghost-note {
+  font-size: 0.78rem !important;
+  opacity: 0.6;
+}
+
+.lethe-ghost-install {
+  text-align: center;
+}
+
+.lethe-ghost-cmd {
+  display: block;
+  margin-top: var(--s1);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--lethe-green);
+  background: var(--black);
+  padding: 12px 20px;
+  border-radius: 6px;
+  border: 1px solid rgba(74, 222, 128, 0.15);
+  white-space: nowrap;
+}
+
+/* ── FINAL CTA ─────────────────────────────────────────────── */
+.lethe-final-cta {
+  padding: var(--s7) 0;
+}
+
+.lethe-final-cta .lethe-section-title {
+  font-size: clamp(1.3rem, 3.5vw, 2rem);
+}
+
+/* ── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .lethe-hero {
+    padding: var(--s5) var(--s2);
+    min-height: 80vh;
+  }
+
+  .lethe-section {
+    padding: var(--s5) 0;
+  }
+
+  .lethe-ghost-section {
+    grid-template-columns: 1fr;
+    gap: var(--s3);
+  }
+
+  .lethe-ghost-text .lethe-section-title {
+    text-align: center;
+  }
+
+  .lethe-ghost-text p {
+    text-align: center;
+  }
+
+  .lethe-pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+  }
+}

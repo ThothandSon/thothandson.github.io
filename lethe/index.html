@@ -1,0 +1,266 @@
+---
+layout: default
+title: "Lethe — EXIF Metadata Cleaner & Fuzzer"
+description: "Limpe, substitua ou audite metadados EXIF de lotes inteiros de imagens. TUI, desktop e CLI — um único binário, zero dependências."
+---
+
+<link rel="stylesheet" href="/styles/lethe.css">
+
+<!-- ════════════════ HERO ════════════════ -->
+<section class="lethe-hero">
+  <div class="lethe-hero-grid"></div>
+
+  <svg class="lethe-hero-compass" viewBox="0 0 480 480" aria-hidden="true">
+    <g fill="none" stroke="#4ade80" stroke-width="0.5">
+      <circle cx="0" cy="240" r="380" opacity="0.15"/>
+      <circle cx="0" cy="240" r="280" opacity="0.10"/>
+      <circle cx="0" cy="240" r="180" opacity="0.06"/>
+    </g>
+  </svg>
+
+  <div class="lethe-hero-inner">
+    <div class="lethe-hero-label">THOTH &amp; SON · PRIVACY TOOLING</div>
+
+    <h1 class="lethe-hero-title">
+      <span class="lethe-logo-ascii" aria-hidden="true">LETHE</span>
+    </h1>
+
+    <p class="lethe-hero-tagline">
+      Limpe. Substitua. Audite.
+    </p>
+
+    <p class="lethe-hero-desc">
+      Metadados EXIF revelam <span class="accent-green">localização</span>,
+      <span class="accent-green">dispositivo</span>,
+      <span class="accent-green">data</span> e
+      <span class="accent-green">identidade</span> de cada foto.
+      Lethe remove ou substitui tudo em lote — com presets, relatórios CSV e
+      velocidade de quem processa <strong>1 000 imagens em 90 ms</strong>.
+    </p>
+
+    <div class="lethe-hero-cta">
+      <a href="#pricing" class="lethe-btn lethe-btn-primary">Comprar licença</a>
+      <a href="#download" class="lethe-btn lethe-btn-secondary">Download</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ MODES ════════════════ -->
+<section class="lethe-section" id="features">
+  <div class="lethe-container">
+    <h2 class="lethe-section-title">Três modos. Um binário.</h2>
+    <p class="lethe-section-sub">CLI, TUI interativa ou desktop nativo — você escolhe a interface.</p>
+
+    <div class="lethe-modes-grid">
+      <div class="lethe-mode-card">
+        <div class="lethe-mode-icon">⌫</div>
+        <h3>Clean</h3>
+        <p>Strip completo de todos os campos EXIF. A imagem sai sem nenhum vestígio de metadado — GPS, câmera, software, timestamps. Tudo.</p>
+      </div>
+
+      <div class="lethe-mode-card">
+        <div class="lethe-mode-icon">⟳</div>
+        <h3>Fuzz</h3>
+        <p>Substituição inteligente por dados aleatórios plausíveis. Mantém a estrutura EXIF intacta, mas troca cada valor por ruído — coordenadas, modelo de câmera, datas.</p>
+      </div>
+
+      <div class="lethe-mode-card">
+        <div class="lethe-mode-icon">⊞</div>
+        <h3>Report</h3>
+        <p>Auditoria em CSV de tudo que suas imagens expõem. Ideal para compliance, due diligence e análise de risco antes de publicação.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ FEATURES ════════════════ -->
+<section class="lethe-section lethe-section-alt" id="capabilities">
+  <div class="lethe-container">
+    <h2 class="lethe-section-title">Construído para profissionais</h2>
+
+    <div class="lethe-features-grid">
+      <div class="lethe-feature">
+        <span class="lethe-feature-label">PRESETS</span>
+        <p>Crie e salve configurações reutilizáveis. Defina quais campos limpar, quais manter, e aplique em um clique — ou um comando.</p>
+      </div>
+
+      <div class="lethe-feature">
+        <span class="lethe-feature-label">TUI INTERATIVA</span>
+        <p>Interface completa no terminal com Bubble Tea. Wizard de diretórios, barra de progresso, browser de presets e gerenciamento de licença.</p>
+      </div>
+
+      <div class="lethe-feature">
+        <span class="lethe-feature-label">DESKTOP NATIVO</span>
+        <p>Aplicação Wails com drag &amp; drop, temas dark/light e diálogos nativos do sistema. Toda a engine Go embarcada, sem servidor web.</p>
+      </div>
+
+      <div class="lethe-feature">
+        <span class="lethe-feature-label">ZERO DEPENDÊNCIAS</span>
+        <p>Um único binário Go compilado estaticamente. Sem runtime, sem Docker, sem pip install. Funciona em macOS, Windows e Linux.</p>
+      </div>
+
+      <div class="lethe-feature">
+        <span class="lethe-feature-label">LOTE MASSIVO</span>
+        <p>Processa diretórios inteiros recursivamente. JPEG, PNG, TIFF, WebP — todos os formatos comuns de imagem suportados.</p>
+      </div>
+
+      <div class="lethe-feature">
+        <span class="lethe-feature-label">LICENÇA OFFLINE</span>
+        <p>Ativação via arquivo ed25519 assinado. Sem call-home, sem telemetria, sem conta online. Uma vez ativado, funciona para sempre.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ BENCHMARKS ════════════════ -->
+<section class="lethe-section" id="performance">
+  <div class="lethe-container">
+    <h2 class="lethe-section-title">Performance real</h2>
+    <p class="lethe-section-sub">Benchmarks Go com <code>-benchmem</code>, 3 execuções, mediana. Apple Silicon.</p>
+
+    <div class="lethe-bench-table-wrap">
+      <table class="lethe-bench-table">
+        <thead>
+          <tr>
+            <th>Operação</th>
+            <th>10 imgs</th>
+            <th>100 imgs</th>
+            <th>1 000 imgs</th>
+            <th>Unitário</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="accent-green">Clean</span></td>
+            <td>0.9 ms</td>
+            <td>9 ms</td>
+            <td>90 ms</td>
+            <td>510 µs</td>
+          </tr>
+          <tr>
+            <td><span class="accent-green">Fuzz</span></td>
+            <td>6 ms</td>
+            <td>63 ms</td>
+            <td>625 ms</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><span class="accent-green">Report</span></td>
+            <td>0.8 ms</td>
+            <td>8 ms</td>
+            <td>80 ms</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="lethe-bench-note">
+      94 allocs/op no clean unitário. Throughput escala linearmente com número de arquivos.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════ PRICING ════════════════ -->
+<section class="lethe-section lethe-section-alt" id="pricing">
+  <div class="lethe-container">
+    <h2 class="lethe-section-title">Licenças</h2>
+    <p class="lethe-section-sub">Pagamento único. Sem assinatura. Atualizações incluídas por 1 ano.</p>
+
+    <div class="lethe-pricing-grid">
+      <div class="lethe-pricing-card">
+        <div class="lethe-pricing-tier">Personal</div>
+        <div class="lethe-pricing-code">LTH-PERSONAL</div>
+        <div class="lethe-pricing-price">R$ 197</div>
+        <ul class="lethe-pricing-features">
+          <li>1 máquina ativa</li>
+          <li>CLI + TUI + Desktop</li>
+          <li>Clean, Fuzz, Report</li>
+          <li>Presets customizados</li>
+          <li>1 ano de updates</li>
+        </ul>
+        <a href="/checkout/?sku=LTH-PERSONAL" class="lethe-btn lethe-btn-primary lethe-btn-full">Comprar Personal</a>
+      </div>
+
+      <div class="lethe-pricing-card lethe-pricing-featured">
+        <div class="lethe-pricing-badge">Recomendado</div>
+        <div class="lethe-pricing-tier">Pro</div>
+        <div class="lethe-pricing-code">LTH-PRO</div>
+        <div class="lethe-pricing-price">R$ 397</div>
+        <ul class="lethe-pricing-features">
+          <li>3 máquinas ativas</li>
+          <li>CLI + TUI + Desktop</li>
+          <li>Clean, Fuzz, Report</li>
+          <li>Presets customizados</li>
+          <li>1 ano de updates</li>
+          <li>Suporte prioritário</li>
+        </ul>
+        <a href="/checkout/?sku=LTH-PRO" class="lethe-btn lethe-btn-primary lethe-btn-full">Comprar Pro</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ DOWNLOAD ════════════════ -->
+<section class="lethe-section" id="download">
+  <div class="lethe-container">
+    <h2 class="lethe-section-title">Download</h2>
+    <p class="lethe-section-sub">macOS (Universal), Windows (x64), Linux (amd64/arm64).</p>
+
+    <div class="lethe-download-grid">
+      <a href="#" class="lethe-download-card">
+        <span class="lethe-download-os">macOS</span>
+        <span class="lethe-download-arch">Universal (Intel + Apple Silicon)</span>
+        <span class="lethe-download-ext">.dmg</span>
+      </a>
+      <a href="#" class="lethe-download-card">
+        <span class="lethe-download-os">Windows</span>
+        <span class="lethe-download-arch">x64</span>
+        <span class="lethe-download-ext">.exe</span>
+      </a>
+      <a href="#" class="lethe-download-card">
+        <span class="lethe-download-os">Linux</span>
+        <span class="lethe-download-arch">amd64 / arm64</span>
+        <span class="lethe-download-ext">.tar.gz</span>
+      </a>
+    </div>
+
+    <p class="lethe-download-note">
+      Binários assinados e notarizados. Checksum SHA-256 disponível em cada release.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════ GHOST-RIZZ ════════════════ -->
+<section class="lethe-section lethe-section-alt" id="open-source">
+  <div class="lethe-container lethe-ghost-section">
+    <div class="lethe-ghost-text">
+      <h2 class="lethe-section-title">Precisa só do básico?</h2>
+      <p>
+        <a href="https://github.com/ThothandSon/ghost-rizz" class="accent-green-link">ghost-rizz</a>
+        é a versão open-source (MIT) do core de limpeza EXIF.
+        CLI puro, sem presets, sem TUI, sem desktop — mas resolve
+        o caso de uso mais comum: strip total de metadados.
+      </p>
+      <p class="lethe-ghost-note">
+        Lethe é o produto comercial construído sobre a mesma engine,
+        com modos extras, interfaces gráficas e suporte profissional.
+      </p>
+    </div>
+    <div class="lethe-ghost-install">
+      <span class="lethe-feature-label">INSTALL</span>
+      <code class="lethe-ghost-cmd">brew install ThothandSon/tap/ghost-rizz</code>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ CTA FINAL ════════════════ -->
+<section class="lethe-section lethe-final-cta">
+  <div class="lethe-container" style="text-align:center;">
+    <h2 class="lethe-section-title">Suas fotos não precisam contar sua história.</h2>
+    <p class="lethe-section-sub" style="max-width:480px;margin:0 auto var(--s4);">
+      Lethe apaga o que a câmera gravou sem você pedir.
+    </p>
+    <a href="#pricing" class="lethe-btn lethe-btn-primary lethe-btn-lg">Começar agora</a>
+  </div>
+</section>

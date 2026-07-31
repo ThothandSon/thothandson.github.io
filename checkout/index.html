@@ -1,0 +1,170 @@
+---
+layout: default
+title: "Checkout — Thoth & Son"
+description: "Finalizar compra via Pix"
+---
+
+<link rel="stylesheet" href="/styles/checkout.css">
+
+<section class="checkout-section">
+  <div class="checkout-container">
+
+    <!-- STEP 1: Formulário -->
+    <div id="step-form" class="checkout-step">
+      <h1 class="checkout-title">Checkout</h1>
+      <p id="product-name" class="checkout-product"></p>
+      <p id="product-price" class="checkout-price"></p>
+
+      <form id="checkout-form" class="checkout-form" autocomplete="on">
+        <label for="email" class="checkout-label">Seu e-mail</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          autocomplete="email"
+          placeholder="voce@email.com"
+          class="checkout-input"
+        >
+        <button type="submit" id="btn-pay" class="checkout-btn">
+          Pagar com Pix
+        </button>
+      </form>
+    </div>
+
+    <!-- STEP 2: QR Code Pix -->
+    <div id="step-pix" class="checkout-step" style="display:none">
+      <h2 class="checkout-title">Pague via Pix</h2>
+      <p class="checkout-subtitle">Escaneie o QR Code ou copie o código abaixo.</p>
+
+      <div class="pix-qr-wrapper">
+        <img id="pix-qr" alt="QR Code Pix" class="pix-qr-img">
+      </div>
+
+      <div class="pix-code-box">
+        <input type="text" id="pix-code" readonly class="pix-code-input">
+        <button id="btn-copy" class="pix-copy-btn">Copiar</button>
+      </div>
+
+      <p id="pix-status" class="pix-status">Aguardando pagamento...</p>
+    </div>
+
+    <!-- STEP 3: Confirmação -->
+    <div id="step-done" class="checkout-step" style="display:none">
+      <div class="done-icon">&#10003;</div>
+      <h2 class="checkout-title">Pagamento confirmado</h2>
+      <p class="checkout-subtitle">
+        Você receberá as instruções no e-mail informado. Obrigado.
+      </p>
+    </div>
+
+    <!-- Erro -->
+    <p id="checkout-error" class="checkout-error" style="display:none"></p>
+  </div>
+</section>
+
+<script>
+(function () {
+  var OSMAN_API = 'https://osman-agent.thothandson.workers.dev';
+
+  var params = new URLSearchParams(window.location.search);
+  var sku = params.get('sku');
+
+  var PRODUCTS = {
+    'SEC-EBOOK':     { name: 'Rastro Zero (Ebook)', price: 'R$ 47' },
+    'SEC-COURSE':    { name: 'Rastro Zero (Curso Completo)', price: 'R$ 297' },
+    'LTH-PERSONAL':  { name: 'Lethe Personal (1 dispositivo)', price: 'R$ 197' },
+    'LTH-PRO':       { name: 'Lethe Pro (3 dispositivos)', price: 'R$ 397' },
+  };
+
+  var info = PRODUCTS[sku];
+  if (!sku || !info) {
+    document.getElementById('step-form').innerHTML =
+      '<h1 class="checkout-title">Produto não encontrado</h1>' +
+      '<p class="checkout-subtitle">Verifique o link e tente novamente.</p>';
+    return;
+  }
+
+  document.getElementById('product-name').textContent = info.name;
+  document.getElementById('product-price').textContent = info.price;
+
+  var paymentId = null;
+  var pollTimer = null;
+
+  document.getElementById('checkout-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('email').value.trim();
+    if (!email) return;
+
+    var btn = document.getElementById('btn-pay');
+    btn.disabled = true;
+    btn.textContent = 'Processando...';
+    hideError();
+
+    fetch(OSMAN_API + '/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sku: sku, email: email }),
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.error) {
+        showError(data.error);
+        btn.disabled = false;
+        btn.textContent = 'Pagar com Pix';
+        return;
+      }
+
+      paymentId = data.paymentId;
+
+      document.getElementById('pix-qr').src = data.qrCodeUrl || '';
+      document.getElementById('pix-code').value = data.pixCode || '';
+
+      document.getElementById('step-form').style.display = 'none';
+      document.getElementById('step-pix').style.display = 'block';
+
+      startPolling();
+    })
+    .catch(function () {
+      showError('Erro ao criar pagamento. Tente novamente.');
+      btn.disabled = false;
+      btn.textContent = 'Pagar com Pix';
+    });
+  });
+
+  document.getElementById('btn-copy').addEventListener('click', function () {
+    var code = document.getElementById('pix-code').value;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code);
+      this.textContent = 'Copiado';
+      var self = this;
+      setTimeout(function () { self.textContent = 'Copiar'; }, 2000);
+    }
+  });
+
+  function startPolling() {
+    pollTimer = setInterval(function () {
+      fetch(OSMAN_API + '/api/payments/status/' + paymentId)
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.status === 'CONFIRMED' || data.status === 'PAID') {
+            clearInterval(pollTimer);
+            document.getElementById('step-pix').style.display = 'none';
+            document.getElementById('step-done').style.display = 'block';
+          }
+        })
+        .catch(function () {});
+    }, 5000);
+  }
+
+  function showError(msg) {
+    var el = document.getElementById('checkout-error');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function hideError() {
+    document.getElementById('checkout-error').style.display = 'none';
+  }
+})();
+</script>

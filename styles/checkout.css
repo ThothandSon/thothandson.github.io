@@ -1,0 +1,205 @@
+/* ============================================================
+   Thoth & Son — Checkout Page
+   ============================================================ */
+
+.checkout-section {
+  min-height: calc(100vh - var(--header-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s5) var(--s2);
+}
+
+.checkout-container {
+  width: 100%;
+  max-width: 440px;
+}
+
+.checkout-step {
+  text-align: center;
+}
+
+.checkout-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 2rem;
+  color: var(--gold);
+  margin-bottom: var(--s1);
+}
+
+.checkout-product {
+  font-family: var(--body);
+  font-size: 1.1rem;
+  color: var(--muted-high);
+  margin-bottom: 0.25rem;
+}
+
+.checkout-price {
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: var(--s4);
+}
+
+.checkout-subtitle {
+  color: var(--muted);
+  margin-bottom: var(--s3);
+}
+
+/* ── Form ──────────────────────────────────────────────────── */
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.checkout-label {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+}
+
+.checkout-input {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--gold-dim);
+  border-radius: 4px;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.checkout-input:focus {
+  border-color: var(--gold);
+}
+
+.checkout-input::placeholder {
+  color: var(--muted);
+  opacity: 0.5;
+}
+
+.checkout-btn {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: var(--s1);
+}
+
+.checkout-btn:hover {
+  opacity: 0.85;
+}
+
+.checkout-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Pix ───────────────────────────────────────────────────── */
+
+.pix-qr-wrapper {
+  margin: var(--s3) auto;
+  width: 200px;
+  height: 200px;
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.pix-qr-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pix-code-box {
+  display: flex;
+  gap: 0;
+  margin: var(--s2) 0 var(--s3);
+  border: 1px solid var(--gold-dim);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pix-code-input {
+  flex: 1;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--surface);
+  border: none;
+  color: var(--muted-mid);
+  outline: none;
+  min-width: 0;
+}
+
+.pix-copy-btn {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.6rem 1rem;
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+
+.pix-copy-btn:hover {
+  opacity: 0.85;
+}
+
+.pix-status {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ── Done ──────────────────────────────────────────────────── */
+
+.done-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--s3);
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--gold);
+}
+
+/* ── Error ─────────────────────────────────────────────────── */
+
+.checkout-error {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: #e74c3c;
+  text-align: center;
+  margin-top: var(--s2);
+}
