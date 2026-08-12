@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "updated_at": "2026-08-12",
+  "featured": [
+    {
+      "id": "arte-do-dia",
+      "name": "Arte do Dia — Wikipedia + Image Playground",
+      "description": "Gera uma imagem artística diária baseada nos acontecimentos históricos do dia, usando Apple Intelligence.",
+      "category": "criativo",
+      "schedule": "0 8 * * *",
+      "schedule_label": "Todo dia às 8h",
+      "requires": ["shortcuts", "apple-intelligence"],
+      "setup_script": "arte_do_dia_setup.sh",
+      "script_url": "https://thothandson.github.io/assets/khronos/templates/arte_do_dia.sh",
+      "badge": "NOVO"
+    }
+  ],
+  "templates": [
+    {
+      "id": "noticias-g1",
+      "name": "Raspar G1 — Principais Notícias",
+      "description": "Coleta as 15 principais manchetes do G1 e salva em log diário.",
+      "category": "informação",
+      "schedule": "0 7 * * *",
+      "schedule_label": "Todo dia às 7h",
+      "script_url": "https://thothandson.github.io/assets/khronos/templates/noticias_g1.sh"
+    },
+    {
+      "id": "clima-diario",
+      "name": "Previsão do Tempo — Diária",
+      "description": "Busca a previsão do tempo para sua cidade via wttr.in.",
+      "category": "utilidade",
+      "schedule": "0 6 * * *",
+      "schedule_label": "Todo dia às 6h",
+      "script_url": "https://thothandson.github.io/assets/khronos/templates/clima_diario.sh"
+    },
+    {
+      "id": "cotacao-dolar",
+      "name": "Cotação Dólar e Bitcoin",
+      "description": "Consulta cotações de USD, EUR e BTC em tempo real via AwesomeAPI.",
+      "category": "finanças",
+      "schedule": "0 9,18 * * 1-5",
+      "schedule_label": "9h e 18h, dias úteis",
+      "script_url": "https://thothandson.github.io/assets/khronos/templates/cotacao_dolar.sh"
+    },
+    {
+      "id": "futebol-jogos",
+      "name": "Futebol — Jogos de Hoje",
+      "description": "Lista partidas de futebol do dia via football-data.org.",
+      "category": "esportes",
+      "schedule": "0 10 * * *",
+      "schedule_label": "Todo dia às 10h",
+      "script_url": "https://thothandson.github.io/assets/khronos/templates/futebol_jogos_hoje.sh"
+    },
+    {
+      "id": "nba-resultados",
+      "name": "NBA — Resultados do Dia",
+      "description": "Busca resultados dos jogos da NBA via API oficial.",
+      "category": "esportes",
+      "schedule": "0 10 * * *",
+      "schedule_label": "Todo dia às 10h",
+      "script_url": "https://thothandson.github.io/assets/khronos/templates/nba_resultados.sh"
+    },
+    {
+      "id": "imdb-lancamentos",
+      "name": "IMDB — Lançamentos da Semana",
+      "description": "Lista os filmes mais populares da semana no IMDB.",
+      "category": "entretenimento",
+      "schedule": "0 12 * * 5",
+      "schedule_label": "Sexta-feira ao meio-dia",
+      "script_url": "https://thothandson.github.io/assets/khronos/templates/imdb_lancamentos.sh"
+    },
+    {
+      "id": "relatorio-pdf",
+      "name": "Compilar Logs em PDF",
+      "description": "Compila todos os logs do dia em um relatório PDF unificado.",
+      "category": "utilidade",
+      "schedule": "0 23 * * *",
+      "schedule_label": "Todo dia às 23h",
+      "script_url": "https://thothandson.github.io/assets/khronos/templates/gerar_relatorio_pdf.sh"
+    }
+  ]
+}
