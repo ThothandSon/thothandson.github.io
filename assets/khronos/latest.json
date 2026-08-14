@@ -1,0 +1,13 @@
+{
+  "version": "1.1.0",
+  "build": 2,
+  "released_at": "2026-08-13",
+  "changelog": [
+    "Hub v2: 15 templates funcionais (investimentos, lifestyle, esportes)",
+    "Menu da menubar com agendamentos e acoes rapidas",
+    "Logs de execucao e configuracao de email SMTP",
+    "Integracao com macOS Shortcuts"
+  ],
+  "download_url": "https://thothandson.github.io/khronos/download",
+  "min_os": "12.0"
+}
