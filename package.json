@@ -1,7 +1,7 @@
 {
   "name": "thothandson-website",
   "version": "2.0.0",
-  "description": "Site oficial da Thoth & Son — Precisão. Cultura. Resultado.",
+  "description": "Site oficial da Thoth & Son : Precisão. Cultura. Resultado.",
   "private": true,
   "scripts": {
     "dev":           "bundle exec jekyll serve --livereload --host 127.0.0.1 --port 4000",

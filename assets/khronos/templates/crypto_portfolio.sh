@@ -1,8 +1,8 @@
 #!/bin/bash
-# NAME: Crypto — Bitcoin, Ethereum e Solana
+# NAME: Crypto : Bitcoin, Ethereum e Solana
 OUTPUT="$HOME/KhronosScripts/logs/crypto_$(date +%Y-%m-%d).txt"
 mkdir -p "$(dirname "$OUTPUT")"
-echo "=== Crypto — $(date '+%d/%m/%Y %H:%M') ===" > "$OUTPUT"
+echo "=== Crypto : $(date '+%d/%m/%Y %H:%M') ===" > "$OUTPUT"
 curl -sf "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,binancecoin&vs_currencies=brl,usd&include_24hr_change=true" \
   | python3 -c "
 import json, sys

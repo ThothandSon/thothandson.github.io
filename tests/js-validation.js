@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Thoth & Son — JS syntax validation
+   Thoth & Son : JS syntax validation
    ────────────────────────────────────────────────────────────
    Usa o parser nativo do Node via dynamic import. Detecta
    módulos automaticamente (procura por `import`/`export`).

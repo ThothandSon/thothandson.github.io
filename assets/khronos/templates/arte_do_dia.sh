@@ -1,4 +1,4 @@
-# NAME: Arte do Dia — Wikipedia + Image Playground
+# NAME: Arte do Dia : Wikipedia + Image Playground
 #!/bin/bash
 # Busca os acontecimentos do dia na Wikipedia e gera uma imagem com
 # Apple Image Playground via Shortcuts.

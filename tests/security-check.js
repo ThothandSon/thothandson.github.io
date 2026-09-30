@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Thoth & Son — Security check
+   Thoth & Son : Security check
    ────────────────────────────────────────────────────────────
    - Procura padrões de credenciais/segredos vazados no código
    - Verifica que os hashes do mini-game não revelam as palavras
@@ -64,7 +64,7 @@ for (const f of files) {
     const matches = content.match(re);
     if (matches) {
       const list = soft ? warnings : errors;
-      list.push(`[${label}] ${rel} — ${matches.length} ocorrência(s)`);
+      list.push(`[${label}] ${rel} : ${matches.length} ocorrência(s)`);
     }
   }
 
@@ -75,7 +75,7 @@ for (const f of files) {
       const matches = content.match(re);
       if (matches) {
         const list = soft ? warnings : errors;
-        list.push(`[${label}] ${rel} — ${matches.length} ocorrência(s)`);
+        list.push(`[${label}] ${rel} : ${matches.length} ocorrência(s)`);
       }
     }
   }

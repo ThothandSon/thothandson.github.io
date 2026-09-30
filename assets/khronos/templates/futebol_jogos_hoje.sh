@@ -1,9 +1,9 @@
 #!/bin/bash
-# NAME: Futebol — Jogos de Hoje
+# NAME: Futebol : Jogos de Hoje
 OUTPUT="$HOME/KhronosScripts/logs/futebol_$(date +%Y-%m-%d).txt"
 mkdir -p "$(dirname "$OUTPUT")"
 TODAY=$(date +%Y-%m-%d)
-echo "=== Futebol — $TODAY ===" > "$OUTPUT"
+echo "=== Futebol : $TODAY ===" > "$OUTPUT"
 curl -sf "https://api.football-data.org/v4/matches?dateFrom=$TODAY&dateTo=$TODAY" \
   -H "X-Auth-Token: ${FOOTBALL_API_KEY:-}" 2>/dev/null \
   | python3 -c "

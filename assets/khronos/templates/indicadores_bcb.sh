@@ -1,8 +1,8 @@
 #!/bin/bash
-# NAME: SELIC, IPCA e CDI — Banco Central
+# NAME: SELIC, IPCA e CDI : Banco Central
 OUTPUT="$HOME/KhronosScripts/logs/indicadores_$(date +%Y-%m-%d).txt"
 mkdir -p "$(dirname "$OUTPUT")"
-echo "=== Indicadores Economicos — $(date '+%d/%m/%Y') ===" > "$OUTPUT"
+echo "=== Indicadores Economicos : $(date '+%d/%m/%Y') ===" > "$OUTPUT"
 python3 -c "
 import json, urllib.request
 

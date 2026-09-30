@@ -2,7 +2,7 @@
 # NAME: Noticias do Brasil
 OUTPUT="$HOME/KhronosScripts/logs/noticias_$(date +%Y-%m-%d).txt"
 mkdir -p "$(dirname "$OUTPUT")"
-echo "=== Noticias — $(date '+%d/%m/%Y %H:%M') ===" > "$OUTPUT"
+echo "=== Noticias : $(date '+%d/%m/%Y %H:%M') ===" > "$OUTPUT"
 curl -sf "https://news.google.com/rss?hl=pt-BR&gl=BR&ceid=BR:pt-419" \
   -H "User-Agent: Mozilla/5.0" \
   | python3 -c "

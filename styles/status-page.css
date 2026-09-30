@@ -1,5 +1,5 @@
 /* ============================================================
-   Thoth & Son — Status Page
+   Thoth & Son : Status Page
    Telemetria pública. Estética de console de operações.
    ============================================================ */
 
@@ -78,7 +78,7 @@
   margin-bottom: 0.2rem;
   filter: drop-shadow(0 0 8px rgba(200, 160, 48, 0.15));
 }
-/* SVG fallback (monograma) — mesmo tratamento */
+/* SVG fallback (monograma) : mesmo tratamento */
 svg.status-card-logo {
   display: block;
 }

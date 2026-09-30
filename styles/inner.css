@@ -1,5 +1,5 @@
 /* ============================================================
-   Thoth & Son — Inner pages
+   Thoth & Son : Inner pages
    Page hero + mini 3D + components compartilhados
    ============================================================ */
 
@@ -50,7 +50,7 @@
   margin-bottom: var(--s2);
 }
 
-.page-hero-eyebrow::before { content: '— '; opacity: 0.6; }
+.page-hero-eyebrow::before { content: '· '; opacity: 0.6; }
 
 .page-hero-title {
   font-family: var(--serif);

@@ -2,7 +2,7 @@
 # NAME: Livros em Alta
 OUTPUT="$HOME/KhronosScripts/logs/livros_$(date +%Y-%m-%d).txt"
 mkdir -p "$(dirname "$OUTPUT")"
-echo "=== Livros em Alta — $(date '+%d/%m/%Y') ===" > "$OUTPUT"
+echo "=== Livros em Alta : $(date '+%d/%m/%Y') ===" > "$OUTPUT"
 curl -sf "https://openlibrary.org/trending/daily.json?limit=15" \
   | python3 -c "
 import json, sys

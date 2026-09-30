@@ -1,8 +1,8 @@
 #!/bin/bash
-# NAME: NBA — Resultados
+# NAME: NBA : Resultados
 OUTPUT="$HOME/KhronosScripts/logs/nba_$(date +%Y-%m-%d).txt"
 mkdir -p "$(dirname "$OUTPUT")"
-echo "=== NBA — $(date '+%d/%m/%Y') ===" > "$OUTPUT"
+echo "=== NBA : $(date '+%d/%m/%Y') ===" > "$OUTPUT"
 curl -sf "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json" \
   -H "User-Agent: Mozilla/5.0" \
   | python3 -c "

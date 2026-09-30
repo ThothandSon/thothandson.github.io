@@ -2,7 +2,7 @@
 # NAME: Ofertas e Promocoes
 OUTPUT="$HOME/KhronosScripts/logs/ofertas_$(date +%Y-%m-%d).txt"
 mkdir -p "$(dirname "$OUTPUT")"
-echo "=== Ofertas — $(date '+%d/%m/%Y %H:%M') ===" > "$OUTPUT"
+echo "=== Ofertas : $(date '+%d/%m/%Y %H:%M') ===" > "$OUTPUT"
 python3 -c "
 import urllib.request, re, html
 

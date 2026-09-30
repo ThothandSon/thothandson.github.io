@@ -2,7 +2,7 @@
 # NAME: Filmes e Series em Alta
 OUTPUT="$HOME/KhronosScripts/logs/filmes_$(date +%Y-%m-%d).txt"
 mkdir -p "$(dirname "$OUTPUT")"
-echo "=== Filmes em Alta — $(date '+%d/%m/%Y') ===" > "$OUTPUT"
+echo "=== Filmes em Alta : $(date '+%d/%m/%Y') ===" > "$OUTPUT"
 curl -sf "https://www.imdb.com/chart/moviemeter/" \
   -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" \
   -H "Accept-Language: pt-BR,pt;q=0.9" \

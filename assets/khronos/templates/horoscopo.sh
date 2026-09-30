@@ -3,7 +3,7 @@
 SIGNO="${KHRONOS_SIGNO:-aries}"
 OUTPUT="$HOME/KhronosScripts/logs/horoscopo_$(date +%Y-%m-%d).txt"
 mkdir -p "$(dirname "$OUTPUT")"
-echo "=== Horoscopo — $(date '+%d/%m/%Y') ===" > "$OUTPUT"
+echo "=== Horoscopo : $(date '+%d/%m/%Y') ===" > "$OUTPUT"
 python3 -c "
 import json, urllib.request
 

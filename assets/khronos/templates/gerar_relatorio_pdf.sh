@@ -16,7 +16,7 @@ if not files:
     exit(0)
 
 out = os.path.join(logs_dir, f'relatorio_{today}.txt')
-content = f'KHRONOS — Relatorio de {today}\n' + '=' * 50 + '\n\n'
+content = f'KHRONOS : Relatorio de {today}\n' + '=' * 50 + '\n\n'
 for f in files:
     with open(f) as fh:
         content += fh.read() + '\n\n'

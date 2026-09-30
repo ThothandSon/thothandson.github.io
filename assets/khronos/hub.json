@@ -4,7 +4,7 @@
   "featured": [
     {
       "id": "arte-do-dia",
-      "name": "Arte do Dia — Wikipedia + Image Playground",
+      "name": "Arte do Dia : Wikipedia + Image Playground",
       "description": "Gera uma imagem artistica diaria baseada nos acontecimentos historicos do dia, usando Apple Intelligence.",
       "category": "criativo",
       "schedule": "0 8 * * *",
@@ -45,7 +45,7 @@
     },
     {
       "id": "bolsa-b3",
-      "name": "Bolsa B3 — Acoes do Dia",
+      "name": "Bolsa B3 : Acoes do Dia",
       "description": "Cotacoes das principais acoes brasileiras via brapi.dev. Configure com KHRONOS_TICKERS.",
       "category": "investimentos",
       "schedule": "0 18 * * 1-5",
@@ -63,7 +63,7 @@
     },
     {
       "id": "crypto-portfolio",
-      "name": "Crypto — BTC, ETH, SOL",
+      "name": "Crypto : BTC, ETH, SOL",
       "description": "Precos e variacao 24h de Bitcoin, Ethereum, Solana e BNB via CoinGecko.",
       "category": "investimentos",
       "schedule": "0 9,18 * * *",
@@ -117,7 +117,7 @@
     },
     {
       "id": "futebol-jogos",
-      "name": "Futebol — Jogos de Hoje",
+      "name": "Futebol : Jogos de Hoje",
       "description": "Jogos do dia via football-data.org. Requer FOOTBALL_API_KEY (gratis).",
       "category": "esportes",
       "schedule": "0 10 * * *",
@@ -126,7 +126,7 @@
     },
     {
       "id": "nba-resultados",
-      "name": "NBA — Resultados",
+      "name": "NBA : Resultados",
       "description": "Resultados dos jogos da NBA do dia.",
       "category": "esportes",
       "schedule": "0 10 * * *",

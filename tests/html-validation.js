@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* ============================================================
-   Thoth & Son — HTML hygiene check
+   Thoth & Son : HTML hygiene check
    ────────────────────────────────────────────────────────────
    - Lang attribute presente
    - <title> presente
@@ -44,7 +44,7 @@ for (const f of files) {
   for (const link of externalLinks) {
     if (!/target=["']_blank["']/i.test(link)) continue; // só checa _blank
     if (!/rel=["'][^"']*noopener/i.test(link)) {
-      warnings.push(`[noopener] ${rel} — link _blank sem rel="noopener": ${link.slice(0, 80)}…`);
+      warnings.push(`[noopener] ${rel} : link _blank sem rel="noopener": ${link.slice(0, 80)}…`);
     }
   }
 
@@ -52,7 +52,7 @@ for (const f of files) {
   const imgs = c.match(/<img[^>]*>/gi) || [];
   for (const img of imgs) {
     if (!/\balt\s*=/i.test(img)) {
-      errors.push(`[alt] ${rel} — <img> sem atributo alt: ${img.slice(0, 80)}…`);
+      errors.push(`[alt] ${rel} : <img> sem atributo alt: ${img.slice(0, 80)}…`);
     }
   }
 

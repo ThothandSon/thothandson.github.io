@@ -1,5 +1,5 @@
 /* ============================================================
-   Thoth & Son — Mini 3D
+   Thoth & Son : Mini 3D
    Wireframe icosaedro pequeno para heros de páginas internas.
    Sem brain.glb (mais leve). Carregado por páginas que tenham
    um elemento <canvas id="mini-3d">.
@@ -42,7 +42,7 @@ function init() {
     dotsGeo,
     new THREE.PointsMaterial({ color: WHITE, size: 0.04, transparent: true, opacity: 0.75 })
   ));
-  // Inner — opposite rotation
+  // Inner : opposite rotation
   const innerGeo = new THREE.IcosahedronGeometry(0.95, 1);
   const inner = new THREE.LineSegments(
     new THREE.EdgesGeometry(innerGeo),

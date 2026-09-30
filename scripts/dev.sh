@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────
-#   Thoth & Son — dev helper
+#   Thoth & Son : dev helper
 # ─────────────────────────────────────────────────────────
 set -euo pipefail
 
@@ -25,7 +25,7 @@ case "$cmd" in
     ;;
   *)
     cat <<EOF
-Thoth & Son — dev helper
+Thoth & Son : dev helper
 
   serve   Inicia servidor local (Jekyll, livereload)
   build   Build de produção

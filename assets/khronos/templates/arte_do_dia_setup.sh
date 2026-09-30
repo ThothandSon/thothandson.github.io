@@ -1,4 +1,4 @@
-# NAME: Setup — Criar Shortcut "Arte do Dia"
+# NAME: Setup : Criar Shortcut "Arte do Dia"
 #!/bin/bash
 # Abre o app Atalhos com instruções para criar o shortcut necessário.
 
@@ -26,7 +26,7 @@ if shortcuts list 2>/dev/null | grep -qF "$SHORTCUT_NAME"; then
 fi
 
 echo "╔══════════════════════════════════════════════════════════════╗"
-echo "║            SETUP — Khronos: Arte do Dia                    ║"
+echo "║            SETUP : Khronos: Arte do Dia                    ║"
 echo "╠══════════════════════════════════════════════════════════════╣"
 echo "║                                                            ║"
 echo "║  Crie o seguinte Shortcut no app Atalhos do macOS:         ║"

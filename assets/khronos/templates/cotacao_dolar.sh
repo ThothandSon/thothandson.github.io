@@ -2,7 +2,7 @@
 # NAME: Cotacao Dolar e Bitcoin
 OUTPUT="$HOME/KhronosScripts/logs/cotacao_$(date +%Y-%m-%d).txt"
 mkdir -p "$(dirname "$OUTPUT")"
-echo "=== Cotacoes — $(date '+%d/%m/%Y %H:%M') ===" > "$OUTPUT"
+echo "=== Cotacoes : $(date '+%d/%m/%Y %H:%M') ===" > "$OUTPUT"
 curl -sf "https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,BTC-BRL" \
   | python3 -c "
 import json, sys

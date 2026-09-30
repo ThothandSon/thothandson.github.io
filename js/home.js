@@ -1,5 +1,5 @@
 /* ============================================================
-   Thoth & Son — Home interactions
+   Thoth & Son : Home interactions
    HUD + crosshair vêm de instruments.js (carregado globalmente)
    ============================================================ */
 (function () {

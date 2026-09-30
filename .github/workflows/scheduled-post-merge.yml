@@ -45,17 +45,17 @@ jobs:
             publish_date=$(echo "$body" | grep -Eo 'publish-date:[[:space:]]*[0-9]{4}-[0-9]{2}-[0-9]{2}' | head -1 | awk '{print $2}')
 
             if [ -z "$publish_date" ]; then
-              echo "  PR #$number ($title): no publish-date — skipping"
+              echo "  PR #$number ($title): no publish-date : skipping"
               continue
             fi
 
-            echo "  PR #$number ($title) — publish-date: $publish_date"
+            echo "  PR #$number ($title) : publish-date: $publish_date"
 
             if [[ "$publish_date" > "$today" ]]; then
-              echo "    not yet due — skipping"
+              echo "    not yet due : skipping"
               continue
             fi
 
-            echo "    DUE — merging…"
+            echo "    DUE : merging…"
             gh pr merge "$number" --repo "$REPO" --squash --delete-branch --admin
           done

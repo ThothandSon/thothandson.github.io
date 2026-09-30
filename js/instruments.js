@@ -1,5 +1,5 @@
 /* ============================================================
-   Thoth & Son — Instruments (HUD + crosshair)
+   Thoth & Son : Instruments (HUD + crosshair)
    Auto-injeta em qualquer página. Carregado via default.html.
    ============================================================ */
 (function () {

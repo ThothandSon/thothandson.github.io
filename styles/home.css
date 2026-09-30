@@ -1,5 +1,5 @@
 /* ============================================================
-   Thoth & Son — Home page
+   Thoth & Son : Home page
    Cinematic, instrumented, precise
    ============================================================ */
 
@@ -85,7 +85,7 @@
   -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
 }
 
-/* 3D wireframe — right side, behind content */
+/* 3D wireframe : right side, behind content */
 .hero-3d {
   position: absolute;
   top: 50%;
@@ -145,11 +145,11 @@
 }
 
 .hero-label::before {
-  content: '— ';
+  content: '· ';
   opacity: 0.6;
 }
 
-/* Hero title — letter reveal */
+/* Hero title : letter reveal */
 .hero-title {
   font-family: var(--serif);
   font-weight: 400;
@@ -542,7 +542,7 @@
 }
 
 /* ════════════════════════════════════════════════════════════
-   PRODUTOS — quatro signetas, quatro matérias de software
+   PRODUTOS : quatro signetas, quatro matérias de software
    ════════════════════════════════════════════════════════════ */
 .products-section {
   padding: var(--s7) var(--s4);
@@ -586,7 +586,7 @@
   color: var(--gold);
   margin-bottom: var(--s3);
 }
-.products-eyebrow::before { content: '— '; opacity: 0.6; }
+.products-eyebrow::before { content: '· '; opacity: 0.6; }
 
 .products-title {
   font-family: var(--serif);

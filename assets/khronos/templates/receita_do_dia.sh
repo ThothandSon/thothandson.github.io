@@ -2,7 +2,7 @@
 # NAME: Receita do Dia
 OUTPUT="$HOME/KhronosScripts/logs/receita_$(date +%Y-%m-%d).txt"
 mkdir -p "$(dirname "$OUTPUT")"
-echo "=== Receita do Dia — $(date '+%d/%m/%Y') ===" > "$OUTPUT"
+echo "=== Receita do Dia : $(date '+%d/%m/%Y') ===" > "$OUTPUT"
 curl -sf "https://www.themealdb.com/api/json/v1/1/random.php" \
   | python3 -c "
 import json, sys

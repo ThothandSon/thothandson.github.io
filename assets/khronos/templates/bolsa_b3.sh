@@ -1,8 +1,8 @@
 #!/bin/bash
-# NAME: Bolsa B3 — Acoes do Dia
+# NAME: Bolsa B3 : Acoes do Dia
 OUTPUT="$HOME/KhronosScripts/logs/bolsa_$(date +%Y-%m-%d).txt"
 mkdir -p "$(dirname "$OUTPUT")"
-echo "=== B3 — $(date '+%d/%m/%Y %H:%M') ===" > "$OUTPUT"
+echo "=== B3 : $(date '+%d/%m/%Y %H:%M') ===" > "$OUTPUT"
 python3 << 'PYEOF' >> "$OUTPUT"
 import json, urllib.request, os
 

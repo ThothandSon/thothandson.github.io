@@ -1,13 +1,13 @@
 /* ============================================================
-   Thoth & Son — Status page client
+   Thoth & Son : Status page client
    ─────────────────────────────────────────────────────────────
    Três níveis de verificação, do mais para o menos detalhado:
 
-     1. statusApi  — fetch real à API pública (StatusPage.io etc).
+     1. statusApi  : fetch real à API pública (StatusPage.io etc).
                      Retorna estado + descrição + latência.
-     2. pingUrl    — fetch no-cors ao domínio. Sabemos se responde
+     2. pingUrl    : fetch no-cors ao domínio. Sabemos se responde
                      mas não temos detalhes. "Acessível / Inacessível".
-     3. (nenhum)   — só link para a página oficial. "Manual".
+     3. (nenhum)   : só link para a página oficial. "Manual".
 
    Ícones via cdn.simpleicons.org; monograma SVG inline como fallback
    quando o ícone não existe ou foi removido (trademark issues).
@@ -251,7 +251,7 @@
 
   // ── Update orchestration ───────────────────────────────────
   async function updateAll() {
-    if (timeEl) timeEl.textContent = '— verificando…';
+    if (timeEl) timeEl.textContent = '· verificando…';
     cards.forEach((c) => {
       const slug = c.dataset.service;
       const badge = document.getElementById('status-' + slug);

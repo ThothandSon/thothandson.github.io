@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════
-#   Thoth & Son — Validation (lint + security + build)
+#   Thoth & Son : Validation (lint + security + build)
 #   Roda em todo push e PR. Bloqueia o deploy se falhar.
 # ═══════════════════════════════════════════════════════════
 name: Validate

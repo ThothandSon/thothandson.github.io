@@ -17,6 +17,12 @@ tmp/
 
 # ── OS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+*._*
+.Spotlight-V100
+.Trashes
 *.swp
 *~
 

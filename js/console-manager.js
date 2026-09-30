@@ -1,8 +1,8 @@
 /* ============================================================
-   Thoth & Son — Console Manager + Easter Egg + Cipher Game
+   Thoth & Son : Console Manager + Easter Egg + Cipher Game
    ============================================================
    Os 7 Princípios Herméticos. 6 cifras clássicas diferentes.
-   As respostas NÃO estão em texto plano neste código —
+   As respostas NÃO estão em texto plano neste código :
    apenas hashes salgados (SHA-256). Pode ler à vontade.
    ============================================================ */
 (function () {
@@ -44,7 +44,7 @@
     `color:${GOLD};font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:1.15;`);
   origLog('%c  P R E C I S Ã O  .  C U L T U R A  .  R E S U L T A D O',
     `color:${GOLD};font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;`);
-  origLog('%c  —  thothandson.github.io  ·  São Paulo, Brasil',
+  origLog('%c  :  thothandson.github.io  ·  São Paulo, Brasil',
     `color:${DIM};font-family:'IBM Plex Mono',monospace;font-size:10px;`);
   origLog(' ');
   origLog('%cVocê chegou no console. Há um segredo esperando para ser revelado.',
@@ -58,7 +58,7 @@
   // As palavras de resposta NÃO estão no código. Cada hash é
   // sha256(SALT + resposta_em_maiúsculas).
   // Brute-force teórico não revela nada se você não souber o salt
-  // — e mesmo com o salt, precisa de uma wordlist de termos herméticos.
+  // : e mesmo com o salt, precisa de uma wordlist de termos herméticos.
   const SALT = 'thoth-asa-rubra-1923';
 
   // Cada desafio: o texto cifrado (que o usuário vê) +
@@ -85,7 +85,7 @@
     },
     {
       n: 4, theme: 'Tudo é dual. Tudo tem polos. Tudo tem seu par de opostos.',
-      method: 'Inversão (Reverse)', hint: 'leia ao contrário — a polaridade da escrita',
+      method: 'Inversão (Reverse)', hint: 'leia ao contrário : a polaridade da escrita',
       encrypted: 'EDADIRALOP',
       hash: 'ba6a72ab5895e5cd1ba279e75b026bd6e9be250c57915a547d068d032179a8bd',
     },
@@ -103,7 +103,7 @@
     },
     {
       n: 7, theme: 'O gênero está em tudo. Tudo tem seu princípio masculino e feminino.',
-      method: 'Cifra de César (ROT13)', hint: 'shift = 13 — dual: aplicar duas vezes retorna ao original',
+      method: 'Cifra de César (ROT13)', hint: 'shift = 13 : dual: aplicar duas vezes retorna ao original',
       encrypted: 'TRAREB',
       hash: 'eaa37799a1a8644fddbdd324a4a0dfce35aa33515ec0e5ae1138417fd9853ae3',
     },
@@ -209,7 +209,7 @@
           origLog(' ');
           origLog('%c"Os lábios da sabedoria estão fechados,', sWhite);
           origLog('%c excepto aos ouvidos do Entendimento."', sWhite);
-          origLog('%c                                  — O Caibalion', sDim);
+          origLog('%c                                  : O Caibalion', sDim);
           origLog(' ');
           origLog('%c→ Conversa: %cthothandson@icloud.com', sWhite, sBold);
         }
@@ -223,7 +223,7 @@
     hint() {
       if (this._level >= challenges.length) return;
       const ch = challenges[this._level];
-      origLog('%c⌬ %c' + ch.method + '%c — ' + ch.hint, sDim, sBold, sDim);
+      origLog('%c⌬ %c' + ch.method + '%c : ' + ch.hint, sDim, sBold, sDim);
     },
 
     status() {

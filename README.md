@@ -2,7 +2,7 @@
 
 > Precisão. Cultura. Resultado.
 
-Site oficial — [thothandson.github.io](https://thothandson.github.io)
+Site oficial : [thothandson.github.io](https://thothandson.github.io)
 
 ---
 
@@ -77,8 +77,8 @@ npm run test:html          # higiene de HTML (alt, noopener, etc)
 
 Dois workflows em `.github/workflows/`:
 
-- **`validate.yml`** — em todo push/PR: testes + Jekyll build
-- **`pages.yml`** — em push na `main`: deploy para GitHub Pages
+- **`validate.yml`** : em todo push/PR: testes + Jekyll build
+- **`pages.yml`** : em push na `main`: deploy para GitHub Pages
 
 ---
 
@@ -87,7 +87,7 @@ Dois workflows em `.github/workflows/`:
 Abra o console do navegador. Há um sistema de cifras dos sete Princípios
 Herméticos. Comece com `thoth.help()`.
 
-As respostas estão armazenadas como hashes SHA-256 salgados — o código-fonte
+As respostas estão armazenadas como hashes SHA-256 salgados : o código-fonte
 não revela as palavras.
 
 ---

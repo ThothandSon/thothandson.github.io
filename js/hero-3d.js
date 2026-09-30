@@ -1,5 +1,5 @@
 /* ============================================================
-   Thoth & Son — Hero 3D
+   Thoth & Son : Hero 3D
    Wireframe icosaedros + cabeça humana, parallax via cursor
    ES Module (importmap em default.html)
    ============================================================ */
@@ -14,7 +14,7 @@ function init() {
   const canvas = document.getElementById('hero-3d');
   if (!canvas) { ERR('canvas #hero-3d não encontrado'); return; }
 
-  LOG('THREE', THREE.REVISION, '— canvas OK');
+  LOG('THREE', THREE.REVISION, '· canvas OK');
 
   const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const GOLD = 0xC8A030;
@@ -120,7 +120,7 @@ function init() {
 
     brainGroup.add(orient);
 
-    LOG('cérebro carregado — escala', scale.toFixed(3),
+    LOG('cérebro carregado : escala', scale.toFixed(3),
         'dims:', size.x.toFixed(2), size.y.toFixed(2), size.z.toFixed(2));
   }, undefined, (err) => {
     ERR('falha ao carregar brain.glb:', err);
