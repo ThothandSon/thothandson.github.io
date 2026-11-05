@@ -1,0 +1,178 @@
+---
+layout: default
+title: "ghost-rizz : Código aberto : Thoth & Son"
+description: "Metadados de imagens e vídeos auditados, removidos ou embaralhados em paralelo, numa ferramenta de linha de comando em Go."
+---
+
+<link rel="stylesheet" href="/styles/oss.css">
+
+<article class="oss ghost-rizz">
+
+  <header class="oss-hero">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">Código aberto · 03 · Linha de comando</span>
+      <h1 class="oss-title">ghost-rizz</h1>
+      <p class="oss-lede">Toda foto carrega uma sombra: câmera, software, data, GPS. O ghost-rizz audita, remove ou embaralha esses metadados em pastas inteiras, em paralelo. Mil fotos limpas em menos de um décimo de segundo.</p>
+      <div class="oss-meta">
+        <span class="oss-chip">Go</span><span class="oss-chip">JPEG · PNG · HEIC · vídeo</span>
+        <span class="oss-chip">macOS · Linux · Windows</span><span class="oss-chip">MIT</span>
+      </div>
+      <div class="oss-actions">
+        <a class="oss-button" href="https://github.com/ThothandSon/ghost-rizz" target="_blank" rel="noopener">Repositório ↗</a>
+        <a class="oss-button ghost" href="https://github.com/ThothandSon/ghost-rizz/blob/main/SECURITY.md" target="_blank" rel="noopener">Modelo de ameaça ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="oss-wrap oss-showcase">
+    <figure class="oss-figure bare">
+      <img src="/assets/oss/ghost-rizz/clean.png" alt="ghost-rizz limpando mil fotos e conferindo o resultado">
+    </figure>
+  </div>
+
+  <section class="oss-section">
+    <div class="oss-wrap oss-prose">
+      <span class="oss-eyebrow">01 · O problema</span>
+      <h2 class="oss-section-title">A foto que você publica diz mais do que mostra.</h2>
+      <p>Marca e modelo do aparelho, versão do software, a hora exata e, muitas vezes, as coordenadas de onde a foto foi tirada. Útil para quem edita e arquiva, perigoso para quem publica. Ferramentas como o <code>exiftool</code> resolvem tudo, mas um arquivo de cada vez e com uma sintaxe que poucos lembram.</p>
+      <p>O ghost-rizz faz três coisas, em escala: <strong>report</strong> mostra o que existe, <strong>clean</strong> remove, <strong>fuzz</strong> troca por ruído. O original nunca é alterado.</p>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">02 · Em uso</span>
+      <h2 class="oss-section-title">Auditar, limpar, provar.</h2>
+      <p class="oss-section-intro">Saídas reais de uma execução sobre mil imagens geradas com metadados, conferidas com o <code>exiftool</code>.</p>
+
+      <div class="oss-steps">
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Uma ajuda que ensina</h3>
+            <p>Rodar sem argumentos mostra os quatro comandos, a regra mais importante (o original nunca é tocado) e exemplos prontos para copiar.</p>
+          </div>
+          <figure class="oss-figure bare"><img src="/assets/oss/ghost-rizz/help.png" alt="Ajuda do ghost-rizz" loading="lazy"></figure>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Antes de mudar, ver</h3>
+            <p><code>report</code> escreve uma linha por arquivo num CSV, sem modificar nada. Marca, modelo e posição GPS ficam à vista antes de qualquer decisão.</p>
+          </div>
+          <figure class="oss-figure bare"><img src="/assets/oss/ghost-rizz/report.png" alt="Relatório de metadados" loading="lazy"></figure>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Embaralhar em vez de apagar</h3>
+            <p><code>fuzz</code> mantém a estrutura e troca os valores por ruído, útil para testar sistemas que ingerem metadados ou quebrar impressões digitais ingênuas. O <code>exiftool</code> confirma antes e depois.</p>
+          </div>
+          <figure class="oss-figure bare"><img src="/assets/oss/ghost-rizz/fuzz.png" alt="Metadados antes e depois do fuzz" loading="lazy"></figure>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Erros com nome</h3>
+            <p>Arquivos não suportados são contados e ignorados. Os que falham aparecem com o motivo, e o código de saída é 1, para scripts saberem que algo não foi feito.</p>
+          </div>
+          <figure class="oss-figure bare"><img src="/assets/oss/ghost-rizz/errors.png" alt="Falha parcial com o arquivo nomeado" loading="lazy"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">03 · Decisões de design</span>
+      <h2 class="oss-section-title">Uma linha de comando também tem interface.</h2>
+      <div class="oss-decisions">
+        <div class="oss-decision">
+          <span class="label">Segurança</span>
+          <h3>O original é sagrado</h3>
+          <p>Os resultados vão para outra pasta com sufixo <code>_clean</code> ou <code>_fuzz</code>, e a ferramenta recusa entrada e saída iguais. Errar o comando nunca destrói uma foto.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Fluxo</span>
+          <h3>Auditar vem primeiro</h3>
+          <p>O comando de leitura é o primeiro da ajuda e o primeiro da documentação. Rodar <code>report</code> sobre o resultado é a prova mais rápida de que não sobrou nada.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Feedback</span>
+          <h3>Uma linha que diz tudo</h3>
+          <p>Quantos arquivos, em quanto tempo e para onde. Ignorados e falhas aparecem separados. Nada de "Processing complete." sem números.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Identidade</span>
+          <h3>Lilás espectral</h3>
+          <p>Tinta quase preta e lilás: o fantasma do nome, distinto do dourado da casa. Verde só para sucesso, coral só para falha, âmbar para o que mudou.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">04 · Decisões de arquitetura</span>
+      <h2 class="oss-section-title">Paralelo onde importa, honesto onde não alcança.</h2>
+
+      <div class="oss-pipeline">
+        <span>pasta</span><em>→</em><span>filtro de formatos</span><em>→</em><span class="key">pool de workers</span><em>→</em><span>JPEG · PNG nativos</span><span>HEIC · vídeo via exiftool</span><em>→</em><span>pasta de saída · CSV</span>
+      </div>
+
+      <div class="oss-decisions">
+        <div class="oss-decision">
+          <span class="label">Desempenho</span>
+          <h3>Um worker por núcleo</h3>
+          <p>O pool tem o tamanho de <code>GOMAXPROCS</code>; o gargalo passa a ser o disco, não a CPU. Mil JPEGs são limpos em cerca de 60 ms num Mac com chip Apple.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Formatos</span>
+          <h3>Nativo no caminho quente</h3>
+          <p>JPEG e PNG são tratados em Go puro, sem dependências. HEIC e vídeo delegam ao <code>exiftool</code>, que é verificado só quando esses formatos aparecem.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Correção</span>
+          <h3>O relatório que não via a câmera</h3>
+          <div class="oss-compare">
+            <div><b>Antes</b>Marca, modelo, software e data eram procurados sob <code>IFD0</code>, mas a biblioteca chama esse diretório de <code>IFD</code>: as colunas saíam sempre vazias. O GPS era cortado no primeiro componente.</div>
+            <div><b>Depois</b>Chaves corretas e valores completos, com um teste de regressão que gera imagens e confere cada coluna.</div>
+          </div>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Honestidade</span>
+          <h3>Um modelo de ameaça explícito</h3>
+          <p>O ghost-rizz protege o que um leitor de EXIF, XMP ou IPTC enxerga. Não esconde informação nos pixels nem nas miniaturas embutidas, e diz isso no README e no SECURITY.md.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">05 · Qualidade</span>
+      <h2 class="oss-section-title">Cobertura com piso no CI.</h2>
+      <div class="oss-stats">
+        <div class="oss-stat"><strong>121</strong><span>testes</span></div>
+        <div class="oss-stat"><strong>90%</strong><span>cobertura</span></div>
+        <div class="oss-stat"><strong>85%</strong><span>piso exigido no CI</span></div>
+        <div class="oss-stat"><strong>10</strong><span>formatos</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">06 · Instalar</span>
+      <h2 class="oss-section-title">Binário único ou Go.</h2>
+<pre class="oss-code"><span class="p">$ </span>go install github.com/ThothandSon/ghost-rizz/cmd/ghost-rizz@latest
+<span class="c"># ou baixe o binário do seu sistema em github.com/ThothandSon/ghost-rizz/releases</span>
+<span class="p">$ </span>ghost-rizz report -in ~/Pictures/viagem</pre>
+    </div>
+  </section>
+
+  <nav class="oss-next">
+    <a href="/open-source/wavetrack/"><small>← Anterior</small><span>WaveTrack</span></a>
+    <a href="/open-source/"><small>Índice →</small><span>Código aberto</span></a>
+  </nav>
+
+</article>
