@@ -450,6 +450,15 @@
   margin-bottom: var(--s5);
 }
 
+.oss-all {
+  display: inline-block;
+  margin-top: var(--s2);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .oss-eyebrow {
   display: block;
   font-family: var(--mono);
