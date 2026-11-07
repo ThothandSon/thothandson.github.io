@@ -431,7 +431,11 @@
   letter-spacing: 0.18em;
   color: var(--gold);
   text-transform: uppercase;
-  opacity: 0.6;
+}
+
+.ways-sub a {
+  border-bottom: 1px solid var(--gold-dim);
+  padding-bottom: 3px;
 }
 
 /* ── OPEN SOURCE ──────────────────────────────────────────── */
