@@ -1,0 +1,129 @@
+---
+layout: default
+title: "Downloads : Thoth & Son"
+description: "As versões mais recentes do software da Thoth & Son, prontas para baixar."
+---
+
+<link rel="stylesheet" href="/styles/inner.css">
+
+<style>
+  .dl-card .brand-card-desc { margin-top: 0; }
+  .dl-files { display: grid; gap: 8px; margin-top: auto; }
+  .dl-btn {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    padding: 12px 14px; border: 1px solid var(--gold-dim); text-decoration: none;
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--white);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .dl-btn:hover { background: var(--gold-faint); border-color: var(--gold); }
+  .dl-btn span { color: var(--muted); }
+  .dl-links { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; color: var(--muted); }
+  .dl-links a { color: var(--gold); }
+  .dl-note {
+    max-width: var(--max-w); margin: 0 auto; padding: 0 var(--s4) var(--s6);
+    font-family: var(--body); font-size: 0.88rem; line-height: 1.7; color: var(--muted-mid);
+  }
+  .dl-note a { color: var(--gold); }
+</style>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-text">
+      <div class="page-hero-eyebrow">DOWNLOADS · VERSÕES ATUAIS</div>
+      <h1 class="page-hero-title">Baixar.</h1>
+      <div class="page-hero-rule"></div>
+      <p class="page-hero-tagline">
+        A versão mais recente de cada software público da casa.
+        Gratuito, direto da fonte.
+      </p>
+    </div>
+    <div class="mini-3d-wrapper">
+      <canvas id="mini-3d" aria-hidden="true"></canvas>
+    </div>
+  </div>
+</section>
+
+<section class="brand-grid">
+
+  <article class="brand-card dl-card">
+    <div class="brand-card-num">01 · TRADUÇÃO</div>
+    <h2 class="brand-card-title">Amanuensis</h2>
+    <div class="brand-card-meta">v2.0.0 · 05 / 11 / 2026 · macOS</div>
+    <p class="brand-card-desc">
+      Estação de tradução assistida: conversão de PDFs escaneados,
+      harness local por projeto e Modo Zen.
+    </p>
+    <div class="dl-files">
+      <a class="dl-btn" href="https://github.com/ThothandSon/amanuensis/releases/download/v2.0.0/Amanuensis_2.0.0_macOS_Installer.dmg">macOS <span>.dmg · 7 MB</span></a>
+    </div>
+    <div class="dl-links">
+      <a href="https://github.com/ThothandSon/amanuensis" target="_blank" rel="noopener noreferrer">Código</a> ·
+      <a href="https://github.com/ThothandSon/amanuensis/releases" target="_blank" rel="noopener noreferrer">Todas as versões</a>
+    </div>
+  </article>
+
+  <article class="brand-card dl-card">
+    <div class="brand-card-num">02 · METADADOS</div>
+    <h2 class="brand-card-title">ghost-rizz</h2>
+    <div class="brand-card-meta">v1.0.0 · 28 / 07 / 2026 · linha de comando</div>
+    <p class="brand-card-desc">
+      Limpeza massiva e concorrente de metadados EXIF. Go puro,
+      um binário só.
+    </p>
+    <div class="dl-files">
+      <a class="dl-btn" href="https://github.com/ThothandSon/ghost-rizz/releases/download/v1.0.0/ghost-rizz_1.0.0_darwin_all.tar.gz">macOS <span>.tar.gz · universal</span></a>
+      <a class="dl-btn" href="https://github.com/ThothandSon/ghost-rizz/releases/download/v1.0.0/ghost-rizz_1.0.0_windows_amd64.zip">Windows <span>.zip · x64</span></a>
+      <a class="dl-btn" href="https://github.com/ThothandSon/ghost-rizz/releases/download/v1.0.0/ghost-rizz_1.0.0_linux_amd64.tar.gz">Linux <span>.tar.gz · x64</span></a>
+    </div>
+    <div class="dl-links">
+      <a href="https://github.com/ThothandSon/ghost-rizz/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer">ARM64 e checksums</a> ·
+      <a href="https://github.com/ThothandSon/ghost-rizz" target="_blank" rel="noopener noreferrer">Código</a>
+    </div>
+  </article>
+
+  <article class="brand-card dl-card">
+    <div class="brand-card-num">03 · AGENDAMENTO</div>
+    <h2 class="brand-card-title">cronbuddy</h2>
+    <div class="brand-card-meta">v1.0.0 · 07 / 11 / 2026 · macOS</div>
+    <p class="brand-card-desc">
+      GUI minimalista de cron jobs para macOS. Agenda, gerencia scripts
+      e acompanha logs sem sair da barra de menu.
+    </p>
+    <div class="dl-files">
+      <a class="dl-btn" href="https://github.com/lucasrafaldini/cronbuddy/releases/download/v1.0.0/CronBuddy.zip">macOS <span>.zip · 30,5 MB</span></a>
+    </div>
+    <div class="dl-links">
+      Intel; no Apple Silicon roda pelo Rosetta 2 ·
+      <a href="https://github.com/lucasrafaldini/cronbuddy" target="_blank" rel="noopener noreferrer">Código</a>
+    </div>
+  </article>
+
+  <article class="brand-card dl-card">
+    <div class="brand-card-num">04 · PRESENÇA</div>
+    <h2 class="brand-card-title">wavetrack</h2>
+    <div class="brand-card-meta">macOS · Linux · instala pelo código</div>
+    <p class="brand-card-desc">
+      Monitor de presença via Wi-Fi: detecta aparelhos próximos e mostra
+      tudo num painel em tempo real, com API e histórico.
+    </p>
+    <div class="dl-files">
+      <a class="dl-btn" href="https://github.com/lucasrafaldini/wavetrack#installation" target="_blank" rel="noopener noreferrer">Instalar <span>Go · libpcap</span></a>
+    </div>
+    <div class="dl-links">
+      Binários em preparação ·
+      <a href="https://github.com/lucasrafaldini/wavetrack" target="_blank" rel="noopener noreferrer">Código</a>
+    </div>
+  </article>
+
+</section>
+
+<p class="dl-note">
+  Os instaladores ainda não têm assinatura paga da Apple nem da Microsoft.
+  Na primeira abertura, o sistema pode pedir confirmação: no macOS, em
+  Ajustes do Sistema, Privacidade e Segurança, Abrir Mesmo Assim; no
+  Windows, em Mais informações, Executar assim mesmo. Jogos, instrumentos
+  e o jabuticaba são da Ways of Seeing e ficam no
+  <a href="https://ways-of-seeing.github.io/" target="_blank" rel="noopener noreferrer">catálogo do estúdio</a>.
+</p>
+
+<script type="module" src="/js/mini-3d.js"></script>
