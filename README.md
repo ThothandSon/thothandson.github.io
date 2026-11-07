@@ -26,16 +26,15 @@ Site oficial : [thothandson.github.io](https://thothandson.github.io)
 ├── _posts/                # Posts em Markdown
 ├── assets/                # Logos, ícones, modelos 3D
 ├── index.html             # Home
+├── open-source/           # Portfólio: índice e estudos de caso dos projetos abertos
 ├── posts.html             # Listagem
-├── status-page/           # Telemetria de serviços
-├── styles/                # main.css, home.css, inner.css, status-page.css
+├── styles/                # main.css, home.css, inner.css, oss.css
 ├── js/
 │   ├── console-manager.js # Easter egg + mini-game de cifras herméticas
 │   ├── instruments.js     # HUD + crosshair (globais)
 │   ├── home.js            # Interações da home
 │   ├── hero-3d.js         # Cena 3D da home (icosaedros + cérebro)
-│   ├── mini-3d.js         # Cena 3D leve das páginas internas
-│   └── status.js          # Health checks da status page
+│   └── mini-3d.js         # Cena 3D leve das páginas internas
 ├── scripts/
 │   └── dev.sh             # Helper de desenvolvimento
 └── tests/                 # Suíte de validação

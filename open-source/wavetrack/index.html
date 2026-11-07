@@ -1,0 +1,260 @@
+---
+layout: default
+title: "WaveTrack : Código aberto : Thoth & Son"
+description: "Quem está no escritório, pelos celulares no Wi-Fi. Painel ao vivo, linha do tempo e histórico, com privacidade por padrão."
+---
+
+<link rel="stylesheet" href="/styles/oss.css">
+
+<article class="oss wavetrack">
+
+  <header class="oss-hero">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">Código aberto · 02 · Linux e macOS</span>
+      <h1 class="oss-title">WaveTrack</h1>
+      <p class="oss-lede">Quem está no escritório, pelos celulares no Wi-Fi. Um painel ao vivo, a linha do tempo do dia e o histórico de presença, com cadastro por QR code e nada instalado no celular de ninguém.</p>
+      <div class="oss-meta">
+        <span class="oss-chip">Go</span><span class="oss-chip">SQLite</span><span class="oss-chip">libpcap</span>
+        <span class="oss-chip">HTML, CSS e JS sem build</span><span class="oss-chip">MIT</span>
+      </div>
+      <div class="oss-actions">
+        <a class="oss-button" href="https://github.com/lucasrafaldini/wavetrack" target="_blank" rel="noopener">Repositório ↗</a>
+        <a class="oss-button ghost" href="https://github.com/lucasrafaldini/wavetrack/blob/main/docs/architecture.md" target="_blank" rel="noopener">Arquitetura ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="oss-wrap oss-showcase">
+    <figure class="oss-figure">
+      <img src="/assets/oss/wavetrack/now.png" alt="Painel Agora: quantas pessoas estão no escritório, desde quando e há quanto tempo">
+      <figcaption>Agora: quem está, desde quando, e o que aconteceu hoje.</figcaption>
+    </figure>
+  </div>
+
+  <section class="oss-section">
+    <div class="oss-wrap oss-prose">
+      <span class="oss-eyebrow">01 · O problema</span>
+      <h2 class="oss-section-title">Presença sem crachá, sem aplicativo e sem vigilância.</h2>
+      <p>Celulares e notebooks se anunciam o tempo todo numa rede, mesmo parados no bolso: ARP, DHCP, descoberta de vizinhos IPv6, mDNS. O WaveTrack escuta esses anúncios, reconhece os aparelhos cadastrados e transforma isso em presença.</p>
+      <p>A versão 2 funcionava na demonstração e falhava no dia a dia. <strong>Depois de vinte minutos, todo mundo aparecia como ausente e nunca mais voltava</strong>, a API não tinha autenticação, e o cadastro por QR podia associar a pessoa ao celular de outra. A versão 3 é uma reescrita orientada a corrigir isso de forma verificável.</p>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">02 · Em uso</span>
+      <h2 class="oss-section-title">Do primeiro comando ao relatório do mês.</h2>
+      <p class="oss-section-intro">As capturas vêm do modo demo, um escritório simulado de doze pessoas com duas semanas de histórico. Ele roda sem permissões de captura: <code>make demo</code>.</p>
+
+      <div class="oss-steps">
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Um diagnóstico antes de tudo</h3>
+            <p><code>wavetrack doctor</code> confere libpcap, interface, permissão de captura, pasta de dados e porta, e diz exatamente o comando que falta. Concede-se a permissão uma vez em vez de rodar como root.</p>
+          </div>
+<pre class="oss-code">  ✓ configuration: defaults (config.yaml not found)
+  ✓ libpcap version 1.10.1
+  ✓ capture interface: en0
+  ✗ permission to capture on en0
+      Run WaveTrack with sudo, or grant capture permission once:
+      brew install --cask wireshark-chmodbpf
+  ✓ data directory ./data is writable
+  ✓ dashboard address :8080 is free</pre>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>As pessoas se cadastram sozinhas</h3>
+            <p>Um QR code vale para uma pessoa por 24 horas. Ela conecta no Wi-Fi do escritório, escaneia e concorda. O aparelho é identificado pela própria rede, nunca por algo que o celular alega.</p>
+          </div>
+          <figure class="oss-figure"><img src="/assets/oss/wavetrack/invite.png" alt="Convite por QR code" loading="lazy"></figure>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Consentimento em linguagem clara</h3>
+            <p>A página diz o que é registrado e o que não é antes de pedir o aceite, que fica guardado com a data.</p>
+          </div>
+          <div class="oss-pair">
+            <figure class="oss-figure"><img src="/assets/oss/wavetrack/join.png" alt="Cadastro no celular, tema claro" loading="lazy"></figure>
+            <figure class="oss-figure"><img src="/assets/oss/wavetrack/join-dark.png" alt="Cadastro no celular, tema escuro" loading="lazy"></figure>
+          </div>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>O dia como forma</h3>
+            <p>Cada permanência é uma barra, do primeiro ao último avistamento. As saídas para o almoço aparecem sozinhas, e a linha vermelha marca o agora.</p>
+          </div>
+          <figure class="oss-figure"><img src="/assets/oss/wavetrack/timeline.png" alt="Linha do tempo do dia" loading="lazy"></figure>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Semanas como matriz</h3>
+            <p>Horas por pessoa por dia em 7, 14 ou 30 dias. Uma célula cheia é um dia de oito horas; o CSV exportado tem as mesmas horas, com proteção contra fórmulas em planilhas.</p>
+          </div>
+          <figure class="oss-figure"><img src="/assets/oss/wavetrack/history-dark.png" alt="Histórico em matriz" loading="lazy"></figure>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Por perto, só na memória</h3>
+            <p>Aparelhos vistos que não são de ninguém aparecem com fabricante e sinal, prontos para atribuir. Endereços privados são explicados onde aparecem. Nada disso vai para o disco.</p>
+          </div>
+          <figure class="oss-figure"><img src="/assets/oss/wavetrack/nearby.png" alt="Aparelhos por perto" loading="lazy"></figure>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Anonimizar ou apagar</h3>
+            <p>Remover alguém oferece duas saídas: anonimizar, que mantém as horas para os totais, ou apagar tudo, para pedidos de exclusão sob a LGPD.</p>
+          </div>
+          <figure class="oss-figure"><img src="/assets/oss/wavetrack/remove-person.png" alt="Remover pessoa: anonimizar ou apagar" loading="lazy"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">03 · Decisões de design</span>
+      <h2 class="oss-section-title">Responder "quem está?" num relance e sair da frente.</h2>
+
+      <div class="oss-palette">
+        <div class="oss-swatch"><i style="background:#F6F5F1"></i>papel #F6F5F1</div>
+        <div class="oss-swatch"><i style="background:#0E7C6B"></i>verde-azulado #0E7C6B</div>
+        <div class="oss-swatch"><i style="background:#16181D"></i>tinta #16181D</div>
+        <div class="oss-swatch"><i style="background:#0C0E11"></i>grafite #0C0E11</div>
+        <div class="oss-swatch"><i style="background:#3CCFB4"></i>verde-água #3CCFB4</div>
+      </div>
+
+      <div class="oss-decisions">
+        <div class="oss-decision">
+          <span class="label">Cor</span>
+          <h3>Neutros quentes e um destaque</h3>
+          <p>Papel e verde-azulado de dia, grafite e verde-água à noite. O destaque é reservado para presença, então cor sempre significa "aqui".</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Estrutura</span>
+          <h3>Uma ideia por página</h3>
+          <p>Agora é um número com contexto; Linha do tempo é forma ao longo do dia; Histórico é uma matriz ao longo de semanas.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Privacidade</span>
+          <h3>Avatares sem fotos</h3>
+          <p>Iniciais sobre um tom derivado do nome: distintas, estáveis e sem expor ninguém.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Movimento</span>
+          <h3>Animação com propósito</h3>
+          <p>Uma onda lenta nos indicadores ao vivo e uma subida curta nos diálogos, ambas desligadas quando o sistema pede menos movimento.</p>
+        </div>
+      </div>
+
+      <div class="oss-gallery" style="margin-top: 3rem">
+        <figure class="oss-figure"><img src="/assets/oss/wavetrack/now-dark.png" alt="Agora, tema escuro" loading="lazy"><figcaption>Agora, tema escuro</figcaption></figure>
+        <figure class="oss-figure"><img src="/assets/oss/wavetrack/timeline-dark.png" alt="Linha do tempo, tema escuro" loading="lazy"><figcaption>Linha do tempo, tema escuro</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">04 · Decisões de arquitetura</span>
+      <h2 class="oss-section-title">Cada decisão nasceu de algo que quebrava.</h2>
+
+      <div class="oss-pipeline">
+        <span>pacotes</span><em>→</em><span>captura</span><em>→</em><span>avistamentos</span><em>→</em><span class="key">rastreador de presença</span><em>→</em><span>visitas · SQLite</span><em>→</em><span>relatórios</span><em>→</em><span>painel</span>
+      </div>
+
+      <div class="oss-decisions">
+        <div class="oss-decision">
+          <span class="label">Correção</span>
+          <h3>Avistamentos contínuos</h3>
+          <div class="oss-compare">
+            <div><b>Antes</b>O scanner avisava o rastreador só na primeira vez que via um aparelho. Após vinte minutos, todos viravam ausentes, para sempre.</div>
+            <div><b>Depois</b>Cada aparelho gera um avistamento no máximo a cada 15 segundos. Um teste percorre um dia inteiro e espera uma visita contínua.</div>
+          </div>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Modelo</span>
+          <h3>Visitas, não eventos</h3>
+          <div class="oss-compare">
+            <div><b>Antes</b>Chegadas e saídas soltas, pareadas na hora da consulta. Um evento perdido estragava todos os relatórios.</div>
+            <div><b>Depois</b>Uma linha do primeiro ao último avistamento. Horas do dia são a soma das sobreposições; quem tem visita aberta está presente.</div>
+          </div>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Precisão</span>
+          <h3>A saída é o último avistamento</h3>
+          <p>O sistema só percebe a saída depois de vinte minutos sem sinal. Registrar a saída nesse momento somaria vinte minutos fantasmas a cada permanência, então ela é datada no último avistamento.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Segurança</span>
+          <h3>O cadastro confia na rede, nunca no cliente</h3>
+          <div class="oss-compare">
+            <div><b>Antes</b>Lia o MAC de um cabeçalho enviado pelo celular e, na falta dele, usava o último aparelho visto: o de outra pessoa.</div>
+            <div><b>Depois</b>O endereço vem só da tabela ARP para o IP da requisição. Um teste envia um cabeçalho forjado e confirma que é ignorado.</div>
+          </div>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Concorrência</span>
+          <h3>Convites de uso único de verdade</h3>
+          <p>O token tem 160 bits aleatórios e só o hash é guardado. O resgate é uma transação que só avança se o convite ainda estiver livre: oito resgates simultâneos num teste produzem exatamente um cadastro.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Acesso</span>
+          <h3>Autenticação sem contas</h3>
+          <p>Um token de administrador impresso uma vez, sessões em cookie <code>HttpOnly</code> e <code>SameSite=Strict</code>, bloqueio de requisições de outros sites e uma CSP estrita. Todo dado do servidor entra na página por <code>textContent</code>.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Privacidade</span>
+          <h3>Desconhecidos nunca tocam o disco</h3>
+          <p>Todo celular que passa pela porta aparece na captura. Guardá-los criaria um registro de estranhos; eles vivem só na memória e somem sozinhos.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Entrega</span>
+          <h3>Um binário, e um demo que é o mesmo código</h3>
+          <p>O painel vai embutido no executável. O modo demo troca só a fonte de captura e o relógio: o CI sobe o demo, entra com o token impresso e consulta a API de verdade.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">05 · Qualidade</span>
+      <h2 class="oss-section-title">Os bugs viraram testes.</h2>
+      <div class="oss-stats">
+        <div class="oss-stat"><strong>55</strong><span>testes</span></div>
+        <div class="oss-stat"><strong>100%</strong><span>cobertura dos relatórios</span></div>
+        <div class="oss-stat"><strong>8</strong><span>falhas da v2 corrigidas</span></div>
+        <div class="oss-stat"><strong>2</strong><span>sistemas no CI</span></div>
+      </div>
+      <ul class="oss-list">
+        <li><strong>Rastreador:</strong> chegadas, presença o dia todo, saídas retroativas, sinal fraco, reinício no meio de uma visita, reatribuição de aparelhos e uso concorrente sob o detector de corridas.</li>
+        <li><strong>Relatórios:</strong> recorte na meia-noite, sobreposições, visitas em andamento e um dia de horário de verão com 23 horas.</li>
+        <li><strong>Servidor:</strong> autenticação em todas as rotas, flags do cookie, requisições de outros sites, CSP, cabeçalhos forjados e injeção de fórmulas no CSV.</li>
+        <li><strong>Captura:</strong> pacotes ARP, 802.11 e multicast sintéticos.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">06 · Instalar</span>
+      <h2 class="oss-section-title">Experimente em um minuto.</h2>
+      <p class="oss-section-intro">Há <a href="https://github.com/lucasrafaldini/wavetrack/releases/tag/v3.0.0">binários prontos</a> para macOS, Linux (x64 e ARM64) e Windows. O modo demo dispensa rede e permissões:</p>
+<pre class="oss-code"><span class="p">$ </span>git clone https://github.com/lucasrafaldini/wavetrack.git
+<span class="p">$ </span>cd wavetrack && make demo
+<span class="c"># Para a rede de verdade: ./wavetrack doctor, depois ./wavetrack</span></pre>
+    </div>
+  </section>
+
+  <nav class="oss-next">
+    <a href="/open-source/cronbuddy/"><small>← Anterior</small><span>CronBuddy</span></a>
+    <a href="/open-source/ghost-rizz/"><small>Próximo →</small><span>ghost-rizz</span></a>
+  </nav>
+
+</article>

@@ -431,7 +431,11 @@
   letter-spacing: 0.18em;
   color: var(--gold);
   text-transform: uppercase;
-  opacity: 0.6;
+}
+
+.ways-sub a {
+  border-bottom: 1px solid var(--gold-dim);
+  padding-bottom: 3px;
 }
 
 /* ── OPEN SOURCE ──────────────────────────────────────────── */
@@ -448,6 +452,15 @@
 
 .oss-header {
   margin-bottom: var(--s5);
+}
+
+.oss-all {
+  display: inline-block;
+  margin-top: var(--s2);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .oss-eyebrow {

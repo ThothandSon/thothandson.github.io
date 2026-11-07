@@ -1,0 +1,223 @@
+---
+layout: default
+title: "CronBuddy : Código aberto : Thoth & Son"
+description: "O agendador do Mac na barra de menus: comandos, scripts, AppleScripts e Atalhos, com histórico de cada execução."
+---
+
+<link rel="stylesheet" href="/styles/oss.css">
+
+<article class="oss cronbuddy">
+
+  <header class="oss-hero">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">Código aberto · 01 · macOS</span>
+      <h1 class="oss-title">CronBuddy</h1>
+      <p class="oss-lede">O agendador do Mac que mora na barra de menus. Comandos, scripts, AppleScripts e Atalhos, com a saída de cada execução guardada e um aviso quando algo falha.</p>
+      <div class="oss-meta">
+        <span class="oss-chip">Swift 6</span><span class="oss-chip">SwiftUI</span><span class="oss-chip">macOS 14+</span>
+        <span class="oss-chip">launchd e cron</span><span class="oss-chip">MIT</span>
+      </div>
+      <div class="oss-actions">
+        <a class="oss-button" href="https://github.com/lucasrafaldini/cronbuddy/releases/download/v2.0.0/CronBuddy-2.0.0.dmg">Baixar 2.0.0 · macOS</a>
+        <a class="oss-button ghost" href="https://github.com/lucasrafaldini/cronbuddy" target="_blank" rel="noopener">Repositório ↗</a>
+        <a class="oss-button ghost" href="https://github.com/lucasrafaldini/cronbuddy/blob/main/docs/architecture.md" target="_blank" rel="noopener">Arquitetura ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="oss-wrap oss-showcase">
+    <figure class="oss-figure">
+      <img src="/assets/oss/cronbuddy/overview.png" alt="Visão geral: jobs ativos, execuções do dia, falhas e os próximos disparos">
+      <figcaption>Visão geral: o que roda nas próximas 24 horas, uma faixa por job.</figcaption>
+    </figure>
+  </div>
+
+  <section class="oss-section">
+    <div class="oss-wrap oss-prose">
+      <span class="oss-eyebrow">01 · O problema</span>
+      <h2 class="oss-section-title">O cron tem cinquenta anos e continua mudo.</h2>
+      <p>Agendar uma tarefa no Mac ainda significa decorar <code>*/15 9-17 * * 1-5</code>, torcer para o comando não depender do <code>PATH</code> do terminal e descobrir semanas depois que o backup nunca rodou. E quando roda, o macOS bloqueia o acesso a Documentos e ao iCloud Drive com um <code>Operation not permitted</code> que ninguém vê.</p>
+      <p>O CronBuddy começou como um utilitário em Python. A versão 2 é uma reescrita nativa em Swift, pensada para três perguntas: <strong>o que roda a seguir, se a última vez deu certo e o que exatamente aconteceu.</strong></p>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">02 · Em uso</span>
+      <h2 class="oss-section-title">Do clique na barra de menus ao log de cada execução.</h2>
+      <p class="oss-section-intro">Cada etapa abaixo é uma captura do app rodando, com dados de exemplo.</p>
+
+      <div class="oss-steps">
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>A barra de menus é o produto</h3>
+            <p>Um clique no relógio mostra o que roda a seguir e como foi a última execução de cada job. Passar o mouse sobre um job revela executar e pausar. O ícone muda quando algo está rodando ou falhou.</p>
+          </div>
+          <figure class="oss-figure phone"><img src="/assets/oss/cronbuddy/menubar-thoth.png" alt="Menu da barra de menus no tema Thoth" loading="lazy"></figure>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Um job é ação e agenda</h3>
+            <p>A ação pode ser um comando, um script (inclusive Python, AppleScript compilado e fluxos do Automator), AppleScript escrito ali mesmo ou um Atalho. A agenda é escrita como se fala, e as próximas execuções aparecem enquanto você edita.</p>
+          </div>
+          <figure class="oss-figure"><img src="/assets/oss/cronbuddy/editor.png" alt="Editor de job com previsão das próximas execuções" loading="lazy"></figure>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Teste antes de confiar</h3>
+            <p><em>Test Run</em> executa a ação exatamente como escrita, antes de salvar, e mostra a saída ao vivo. Num job salvo, <em>Run Now</em> faz o mesmo e registra a execução no histórico.</p>
+          </div>
+          <figure class="oss-figure"><img src="/assets/oss/cronbuddy/run-now.png" alt="Execução manual com saída ao vivo" loading="lazy"></figure>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Toda execução deixa rastro</h3>
+            <p>Saída completa, código de saída e duração de cada execução, agendada ou manual. A página do job mostra a taxa de sucesso, uma faixa com os tempos recentes e um visualizador de logs com busca.</p>
+          </div>
+          <figure class="oss-figure"><img src="/assets/oss/cronbuddy/job-history.png" alt="Histórico e logs de um job" loading="lazy"></figure>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>Vinte pontos de partida</h3>
+            <p>Relatório de disco, backup, checagem de site no ar, atualizações do Homebrew, cotação do dólar, SELIC e IPCA, lembrete de pausa, modo escuro à noite. Cada template abre no editor antes de virar job.</p>
+          </div>
+          <figure class="oss-figure"><img src="/assets/oss/cronbuddy/templates.png" alt="Galeria de templates" loading="lazy"></figure>
+        </div>
+
+        <div class="oss-step">
+          <div class="oss-step-text">
+            <h3>O crontab que você já tem</h3>
+            <p>Entradas existentes aparecem para importar com um clique: mesma agenda, agora com logs e histórico. Linhas que o CronBuddy não gerencia nunca são alteradas.</p>
+          </div>
+          <figure class="oss-figure"><img src="/assets/oss/cronbuddy/import.png" alt="Importação do crontab" loading="lazy"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">03 · Decisões de design</span>
+      <h2 class="oss-section-title">Um utilitário que não parece utilitário.</h2>
+
+      <div class="oss-decisions">
+        <div class="oss-decision">
+          <span class="label">Hierarquia</span>
+          <h3>Três perguntas, uma tela</h3>
+          <p>O menu responde ao que importa quase sempre: o que vem a seguir e se as últimas execuções deram certo. Todo o resto mora na janela, a um clique.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Linguagem</span>
+          <h3>Agendas viram frases</h3>
+          <p>"Dias úteis às 09:00 e 18:30" no lugar de duas expressões cron. O botão de salvar diz por que está desabilitado; os erros dizem o que fazer.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Identidade</span>
+          <h3>Temas carregam tipografia</h3>
+          <p>Thoth e Paper usam serifa nos títulos; Phosphor deixa tudo monoespaçado; Nord, arredondado. O texto sobre a cor de destaque tem token próprio, para o dourado e o verde continuarem legíveis.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Acessibilidade</span>
+          <h3>Estado é cor e forma</h3>
+          <p>Verde, vermelho, cinza e um anel pulsante para "rodando", sempre com rótulo para o VoiceOver. Formulários, tabelas e folhas nativas, então teclado e aparência do sistema funcionam sem código extra.</p>
+        </div>
+      </div>
+
+      <div class="oss-gallery" style="margin-top: 3rem">
+        <figure class="oss-figure"><img src="/assets/oss/cronbuddy/theme-thoth.png" alt="Tema Thoth" loading="lazy"><figcaption>Thoth</figcaption></figure>
+        <figure class="oss-figure"><img src="/assets/oss/cronbuddy/theme-paper.png" alt="Tema Paper" loading="lazy"><figcaption>Paper</figcaption></figure>
+        <figure class="oss-figure"><img src="/assets/oss/cronbuddy/theme-nord.png" alt="Tema Nord" loading="lazy"><figcaption>Nord</figcaption></figure>
+        <figure class="oss-figure"><img src="/assets/oss/cronbuddy/theme-phosphor.png" alt="Tema Phosphor" loading="lazy"><figcaption>Phosphor</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">04 · Decisões de arquitetura</span>
+      <h2 class="oss-section-title">Um núcleo testável e um app que só apresenta.</h2>
+      <p class="oss-section-intro">O CronBuddyCore não tem interface: sabe de agendas, cron, launchd e histórico, e é ele que os testes exercitam. O app SwiftUI é estado e apresentação.</p>
+
+      <div class="oss-pipeline">
+        <span>Agenda em linguagem natural</span><em>→</em><span class="key">CronBuddyCore</span><em>→</em><span>launchd · crontab</span><em>→</em><span class="key">CronBuddy --run-job</span><em>→</em><span>runs.jsonl + log</span>
+      </div>
+
+      <div class="oss-decisions">
+        <div class="oss-decision">
+          <span class="label">Agendamento</span>
+          <h3>launchd por padrão</h3>
+          <p>O cron pula o que deveria ter rodado enquanto o Mac dormia; o launchd roda ao acordar. Num notebook que dorme toda noite, é a diferença entre um backup que acontece e um que não. As agendas são convertidas nos dois sentidos, inclusive expressões cron em entradas do launchd.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Robustez</span>
+          <h3>Cada job é um script em disco</h3>
+          <p>A ação vira <code>actions/&lt;id&gt;.sh</code>. O cron e o launchd só recebem um identificador, então nenhum texto do usuário precisa ser escapado dentro de uma linha do crontab ou de um plist, que é onde ferramentas de agendamento costumam quebrar.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Permissões</span>
+          <h3>Uma autorização para todos os jobs</h3>
+          <p>O macOS dá permissões ao processo responsável. Todo job roda pelo próprio executável do CronBuddy, então adicioná-lo uma vez ao Acesso Total ao Disco vale para todos.</p>
+          <div class="oss-compare">
+            <div><b>Primeira versão</b>O cron abria o app com <code>open -a</code>. No teste em máquina real, o macOS passava a tratar a execução como o app aberto, e clicar no CronBuddy não fazia nada.</div>
+            <div><b>Versão final</b>A linha do cron pede ao launchd para disparar o agente do job. O cron mantém o horário, o launchd lança o processo, e a permissão continua única.</div>
+          </div>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Histórico</span>
+          <h3>Arquivos, não um banco</h3>
+          <p>Cada execução acrescenta uma linha JSON e grava o log ao lado. O modo de execução, o <em>Run Now</em> e a compatibilidade com a 1.x escrevem o mesmo formato, e qualquer log abre no Console ou no Finder.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Respeito</span>
+          <h3>Não tocar no que não é seu</h3>
+          <p>Só linhas marcadas com <code># cronbuddy:&lt;id&gt;</code> e agentes com o prefixo do app são gerenciados. O restante do crontab é preservado byte a byte, e ele só é reescrito quando a parte gerenciada muda de fato.</p>
+        </div>
+        <div class="oss-decision">
+          <span class="label">Migração</span>
+          <h3>A versão anterior continua funcionando</h3>
+          <p>Linhas criadas pela 1.x chamam o app com <code>--run</code>. A 2.0 entende esse formato, registra os logs no mesmo lugar e as marca na importação. Trocar o app não quebrou nenhum job em uso, e isso foi verificado com um job real à meia-noite.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">05 · Qualidade</span>
+      <h2 class="oss-section-title">Testado no núcleo, verificado na máquina.</h2>
+      <div class="oss-stats">
+        <div class="oss-stat"><strong>29</strong><span>testes no núcleo</span></div>
+        <div class="oss-stat"><strong>20</strong><span>templates validados</span></div>
+        <div class="oss-stat"><strong>4</strong><span>tipos de ação</span></div>
+        <div class="oss-stat"><strong>5</strong><span>temas</span></div>
+      </div>
+      <ul class="oss-list">
+        <li><strong>Agendas:</strong> próximas datas, dia bissexto, a regra do cron que soma dia do mês e dia da semana, expansão para o launchd.</li>
+        <li><strong>Sistema:</strong> mesclagem do crontab, plists, renderização e escape dos scripts, histórico e limpeza, o modo de execução de ponta a ponta.</li>
+        <li><strong>Na máquina:</strong> execuções reais pelo launchd e pelo cron, falha registrada com o código de saída, pausar e retomar, gravação no crontab preservando as linhas existentes.</li>
+        <li><strong>Cada template</strong> é validado contra os dois agendadores no CI.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="oss-section">
+    <div class="oss-wrap">
+      <span class="oss-eyebrow">06 · Instalar</span>
+      <h2 class="oss-section-title">Arraste para Aplicativos.</h2>
+      <p class="oss-section-intro">Baixe o <a href="https://github.com/lucasrafaldini/cronbuddy/releases/download/v2.0.0/CronBuddy-2.0.0.dmg">CronBuddy 2.0.0</a> (3,8 MB, Apple Silicon e Intel, macOS 14 ou mais novo). Na primeira abertura, confirme em Ajustes do Sistema › Privacidade e Segurança › Abrir Mesmo Assim. Para compilar do código:</p>
+<pre class="oss-code"><span class="p">$ </span>git clone https://github.com/lucasrafaldini/cronbuddy.git
+<span class="p">$ </span>cd cronbuddy && make install
+<span class="c"># Depois: Ajustes do Sistema › Privacidade e Segurança › Acesso Total ao Disco › CronBuddy</span></pre>
+    </div>
+  </section>
+
+  <nav class="oss-next">
+    <a href="/open-source/"><small>← Índice</small><span>Código aberto</span></a>
+    <a href="/open-source/wavetrack/"><small>Próximo →</small><span>WaveTrack</span></a>
+  </nav>
+
+</article>
